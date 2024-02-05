@@ -1,0 +1,190 @@
+/* -------------- Color Variables ------------- */
+:root {
+    --mimi-pink: #FFD3E1;
+    --cordovan: #7E3E4A;
+    --sage-green: #A3B18A;
+    --jet: #333333;
+    --platinum: #E0E0E0;
+    --white-smoke: #f4f4f4;
+}
+
+.mimi-pink {
+    background-color: var(--mimi-pink);
+    color: var(--jet);
+}
+
+.cordovan {
+    background-color: var(--cordovan);
+    color: var(--white-smoke);
+}
+
+.sage-green {
+    background-color: var(--sage-green);
+    color: black;
+}
+
+.jet {
+    background-color: var(--jet);
+    color: var(--white-smoke);
+}
+
+.platinum {
+    background-color: var(--platinum);
+    color: var(--jet);
+}
+
+.white-smoke {
+    background-color: var(--white-smoke);
+    color: var(--jet);
+}
+
+.platinum-opacity-low {
+    background-color: #e0e0e050;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: calc(100vh - 164px);
+    background-color: var(--mimi-pink);
+    margin: 0;
+}
+
+nav {
+    background-color: var(--platinum);
+    z-index: 100;
+}
+
+.jumbotron {
+    height: 80vh;
+    width: 100vw;
+    z-index: -1;
+    position: fixed;
+    top: 116px;
+}
+
+.shop-now {
+    position: relative;
+    top: 320px;
+    left: 70px;
+    /* position: fixed;
+    z-index: -1; */
+}
+
+.jumbotron-spacer {
+    width: 50%;
+    height: 75vh;
+    z-index: -10;
+}
+
+.nav-logo-image {
+    position: absolute;
+    top: -10px;
+    z-index: 110;
+    height: 80px;
+    width: auto;
+}
+
+.home-jumbotron-image {
+    height: 235px;
+    width: auto;
+    border-radius: 50%;
+}
+
+.home-jumbotron-woman {
+    position: fixed;
+    bottom: 5vh;
+    right: -150px;
+    height: 70vh;
+    width: auto;
+    z-index: -9;
+}
+
+
+
+footer {
+    padding: 5em 0 0;
+ }
+
+
+ /* subscribe form idea taken from colorlib */
+
+.subscribe {
+      margin-top: -105px; }
+.subscribe-form {
+      border-radius: 40px;
+      background: var(--mimi-pink);
+      padding: 3px;
+      -webkit-box-shadow: 0px -12px 21px -15px rgba(0, 0, 0, 0.1);
+      -moz-box-shadow: 0px -12px 21px -15px rgba(0, 0, 0, 0.1);
+      box-shadow: 0px -12px 21px -15px rgba(0, 0, 0, 0.1); }
+.subscribe-form .form-group {
+        position: relative;
+        margin-bottom: 0;
+        border-radius: 0; }
+.subscribe-form .form-group input {
+          background: transparent !important;
+          border: none !important;
+          outline: none !important;
+          color: var(--jet) !important;
+          font-size: 16px;
+          height: 56px;
+          border-radius: 0; }
+.subscribe-form .form-group input::-webkit-input-placeholder {
+            /* Chrome/Opera/Safari */
+            color: rgba(0, 0, 0, 0.3) !important; }
+.subscribe-form .form-group input::-moz-placeholder {
+            /* Firefox 19+ */
+            color: rgba(0, 0, 0, 0.3) !important; }
+.subscribe-form .form-group input:-ms-input-placeholder {
+            /* IE 10+ */
+            color: rgba(0, 0, 0, 0.3) !important; }
+.subscribe-form .form-group input:-moz-placeholder {
+            /* Firefox 18- */
+            color: rgba(0, 0, 0, 0.3) !important; }
+.subscribe-form .form-group input:focus {
+            outline: none !important;
+            -webkit-box-shadow: none;
+            box-shadow: none; }
+.subscribe-form .form-group .submit {
+          color: var(--jet) !important;
+          display: block;
+          width: 150px;
+          height: 56px;
+          font-size: 14px;
+          background: var(--sage-green) !important;
+          border: none;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          border-radius: 40px; }
+.subscribe-form .form-group .submit:hover, .footer-02 .subscribe-form .form-group .submit:focus {
+            text-decoration: none !important;
+            outline: none !important; }
+
+
+@media (min-width: 992px) {
+    /* .fixed-top-desktop-only {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 1030;
+    } */
+
+    .header-container {
+        padding-top: 164px;
+    }
+}
+
+/* pad the top a bit when navbar is collapsed on mobile */
+@media (max-width: 991px) {
+    .header-container {
+        padding-top: 116px;
+    }
+
+    body {
+        height: calc(100vh - 116px);
+    }
+}

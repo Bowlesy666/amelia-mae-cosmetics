@@ -9,10 +9,38 @@
 {% block og_image %}not default{% endblock %}
 {% block og_url %}not default{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+{% endblock %}
+
 {% block extra_title %}Home{% endblock %}
 <!-- end Head tags -->
 
-{% block content %}
-    <h1 class="display-4 text-success">Home Page Working</h1>
+{% block page_header %}
+<div class="header-container">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
 
+{% block content %}
+
+<!-- include each section of the homepage -->
+{% include 'home/includes/index_jumboron.html' %}
+{% include 'home/includes/index_seo_section_one.html' %}
+{% include 'home/includes/index_top_selling.html' %}
+{% include 'home/includes/index_seo_section_two.html' %}
+{% include 'home/includes/index_products_by_categories.html' %}
+{% include 'home/includes/index_articles_section.html' %}
+<!-- end of include sections -->
+
+{% endblock %}
+
+{% block postloadjs %}
+<!-- Animate On Scroll JS -->
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
 {% endblock %}
