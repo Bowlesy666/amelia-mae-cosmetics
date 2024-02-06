@@ -5,6 +5,9 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Category(models.Model):
     """ Model representing the product category """
+    class Meta:
+        verbose_name_plural = 'Categories'
+
     name = models.CharField(max_length=254)
     friendly_name = models.CharField(max_length=254, null=True, blank=True)
 
@@ -33,6 +36,9 @@ class SkinType(models.Model):
 
 class Reviews(models.Model):
     """ Model representing the product reviews """
+    class Meta:
+        verbose_name_plural = 'Reviews'
+
     product = models.ForeignKey(
         'Product', on_delete=models.CASCADE, related_name='reviews',
         default=0)
