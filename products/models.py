@@ -34,7 +34,8 @@ class SkinType(models.Model):
 class Reviews(models.Model):
     """ Model representing the product reviews """
     product = models.ForeignKey(
-        'Product', on_delete=models.CASCADE, related_name='reviews')
+        'Product', on_delete=models.CASCADE, related_name='reviews',
+        default=0)
     user = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, blank=True)
     comment = models.CharField(max_length=254, null=True, blank=True)
@@ -62,7 +63,7 @@ class Product(models.Model):
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
     rating = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True
+        max_digits=6, decimal_places=2, null=True, blank=True, default=0
     )
     image_url = models.URLField(max_length=1024, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
