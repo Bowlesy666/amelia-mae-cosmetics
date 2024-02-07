@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django.core.files.uploadedfile import SimpleUploadedFile
 
 from products.models import Product, Category, Reviews, SkinType
 
