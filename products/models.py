@@ -73,6 +73,24 @@ class Product(models.Model):
     )
     image_url = models.URLField(max_length=1024, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
+    quantity = models.PositiveIntegerField(default=100)
+    is_out_of_stock = models.BooleanField(default=False)
+    is_discontinued = models.BooleanField(default=False)
+    is_best_seller = models.BooleanField(default=False)
+
+    def update_out_of_stock_status(self):
+        """  Update the out of stock status based on the quantity. """
+        if self.quantity == 0:
+            self.is_out_of_stock = True
+        else:
+            self.is_out_of_stock = False
+
+    def save(self, *args, **kwargs):
+        """
+        Override save method to update the out of stock status before saving.
+        """
+        self.update_out_of_stock_status()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         """ String to represent the Product object """
