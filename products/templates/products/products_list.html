@@ -24,6 +24,52 @@
 {% endblock %}
 
 {% block content %}
+<div class="container-fluid mimi-pink">
+    <div class="row py-3">
+        <div class="col text-center mimi-pink">
+            <h2 class="logo-font mt-3 h-100">Shop Amelia Mae Products</h2>
+        </div>
+    </div>
+    <div class="col-xl-9 px-0 mimi-pink container-fluid justify-content-center">
+        <div class="row py-3 mimi-pink">
+            {% for product in products %}
+                <div class="col-md-6 col-lg-3 my-3 card-rounded">
+                    <div class="shadow white-smoke card-rounded">
+                        <span class="position-absolute-best-seller rounded">BEST SELLER <i class="fa-solid fa-award"></i></span>
+                        <div class="card border-0 card-rounded white-smoke p-1">
+                            <img src="{{ product.image.url }}" class="card-img-top product-card-image card-rounded mb-4" alt="{{ product.name }}">
+                            <span class="out-of-stock-overlay card-rounded text-center">
+                                <i class="fa-solid fa-ban fa-flip-horizontal"></i>
+                                <p class="out-of-stock-text">Currently Out Of Stock</p>
+                            </span>
+                            <div class="card-body border-0 mb-0 white-smoke">
+                                <h5 class="card-title card-title-min-height-spacer mb-3">{{ product.name|truncatechars:50 }}</h5>
+                                <span class="product_card_price">£ {{ product.price }}</span>
+                                <a href="#" class="btn card-rounded shadow btn-outline-secondary d-flex justify-content-center stretched-link mt-3">View Product</a>
+                            </div>
+                        </div>
+                        <span class="position-absolute-rating">
+                            <i class="fa-sharp fa-solid fa-star gold"></i>
+                            <i class="fa-sharp fa-solid fa-star gold"></i>
+                            <i class="fa-sharp fa-solid fa-star gold"></i>
+                            <i class="fa-sharp fa-solid fa-star gold"></i>
+                            <i class="fa-sharp fa-solid fa-star gold"></i>
+                        </span>
+                        <span class="position-absolute-favourite">
+                            <!-- <i class="fa-solid fa-heart"></i> -->
+                            <i class="fa-regular fa-heart"></i>
+                        </span>
+                        <span class="ribbon ribbon-left px-5">Hurry!<br>Only <strong>5</strong> left</span>
+                        <span class="ribbon ribbon-left px-5 shadow">Discontinued!<br>Only <strong>5</strong> left</span>
+                        <div class="card-footer white-smoke py-4 border-top-0 card-rounded">
+                            <a href="#" class="btn shadow btn-dark d-flex justify-content-center card-rounded">Quick add</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 
 {% endblock %}
 

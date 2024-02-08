@@ -57,6 +57,7 @@ nav {
     z-index: 100;
 }
 
+/* --------------- index page styles ------------ */
 .jumbotron {
     height: 80vh;
     width: 100vw;
@@ -102,8 +103,119 @@ nav {
     z-index: -9;
 }
 
+/* ----------- product card styles --------- */
+.card-rounded {
+    border-radius: 26px;
+}
 
+.card-footer:last-child {
+    border-bottom-left-radius: 26px;
+    border-bottom-right-radius: 26px;
+}
 
+.product-card-image {
+    height: 280px;
+    width: auto;
+    object-fit: cover;
+    object-position: center;
+    overflow: hidden;
+}
+
+.out-of-stock-overlay {
+    position: absolute;
+    height: 280px;
+    width: 98%;
+    object-fit: cover;
+    object-position: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    font-size: 128px;
+    color: var(--white-smoke);
+    text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+    z-index: 1;
+}
+
+.out-of-stock-text {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--white-smoke);
+    text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+}
+
+.position-absolute-best-seller {
+    position: absolute;
+    z-index: 1;
+    font-size: 22px;
+    font-weight: 800;
+    top: -10px;
+    left: 40px;
+}
+
+.position-absolute-rating {
+    position: absolute;
+    z-index: 1;
+    font-size: 22px;
+    font-weight: 800;
+    top: 265px;
+    left: 40px;
+    color: rgb(255, 255, 85);
+    text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+}
+
+.position-absolute-favourite {
+    position: absolute;
+    z-index: 1;
+    font-size: 46px;
+    font-weight: 800;
+    top: 225px;
+    right: 25px;
+    color: red;
+}
+
+.card-title-min-height-spacer {
+    height: 85px;
+}
+
+.btn-outline-secondary {
+    background-color: var(--white-smoke);
+}
+
+.product_card_price {
+    font-size: 28px;
+    font-weight: 800;
+}
+
+/* --- Ribbon Styles taken from Codepen https://codepen.io/t_afif/pen/gOXLdMR----- */
+.ribbon {
+    --f: 10px; /* control the folded part*/
+    --r: 15px; /* control the ribbon shape */
+    
+    position: absolute;
+    top: 200px;
+    left: 4px;
+    padding-inline: 10px;
+    background: var(--cordovan);
+    color: var(--white-smoke);
+    border-bottom: var(--f) solid #0005;
+    color: #fff;
+    line-height: 1.3em;
+    font-family: sans-serif;
+    font-size: 18px;
+    border-right: var(--r) solid #0000;
+    clip-path: 
+      polygon(100% 0,0 0,0 calc(100% - var(--f)),var(--f) 100%,
+        var(--f) calc(100% - var(--f)),100% calc(100% - var(--f)),
+        calc(100% - var(--r)) calc(50% - var(--f)/2));
+  }
+
+  .left {
+    border-right: var(--r) solid #0000;
+    clip-path: 
+      polygon(100% 0,0 0,0 calc(100% - var(--f)),var(--f) 100%,
+        var(--f) calc(100% - var(--f)),100% calc(100% - var(--f)),
+        calc(100% - var(--r)) calc(50% - var(--f)/2));
+  }
+ 
+/* ------------  footer styles ------------ */
 footer {
     padding: 5em 0 0;
  }
