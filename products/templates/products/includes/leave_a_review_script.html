@@ -1,0 +1,9 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.star').click(function() {
+            var index = $(this).index();
+            $('#rating-value').val(index + 1);
+            $('.star').removeClass('active').slice(0, index + 1).addClass('active');
+        });
+    });
+</script>
