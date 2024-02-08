@@ -33,14 +33,14 @@
     <div class="col-xl-9 px-0 mimi-pink container-fluid justify-content-center">
         <div class="row py-3 mimi-pink">
             {% for product in products %}
-                <div class="col-md-6 col-lg-3 my-3 card-rounded">
+                <div class="col-md-6 col-lg-4 col-xl-3 my-3 card-rounded">
                     <div class="shadow white-smoke card-rounded">
                         {% if product.is_best_seller %}
                         <span class="position-absolute-best-seller rounded">BEST SELLER <i class="fa-solid fa-award"></i></span>
                         {% endif %}
                         <div class="card border-0 card-rounded white-smoke p-1">
                             <img
-                                src="{% if product.image.url %}{{ product.image.url }}{% else %}../media/no_image.png{% endif %}"
+                                src="{% if product.image.url %}{{ product.image.url }}{% else %}{{ MEDIA_URL }}no_image.png{% endif %}"
                                 class="card-img-top product-card-image card-rounded mb-4"
                                 alt="{% if product.name %}{{ product.name }}{% else %}Amelia Mae luxury product{% endif %}"
                                 >
@@ -52,8 +52,8 @@
                             {% endif %}
                             <div class="card-body border-0 mb-0 white-smoke">
                                 <h5 class="card-title card-title-min-height-spacer mb-3">{{ product.name|truncatechars:50 }}</h5>
-                                <span class="product_card_price">£ {{ product.price }}</span>
-                                <a href="#" class="btn card-rounded shadow btn-outline-secondary d-flex justify-content-center stretched-link mt-3">View Product</a>
+                                <span class="product-card-price">£ {{ product.price }}</span>
+                                <a href="{% url 'product_detail' product.id %}" class="btn card-rounded shadow btn-outline-secondary d-flex justify-content-center stretched-link mt-3">View Product</a>
                             </div>
                         </div>
                         <span class="position-absolute-rating">
