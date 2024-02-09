@@ -65,3 +65,7 @@ class ProductTests(TestCase):
         """ Tests the string method on a product after its creation """
         test_name = Product(name='productA')
         self.assertEqual(str(test_name), ('productA'))
+
+    def tearDown(self):
+        # Delete the Category instance from the test database
+        self.category.delete()
