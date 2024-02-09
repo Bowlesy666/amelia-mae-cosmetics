@@ -2,7 +2,7 @@ from django.db.models import Q
 from django.contrib import messages
 
 from django.shortcuts import render, redirect, reverse, get_object_or_404
-from .models import Product, Category
+from .models import Product, Category, SkinType
 
 
 def all_products(request):
@@ -11,9 +11,16 @@ def all_products(request):
 
     query = None
     categories = None
-    skin_type = None
+    skin_types = None
 
     if request.GET:
+        if 'skin_type' in request.GET:
+            has_skin_type = request.GET['skin_type']
+            if has_skin_type:
+                skin_types = request.GET['skin_type'].split(',')
+                products = products.filter(skin_type__name__in=skin_types)
+                skin_types = SkinType.objects.filter(name__in=skin_types)
+
         if 'category' in request.GET:
             categories = request.GET['category'].split(',')
             products = products.filter(category__name__in=categories)
