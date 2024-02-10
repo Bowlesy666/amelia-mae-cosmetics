@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.contrib.auth.models import User
 
 from products.models import Product, Category, Reviews, SkinType
 
@@ -7,16 +8,13 @@ class ProductTests(TestCase):
     """ Tests for Product models """
     def setUp(self):
         """ Sets up the category model for test """
-        category = Category(name='cleansers')
-        category.save()
-
-    def test_create_product_with_all_fields(self):
-        """ Tests for product model creation """
-        category = Category.objects.create(name='Test Category')
-        skin_type = SkinType.objects.create(name='Test Skin Type')
-        product = Product.objects.create(
-            category=category,
-            skin_type=skin_type,
+        self.category = Category.objects.create(
+            name='Test Category', friendly_name='Category Friendly')
+        self.skin_type = SkinType.objects.create(
+            name='Test Skin Type', friendly_name='Skin Type Friendly')
+        self.product = Product.objects.create(
+            category=self.category,
+            skin_type=self.skin_type,
             sku='12345',
             name='Test Product',
             description='Test description',
@@ -30,20 +28,22 @@ class ProductTests(TestCase):
             is_best_seller=True
         )
 
+    def test_create_product_with_all_fields(self):
+        """ Tests for product model creation """
         self.assertEqual(Product.objects.count(), 1)
-        self.assertEqual(product.name, 'Test Product')
-        self.assertEqual(product.sku, '12345')
-        self.assertEqual(product.description, 'Test description')
-        self.assertEqual(product.price, 10.00)
-        self.assertEqual(product.rating, 4.5)
-        self.assertEqual(product.image_url, 'https://example.com/image.jpg')
-        self.assertEqual(product.image, 'path/to/image.jpg')
-        self.assertEqual(product.quantity, 50)
-        self.assertFalse(product.is_out_of_stock)
-        self.assertFalse(product.is_discontinued)
-        self.assertTrue(product.is_best_seller)
-        self.assertEqual(product.category.name, 'Test Category')
-        self.assertEqual(product.skin_type.name, 'Test Skin Type')
+        self.assertEqual(self.product.name, 'Test Product')
+        self.assertEqual(self.product.sku, '12345')
+        self.assertEqual(self.product.description, 'Test description')
+        self.assertEqual(self.product.price, 10.00)
+        self.assertEqual(self.product.rating, 4.5)
+        self.assertEqual(self.product.image_url, 'https://example.com/image.jpg')
+        self.assertEqual(self.product.image, 'path/to/image.jpg')
+        self.assertEqual(self.product.quantity, 50)
+        self.assertFalse(self.product.is_out_of_stock)
+        self.assertFalse(self.product.is_discontinued)
+        self.assertTrue(self.product.is_best_seller)
+        self.assertEqual(self.product.category.name, 'Test Category')
+        self.assertEqual(self.product.skin_type.name, 'Test Skin Type')
 
     def test_update_out_of_stock_status(self):
         """ Tests if out of stock updates automatically """
@@ -58,14 +58,43 @@ class ProductTests(TestCase):
 
     def test_categories_str(self):
         """ Tests the string method on the category """
-        category = Category.objects.get(pk=1)
-        self.assertEqual(str(category), ('cleansers'))
+        category = Category.objects.get(name='Test Category')
+        self.assertEqual(str(category), 'Test Category')
+
+    def test_skin_types_str(self):
+        """ Tests the string method on the skin type """
+        skin_type = SkinType.objects.get(name='Test Skin Type')
+        self.assertEqual(str(skin_type), 'Test Skin Type')
+
+    def test_reviews_str(self):
+        """ Tests the string method on Reviews """
+        user = User.objects.create_user(
+            username='test user', password='password123')
+        reviews = Reviews.objects.create(
+            user=user, comment='Lorem ipsum, this is a test comment',
+            rating=5, product_id=1)
+        self.assertEqual(
+            str(reviews),
+            'Review by test user: Lorem ipsum, this is a test comment...')
+
+    def test_categories_friendly_name(self):
+        """ Tests the friendly_name method on the category """
+        category = Category.objects.get(friendly_name='Category Friendly')
+        friendly_name = category.get_friendly_name()
+        self.assertEqual(str(friendly_name), 'Category Friendly')
+
+    def test_skin_types_friendly_name(self):
+        """ Tests the friendly_name method on the skin type """
+        skin_type = SkinType.objects.get(friendly_name='Skin Type Friendly')
+        friendly_name = skin_type.get_friendly_name()
+        self.assertEqual(str(friendly_name), 'Skin Type Friendly')
 
     def test_products_str(self):
         """ Tests the string method on a product after its creation """
-        test_name = Product(name='productA')
-        self.assertEqual(str(test_name), ('productA'))
+        self.assertEqual(str(self.product), ('Test Product'))
 
     def tearDown(self):
         # Delete the Category instance from the test database
         self.category.delete()
+        self.skin_type.delete()
+        self.product.delete()
