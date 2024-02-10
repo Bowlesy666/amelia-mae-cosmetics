@@ -1,5 +1,6 @@
 from django.db.models import Q
 from django.contrib import messages
+from django.db.models.functions import Lower
 
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from .models import Product, Category, SkinType
@@ -12,8 +13,26 @@ def all_products(request):
     query = None
     categories = None
     skin_types = None
+    best_seller_list = None
+    sort = None
+    direction = None
 
     if request.GET:
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+            sort = sortkey
+            if sortkey == 'name':
+                # avoid losing original field name, use lower_name in place of sortkey
+                sortkey = 'lower_name'
+                products = products.annotate(lower_name=Lower('name'))
+            if sortkey == 'category':
+                sortkey = 'category__name'
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sortkey = f'-{sortkey}'
+            products = products.order_by(sortkey)
+
         if 'skin_type' in request.GET:
             has_skin_type = request.GET['skin_type']
             if has_skin_type:
@@ -26,6 +45,11 @@ def all_products(request):
             products = products.filter(category__name__in=categories)
             categories = Category.objects.filter(name__in=categories)
 
+        if 'is_best_seller' in request.GET:
+            best_sellers = request.GET['is_best_seller']
+            if best_sellers:
+                products = products.filter(is_best_seller=True)
+
         if 'q' in request.GET:
             query = request.GET['q']
             if not query:
@@ -36,11 +60,13 @@ def all_products(request):
             queries = Q(name__icontains=query) | Q(description__icontains=query)
             products = products.filter(queries)
 
+    current_sorting = f'{sort}_{direction}'
 
     context = {
         'products': products,
         'search_term': query,
         'current_categories': categories,
+        'current_sorting': current_sorting,
     }
 
     return render(request, 'products/products_list.html', context)
