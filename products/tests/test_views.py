@@ -14,6 +14,15 @@ class TestProductViews(TestCase):
             image='image.png'
         )
 
+    def test_search_with_query(self):
+        response = self.client.get('/products/', {'q': 'Test'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'products/products_list.html')
+        # check search term is in context
+        self.assertIn('search_term', response.context)
+        # check it matches the query
+        self.assertEqual(response.context['search_term'], 'Test')
+
     def test_products_list_render(self):
         response = self.client.get('/products/')
         self.assertEqual(response.status_code, 200)
