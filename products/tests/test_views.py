@@ -11,7 +11,8 @@ class TestProductViews(TestCase):
             name='Test Product',
             description='Test Description',
             price=10.00,
-            image='image.png'
+            image='image.png',
+            is_best_seller=True,
         )
 
     def test_search_with_query(self):
@@ -22,6 +23,11 @@ class TestProductViews(TestCase):
         self.assertIn('search_term', response.context)
         # check it matches the query
         self.assertEqual(response.context['search_term'], 'Test')
+
+    def test_search_with_is_best_seller(self):
+        response = self.client.get('/products/', {'is_best_seller': True})
+        # Check returns best seller is True
+        self.assertIn(self.product, response.context['products'])
 
     def test_products_list_render(self):
         response = self.client.get('/products/')
@@ -35,5 +41,5 @@ class TestProductViews(TestCase):
         self.assertTemplateUsed(response, 'products/product_detail.html')
 
     def tearDown(self):
-        # Delete the Product instance from the test database
+        # Delete the test instances from the test database
         self.product.delete()
