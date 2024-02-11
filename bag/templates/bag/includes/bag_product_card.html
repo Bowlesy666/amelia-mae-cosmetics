@@ -13,22 +13,36 @@
                 <p class="my-0 small text-muted">SKU: {{ item.product.sku|upper }}</p>
                 <p class="my-0">£{{ item.product.price }}</p>
             </div>
-            <div class="col-md-1 col-lg-1 col-xl-1 my-4">
+            <div class="col-md-1 col-lg-1 col-xl-1">
                 <div class="d-flex">
-                    <button class="btn btn-link p-0"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                        <i class="fas fa-minus"></i>
-                    </button>
-
-                    <input id="form1" min="0" name="quantity" value="1" type="number"
-                        class="form-control form-control-sm" />
-
-                    <button class="btn btn-link p-0"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                        <i class="fas fa-plus"></i>
-                    </button>
+                    <form class="form update-form" method="POST" action="">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="input-group qty-input-width input-group-{{ item.item_id }}">
+                                <div class="input-group-prepend order-12 decrement-qty_{{ product.id }}">
+                                    <button class="decrement-qty btn btn-black rounded-0 decrement-qty_{{ product.id }}" 
+                                        data-item_id="{{ product.id }}" id="decrement-qty_{{ product.id }}">
+                                        <span class="icon">
+                                            <i class="fas fa-minus"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                                <input class="form-control qty_input order-6 id_qty_{{ product.id }}" type="number"
+                                    name="quantity" value="1" min="1" max="99"
+                                    data-item_id="{{ product.id }}" id="id_qty_{{ product.id }}">
+                                <div class="input-group-append order-1 increment-qty_{{ product.id }}">
+                                    <button class="increment-qty btn btn-black rounded-0 increment-qty_{{ product.id }}"
+                                        data-item_id="{{ product.id }}" id="increment-qty_{{ product.id }}">
+                                        <span class="icon">
+                                            <i class="fas fa-plus"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <p class="text-center mt-2"><small>update</small></p>
+                <a class="update-link text-center mt-0 text-nowrap"><small>update</small></a>
                 
             </div>
             <div class="col-md-2 col-lg-2 col-xl-2 my-4">
@@ -36,7 +50,7 @@
                 <p class="my-0">£{{ item.product.price }}</p>
             </div>
             <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                <a href="#" class="text-muted"><i class="fas fa-times"></i></a>
+                <a href="#" class="text-muted remove-item"><i class="fas fa-times"></i></a>
             </div>
         </div>
         <hr class="my-4 mx-4">
