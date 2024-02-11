@@ -26,23 +26,33 @@
 {% block content %}
 
 <div class="container-fluid white-smoke py-5">
-    <div class="row py-3">
+    <div class="row py-3 text-center">
         <div class="col text-center white-smoke">
             <h2 class="logo-font mt-3 h-100">Your Shopping Bag</h2>
         </div>
     </div>
-    <div class="row py-3 white-smoke">
-        {% if products %}
-            <div class="card border-0 card-rounded white-smoke p-1">
-                <div class="table-responsive rounded"></div>
+    
+    {% if bag_items %}
+        <div class="col-lg-9 px-0 py-5 container-fluid justify-content-center card-rounded">
+            <div class="row white-smoke card-rounded shadow">
+                <div class="card mx-2 mx-0 mx-lg-0 card-rounded white-smoke shadow">
+                    <div class="row no-gutters">
+                        <div class="col-xl-8 p-5 card-rounded">
+                            {% include 'bag/includes/bag_product_card.html' %}
+                        </div>
+                        <div class="col-xl-4 mimi-pink shadow card-rounded p-5">
+                            {% include 'bag/includes/bag_summary.html' %}
+                        </div>
+                    </div>
+                </div>
             </div>
-        {% else %}
-            <div class="col py-5 text-center">
-                <p>Oops! Looks like your shopping bag is empty!</p>
-                <p><strong>Lets continue shopping! <a href="{% url 'product_list' %}">Shop all products</a></strong></p>
-            </div>
-        {% endif %}
-    </div>
+        </div>
+    {% else %}
+        <div class="col py-5 text-center">
+            <p>Oops! Looks like your shopping bag is empty!</p>
+            <p><strong>Lets continue shopping! <a href="{% url 'product_list' %}">Shop all products</a></strong></p>
+        </div>
+    {% endif %}   
 </div>
 
 {% endblock %}
