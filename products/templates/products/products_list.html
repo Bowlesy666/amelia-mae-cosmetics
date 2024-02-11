@@ -116,7 +116,12 @@
                                 {% elif product.quantity < 1 and product.is_discontinued %}
                                 <p class="py-1 my-1 shadow platinum d-flex justify-content-center card-rounded">Discontinued</p>
                                 {% else %}
-                                <a href="#" class="btn shadow btn-dark d-flex justify-content-center card-rounded">Quick add</a>
+                                <form class="form" action="{% url 'quick_add_to_bag' product.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="submit"  class="btn shadow btn-dark w-100 d-flex justify-content-center card-rounded" value="Quick Add">
+                                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                    <!-- <input type="hidden" name="item_id" value="{{ product.item_id }}"> -->
+                                </form>
                                 {% endif %}
                             </div>
                         </div>
