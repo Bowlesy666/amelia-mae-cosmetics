@@ -1,4 +1,6 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, HttpResponse
+
+from products.models import Product
 
 
 def view_bag(request):
@@ -49,4 +51,15 @@ def adjust_bag(request, item_id):
 
     request.session['bag'] = bag
     return redirect(reverse('view_bag'))
+
+def remove_from_bag(request, item_id):
+    try:
+        bag = request.session.get('bag', {})
+        bag.pop(item_id)
+
+        request.session['bag'] = bag
+        return HttpResponse(status=200)
+    
+    except Exception as e:
+        return HttpResponse(ststus=500)
 
