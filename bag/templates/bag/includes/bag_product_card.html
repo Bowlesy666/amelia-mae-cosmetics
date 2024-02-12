@@ -13,7 +13,7 @@
                 <p class="my-0 small text-muted">SKU: {{ item.product.sku|upper }}</p>
                 <p class="my-0">£{{ item.product.price }}</p>
             </div>
-            <div class="col-md-1 col-lg-1 col-xl-1">
+            <div class="col-md-1 col-lg-1 col-xl-1 update-form-traverse">
                 <div class="d-flex">
                     <form class="form update-form" method="POST" action="{% url 'adjust_bag' item.item_id %}">
                         {% csrf_token %}

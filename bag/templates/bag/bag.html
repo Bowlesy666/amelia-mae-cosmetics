@@ -64,7 +64,7 @@
 <script type="text/javascript">
     // Update quantity on click
     $('.update-link').click(function(e) {
-        var form = $(this).prev('.update-form');
+        var form = $(this).closest('.update-form-traverse').find('.update-form');
         form.submit();
     })
 
