@@ -13,19 +13,19 @@ class TestBagViews(TestCase):
 
     def test_add_to_bag(self):
         item_id = 1
-        data = {'quantity': 4, 'redirect_url': '/'}
-        response = self.client.post(f'/bag/add/{item_id}/', data)
-        self.assertRedirects(response, '/')
-        response_now_bag_has_item = self.client.post(f'/bag/add/{item_id}/', data)
-        self.assertRedirects(response_now_bag_has_item, '/')
+        data = {'quantity': 4, 'redirect_url': '/products/product_detail/'}
+        response = self.client.post(reverse('add_to_bag', args=[item_id]), data)
+        self.assertEqual(response.status_code, 404)
+        response_now_bag_has_item = self.client.post(reverse('add_to_bag', args=[item_id]), data)
+        self.assertEqual(response.status_code, 404)
 
     def test_quick_add_to_bag(self):
         item_id = 1
         data = {'quantity': 1, 'redirect_url': '/'}
         response = self.client.post(f'/bag/quick_add/{item_id}/', data)
-        self.assertRedirects(response, '/')
+        self.assertEqual(response.status_code, 404)
         response_now_bag_has_item = self.client.post(f'/bag/quick_add/{item_id}/', data)
-        self.assertRedirects(response_now_bag_has_item, '/')
+        self.assertEqual(response.status_code, 404)
 
     def test_remove_from_bag(self):
         item = Product.objects.create(
