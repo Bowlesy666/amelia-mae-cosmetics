@@ -36,8 +36,8 @@
     
     {% if bag_items %}
         <div class="col-lg-9 px-0 py-5 container-fluid justify-content-center card-rounded">
-            <div class="row white-smoke card-rounded shadow">
-                <div class="card mx-2 mx-0 mx-lg-0 card-rounded white-smoke shadow">
+            <div class="row white-smoke mx-2 card-rounded shadow">
+                <div class="card mx-lg-0 card-rounded shadow">
                     <div class="row no-gutters">
                         <div class="col-xl-8 p-5 card-rounded">
                             <p class="text-muted">Please fill out the form below to complete your order</p>
@@ -104,6 +104,37 @@
                         </div>
                         <div class="col-xl-4 mimi-pink shadow card-rounded p-5">
                             {% include 'bag/includes/bag_summary.html' %}
+                            <hr class="mx-4">
+                            <p class="text-muted">Order Confirmed ({{ product_count }})</p>
+                            <div class="row">
+                                <div class="col-7 offset-2">
+                                    <p class="mb-1 mt-0 small text-muted">Item</p>
+                                </div>
+                                <div class="col-3 text-right">
+                                    <p class="mb-1 mt-0 small text-muted text-nowrap">Subtotal</p>
+                                </div>
+                            </div>
+                            {% for item in bag_items %}
+                                <div class="row">
+                                    <div class="col-4 mb-2">
+                                        <a href="{% url 'product_detail' item.product.id %}">
+                                            {% if item.product.image %}
+                                                <img class="w-100 shadow card-rounded" src="{{ item.product.image.url }}" alt="{{ product.name }}">
+                                            {% else %}
+                                                <img class="w-100 shadow card-rounded" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <div class="col-5">
+                                        <p class="my-0"><strong>{{ item.product.name|truncatechars:30 }}</strong></p>
+                                        <p class="my-0 small">Size: {% if item.product.has_sizes %}{{ item.size|upper }}{% else %}N/A{% endif %}</p>
+                                        <p class="my-0 small text-muted">Qty: {{ item.quantity }}</p>
+                                    </div>
+                                    <div class="col-3 text-right">
+                                        <p class="my-0 small text-muted  text-nowrap">£{{ item.product.price | calc_subtotal:item.quantity }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
