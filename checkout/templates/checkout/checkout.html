@@ -37,8 +37,8 @@
     {% if bag_items %}
         <div class="col-lg-9 px-0 py-5 container-fluid justify-content-center card-rounded">
             <div class="row white-smoke mx-2 card-rounded shadow">
-                <div class="card mx-lg-0 white-smoke card-rounded shadow">
-                    <div class="row no-gutters">
+                <div class="col card mx-lg-0 white-smoke card-rounded">
+                    <div class="row">
                         <div class="col-xl-8 p-5 card-rounded">
                             <p class="text-muted">Please fill out the form below to complete your order</p>
                                 <form action="{% url 'checkout' %}" method="POST" id="payment-form">

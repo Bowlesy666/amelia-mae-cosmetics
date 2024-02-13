@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- Head tags -->
+{% block meta_description %}My Profile! View & edit your personal details{% endblock %}
+
+{% block og_title %}My Amelia Mae Customer Profile{% endblock %}
+{% block og_description %}My Amelia Mae customer profile, view previous transactions and edit my personal details{% endblock %}
+{% block og_image %}not default{% endblock %}
+{% block og_url %}not default{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'profiles/css/profile.css' %}">
+{% endblock %}
+
+{% block extra_title %}My Profile{% endblock %}
+<!-- end Head tags -->
+
+{% block page_header %}
+<div class="header-container">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid white-smoke py-5">
+    <div class="row py-3 text-center">
+        <div class="col text-center white-smoke">
+            <h2 class="logo-font mt-3 h-100">My Profile</h2>
+        </div>
+    </div>
+    
+    <div class="col-lg-9 px-0 py-5 container-fluid justify-content-center card-rounded">
+        <div class="row white-smoke mx-2 card-rounded">
+            <div class="col card mx-lg-0 white-smoke card-rounded shadow">
+                <div class="row">
+                    <div class="col-xl-8 p-5 card-rounded">
+                        <p>stugf</p>
+                    </div>
+                    <div class="col-xl-4 mimi-pink shadow card-rounded p-5">
+                        <p>stuff</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% endblock %}
+
+{% block postloadjs %}
+{% endblock %}

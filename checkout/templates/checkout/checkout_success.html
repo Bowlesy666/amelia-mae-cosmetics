@@ -34,11 +34,11 @@
     </div>
     <div class="col-lg-9 px-0 py-5 container-fluid justify-content-center card-rounded">
         <div class="row white-smoke mx-2 card-rounded shadow">
-            <div class="card mx-lg-0 white-smoke card-rounded shadow">
-                <div class="row no-gutters">
-                    <div class="col-xl-8 p-5 card-rounded">
+            <div class="col card mx-lg-0 white-smoke card-rounded">
+                <div class="row">
+                    <div class="col-xl-8 p-5 text-center card-rounded">
                         <h3 class="text-center">Thank you for your order</h3>
-                        <p class="text-center py-5">Your order information is below. A confirmation email will be sent to <strong>{{ order.email }}</strong>.</p>
+                        <p class="text-center py-5">Your order information is on the pink ticket. A confirmation email will be sent to <strong>{{ order.email }}</strong>.</p>
                         <span>Need inspiration for your next purchase? check out our </span>
                         <a href="{% url 'product_list' %}?is_best_seller=True" class="btn jet rounded-0 my-2">
                             <span class="icon mr-2">
