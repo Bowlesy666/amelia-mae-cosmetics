@@ -2,9 +2,25 @@
 
 {% load i18n %}
 
+<!-- Head tags -->
+{% block meta_description %}Change Email address you want to access your Amelia Mae Cosmetics account{% endblock %}
+
+{% block og_title %}Change Email Address{% endblock %}
+{% block og_description %}Change Email address you want to access your Amelia Mae Cosmetics account{% endblock %}
+{% block og_image %}not default{% endblock %}
+{% block og_url %}not default{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block extra_title %}Change Email{% endblock %}
+<!-- end Head tags -->
+
 {% block head_title %}{% trans "Account" %}{% endblock %}
 
-{% block content %}
+{% block page_heading_title %}{% trans "Account" %}{% endblock %}
+
+{% block inner_content %}
     <h1>{% trans "E-mail Addresses" %}</h1>
 {% if user.emailaddress_set.all %}
 <p>{% trans 'The following e-mail addresses are associated with your account:' %}</p>

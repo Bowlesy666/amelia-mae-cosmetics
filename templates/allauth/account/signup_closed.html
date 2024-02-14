@@ -2,9 +2,25 @@
 
 {% load i18n %}
 
+<!-- Head tags -->
+{% block meta_description %}Sign up is currently closed, you can still checkout securely with Amelia Mae secure checkout system{% endblock %}
+
+{% block og_title %}Sign Up Closed{% endblock %}
+{% block og_description %}Sign up is currently closed, you can still checkout securely with Amelia Mae secure checkout system{% endblock %}
+{% block og_image %}not default{% endblock %}
+{% block og_url %}not default{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block extra_title %}Sign Up Closed{% endblock %}
+<!-- end Head tags -->
+
 {% block head_title %}{% trans "Sign Up Closed" %}{% endblock %}
 
-{% block content %}
+{% block page_heading_title %}Sign Up Closed{% endblock %}
+
+{% block inner_content %}
 <h1>{% trans "Sign Up Closed" %}</h1>
 
 <p>{% trans "We are sorry, but the sign up is currently closed." %}</p>

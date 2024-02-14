@@ -3,11 +3,26 @@
 {% load i18n %}
 {% load account %}
 
+<!-- Head tags -->
+{% block meta_description %}Confirm Email address to access your Amelia Mae Cosmetics account{% endblock %}
+
+{% block og_title %}Confirm Email Address{% endblock %}
+{% block og_description %}Confirm Email address to access your Amelia Mae Cosmetics account{% endblock %}
+{% block og_image %}not default{% endblock %}
+{% block og_url %}not default{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block extra_title %}Confirm Email{% endblock %}
+<!-- end Head tags -->
+
 {% block head_title %}{% trans "Confirm E-mail Address" %}{% endblock %}
 
+{% block page_heading_title %}{% trans "Confirm E-mail Address" %}{% endblock %}
 
-{% block content %}
-<h1>{% trans "Confirm E-mail Address" %}</h1>
+{% block inner_content %}
+<h1>{% trans "Please Confirm Your E-mail Address" %}</h1>
 
 {% if confirmation %}
 

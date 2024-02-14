@@ -1,10 +1,25 @@
 {% extends "account/base.html" %}
 
 {% load i18n %}
+<!-- Head tags -->
+{% block meta_description %}Please verify your email address to access content{% endblock %}
+
+{% block og_title %}Please verify your email{% endblock %}
+{% block og_description %}Please verify your email address to access content{% endblock %}
+{% block og_image %}not default{% endblock %}
+{% block og_url %}not default{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block extra_title %}Verify Your E-mail Address{% endblock %}
+<!-- end Head tags -->
 
 {% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
 
-{% block content %}
+{% block page_heading_title %}Verify Your Email Address{% endblock %}
+
+{% block inner_content %}
 <h1>{% trans "Verify Your E-mail Address" %}</h1>
 
 {% url 'account_email' as email_url %}

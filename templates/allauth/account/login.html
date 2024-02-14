@@ -1,14 +1,27 @@
 {% extends "account/base.html" %}
-
 {% load i18n %}
 {% load account socialaccount %}
 
+<!-- Head tags -->
+{% block meta_description %}Log in to your Amelia Mae Cosmetics account for smoother checkouts and tailored product suggestions{% endblock %}
+
+{% block og_title %}Amelia Mae account login{% endblock %}
+{% block og_description %}Log in to your Amelia Mae Cosmetics account for smoother checkouts and tailored product suggestions{% endblock %}
+{% block og_image %}not default{% endblock %}
+{% block og_url %}not default{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block extra_title %}Account Login{% endblock %}
+<!-- end Head tags -->
+
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
-{% block content %}
 
-<h1>{% trans "Sign In" %}</h1>
+{% block page_heading_title %}{% trans "Account Log In" %}{% endblock %}
 
+{% block inner_content %}
 {% get_providers as socialaccount_providers %}
 
 {% if socialaccount_providers %}
@@ -35,12 +48,18 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 
 <form class="login" method="POST" action="{% url 'account_login' %}">
   {% csrf_token %}
-  {{ form.as_p }}
+  {{ form|crispy }}
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}
-  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-  <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
+  <a href="{% url 'home' %}" class="btn btn-outline-black rounded-0">
+    <i class="fa-solid fa-house"></i> Home
+  </a>
+  <button class="primaryAction btn jet" type="submit">
+    <i class="fa-solid fa-right-to-bracket"></i> {% trans "Sign In" %}
+  </button>
+  <p class="mt-5">
+    <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+  </p>
 </form>
-
 {% endblock %}

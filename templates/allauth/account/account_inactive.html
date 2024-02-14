@@ -1,10 +1,25 @@
 {% extends "account/base.html" %}
-
 {% load i18n %}
+
+<!-- Head tags -->
+{% block meta_description %}Your Amelia Mae Cosmetics account is inactive{% endblock %}
+
+{% block og_title %}Amelia Mae account inactive{% endblock %}
+{% block og_description %}Your Amelia Mae Cosmetics account is inactive{% endblock %}
+{% block og_image %}not default{% endblock %}
+{% block og_url %}not default{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block extra_title %}Account Inactive{% endblock %}
+<!-- end Head tags -->
 
 {% block head_title %}{% trans "Account Inactive" %}{% endblock %}
 
-{% block content %}
+{% block page_heading_title %}{% trans "Account Inactive" %}{% endblock %}
+
+{% block inner_content %}
 <h1>{% trans "Account Inactive" %}</h1>
 
 <p>{% trans "This account is inactive." %}</p>

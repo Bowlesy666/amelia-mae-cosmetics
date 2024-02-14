@@ -1,10 +1,25 @@
 {% extends "account/base.html" %}
 
 {% load i18n %}
+<!-- Head tags -->
+{% block meta_description %}A verification email has been sent to your chosen email address{% endblock %}
+
+{% block og_title %}Sign Up to Amelia Mae Cosmetics{% endblock %}
+{% block og_description %}A verification email has been sent to your chosen email address, faster checkouts and tailored suggestions are just around the corner{% endblock %}
+{% block og_image %}not default{% endblock %}
+{% block og_url %}not default{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block extra_title %}Verification Sent{% endblock %}
+<!-- end Head tags -->
 
 {% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
 
-{% block content %}
+{% block page_heading_title %}Verify Your Email Address{% endblock %}
+
+{% block inner_content %}
     <h1>{% trans "Verify Your E-mail Address" %}</h1>
 
     <p>{% blocktrans %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. Please contact us if you do not receive it within a few minutes.{% endblocktrans %}</p>
