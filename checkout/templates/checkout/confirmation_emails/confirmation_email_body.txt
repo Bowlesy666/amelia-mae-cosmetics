@@ -1,0 +1,29 @@
+Dear {{ order.full_name }},
+
+
+We're thrilled to confirm your recent order with us. Here's a summary of your purchase:
+
+
+Order Number: {{ order.order_number }}
+
+Order Date: {{ order.date }}
+
+Order Total: £{{ order.order_total }}
+
+Delivery: £{{ order.delivery_cost }}
+
+Grand Total: £{{ order.grand_total }}
+
+
+Your lovely goodies will be heading your way to 
+{{ order.street_address1 }} in {{ order.town_or_city }}, {{ order.country }}.
+
+If we need you for anything we will contact you on {{ order.phone_number }}.
+
+Should you have any questions or need assistance, our friendly team is here to help. Feel free to reach out to us at {{ contact_email }}.
+
+Thank you for choosing Amelia Mae Cosmetics. We appreciate your support!
+
+Warmest regards,
+
+The Amelia Mae Cosmetics Team
