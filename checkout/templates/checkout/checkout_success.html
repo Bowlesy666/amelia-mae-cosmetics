@@ -10,7 +10,6 @@
 {% block og_url %}not default{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
 {% endblock %}
 
 {% block extra_title %}Secure Checkout{% endblock %}
@@ -218,11 +217,11 @@
                         <div class="row">
                             <div class="col text-right mt-5 mb-2">
                                 {% if from_profile %}
-                                <a href="{% url 'profile' %}" class="btn btn-black rounded-0 my-2">
+                                <a href="{% url 'profile' %}" class="btn btn-black rounded-0 shadow my-2">
                                     <span class="icon mr-2">
                                         <i class="fas fa-angle-left"></i>
                                     </span>
-                                    <span class="text-uppercase">Back to Profile</span>
+                                    <span class="text-uppercase">View profile & order history</span>
                                 </a>
                                 {% endif %}
                                 <span>Don't forget to </span>
