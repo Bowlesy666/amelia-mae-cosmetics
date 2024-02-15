@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- Head tags -->
+{% block meta_description %}Product Admin for Amelia Mae Cosmetics store owners and managers{% endblock %}
+
+{% block og_title %}Amelia Mae Cosmetics Product Admin{% endblock %}
+{% block og_description %}Product Admin for Amelia Mae Cosmetics store owners and managers, keep your store fresh and up to date{% endblock %}
+{% block og_image %}not default{% endblock %}
+{% block og_url %}not default{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block extra_title %}Product Admin{% endblock %}
+<!-- end Head tags -->
+
+{% block page_header %}
+<div class="header-container">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid white-smoke py-5">
+    <div class="row py-3">
+        <div class="col text-center white-smoke">
+            <h1 class="logo-font mt-3 h-100">Choose your admin activity...</h1>
+        </div>
+    </div>
+    <div class="col-lg-9 pb-5 px-0 container-fluid justify-content-center">
+        <div class="row py-5 white-smoke justify-content-center">
+
+            <div class="card col-md-2 py-5 my-5 mx-5 card-rounded white-smoke shadow">
+                <div class="row">
+                    <div class="col card-rounded">
+                        <div class="white-smoke card-rounded text-center">
+                            <a class="white-smoke w-100 stretched-link" href="{% url 'add_product' %}">
+                                <i class="fa-solid fa-arrow-up-right-dots fa-2xl mb-5"></i>
+                                <p>Add a Product</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card col-md-2 py-5 my-5 mx-5 card-rounded white-smoke shadow">
+                <div class="row">
+                    <div class="col card-rounded">
+                        <div class="white-smoke card-rounded text-center">
+                            <a class="white-smoke w-100 stretched-link" href="">
+                                <i class="fa-solid fa-pen-to-square fa-2xl mb-5"></i>
+                                <p>Delete a Product</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card col-md-2 py-5 my-5 mx-5 card-rounded white-smoke shadow">
+                <div class="row">
+                    <div class="col card-rounded">
+                        <div class="white-smoke card-rounded text-center">
+                            <a class="white-smoke w-100 stretched-link" href="">
+                                <i class="fa-solid fa-trash-can fa-2xl mb-5"></i>
+                                <p>Delete a Product</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+{% include 'products/includes/quantity_input_script.html' %}
+{% include 'products/includes/leave_a_review_script.html' %}
+{% endblock %}

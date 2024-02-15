@@ -84,6 +84,11 @@ def product_detail(request, product_id):
     return render(request, 'products/product_detail.html', context)
 
 
+def product_admin(request):
+    """ Choose the admin type for your store """
+    return render(request, 'products/product_admin.html')
+
+
 def add_product(request):
     """ Add a product to the store """
     form = ProductForm()
