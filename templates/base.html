@@ -50,7 +50,7 @@
             <div id="topnav" class="row pt-lg-2 d-none d-lg-flex">
                 <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
                     <a href="{% url 'home' %}" class="nav-link main-logo-link white-smoke">
-                        <img class="nav-logo-image align-top" src="../../media/amelia-mae-logo-jet.png" alt="Amelia Mae Logo, linking to the home page">
+                        <img class="nav-logo-image align-top" src="{{ MEDIA_URL }}amelia-mae-logo-jet.png" alt="Amelia Mae Logo, linking to the home page">
                     </a>
                 </div>
                 <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
@@ -79,7 +79,7 @@
                             <div class="dropdown-menu border-0 white-smoke" aria-labelledby="user-options">
                                 {% if request.user.is_authenticated %}
                                     {% if request.user.is_superuser %}
-                                        <a href="" class="dropdown-item">Product Management</a>
+                                        <a href="{% url 'product_admin' %}" class="dropdown-item">Product Management</a>
                                     {% endif %}
                                     <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
                                     <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
@@ -176,7 +176,7 @@
                     <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
 
                         <div class="rounded-circle bg-white shadow-xl d-flex align-items-center justify-content-center mb-4 mx-auto" style="width: 150px; height: 150px;">
-                            <img src="../../media/amelia-mae-logo-mimi-pink.png" height="150" alt=""
+                            <img src="{{ MEDIA_URL }}amelia-mae-logo-mimi-pink.png" height="150" alt=""
                                 loading="lazy" />
                         </div>
 
