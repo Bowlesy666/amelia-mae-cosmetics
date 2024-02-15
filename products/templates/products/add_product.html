@@ -1,0 +1,29 @@
+{% extends 'products/product_admin_base.html' %}
+{% load static %}
+
+<!-- Head tags -->
+{% block meta_description %}Amelia Mae Cosmetics admin facilities. Add new products to your store!{% endblock %}
+
+{% block og_title %}Amelia Mae Cosmetics Product Management - Add Product{% endblock %}
+{% block og_description %}Amelia Mae Cosmetics admin facilities. Keep your store up to date by adding products that consumers will love!{% endblock %}
+{% block og_image %}not default{% endblock %}
+{% block og_url %}not default{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block extra_title %}Product Management - Add Product{% endblock %}
+<!-- end Head tags -->
+
+{% block page_heading_title %}Add a Product{% endblock %}
+
+{% block inner_content %}
+<form method="POST" action="{% url 'add_product' %}" class="form mb-2" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form | crispy }}
+    <div class="text-right">
+        <a class="btn btn-outline-black rounded-0" href="{% url 'product_list' %}">Cancel</a>
+    <button class="btn btn-black rounded-0" type="submit">Add Product</button>
+    </div>
+</form>
+{% endblock %}
