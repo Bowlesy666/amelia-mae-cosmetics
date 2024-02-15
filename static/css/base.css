@@ -523,6 +523,9 @@ footer {
     color: #6c757d; /* text-secondary */
 }
 
+.form-inner-content input,
+.form-inner-content select,
+.form-inner-content textarea,
 .allauth-form-inner-content input,
 .allauth-form-inner-content select {
     border-color: #333333;
@@ -538,6 +541,7 @@ footer {
     color: #aab7c4;
 }
 
+.form-inner-content button,
 .allauth-form-inner-content button,
 .allauth-form-inner-content input[type='submit'] {
     /* btn */
@@ -561,6 +565,7 @@ footer {
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
+.form-inner-content button:hover,
 .allauth-form-inner-content button:hover,
 .allauth-form-inner-content input[type='submit']:hover {	
     color: #f4f4f4;
