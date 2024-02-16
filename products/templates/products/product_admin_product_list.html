@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- Head tags -->
+{% block meta_description %}Amelia Mae Cosmetics admin facilities. Edit or delete products in your store!{% endblock %}
+
+{% block og_title %}Amelia Mae Cosmetics Product Management - Edit or Delete Products{% endblock %}
+{% block og_description %}Amelia Mae Cosmetics admin facilities. Keep your store up to date by editing and deleting products{% endblock %}
+{% block og_image %}not default{% endblock %}
+{% block og_url %}not default{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block extra_title %}Product Management - Product List{% endblock %}
+<!-- end Head tags -->
+
+{% block page_header %}
+<div class="header-container">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid white-smoke py-5">
+    <div class="row py-3">
+        <div class="col text-center">
+            <h2 class="logo-font mt-3 h-100">Product Management - Product List</h2>
+        </div>
+    </div>
+    <div class="col px-3 py-5 container-fluid justify-content-center">
+        {% include 'products/includes/products_sorting.html' %}
+        <div class="row py-3 white-smoke">
+            {% if products %}
+                <span class="d-lg-none mt-5"><strong>Scroll right to see all product details and 'Delete' button.</strong></span>
+                <table class="table table-responsive-lg mb-5">
+                    <thead>
+                        <tr>
+                            <th scope="col">sku</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Skin Type</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Rating</th>
+                            <th scope="col">In Stock</th>
+                            <th scope="col">Restock</th>
+                            <th scope="col">Best Seller</th>
+                            <th scope="col">Stock</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in products %}
+                            <tr>
+                                {% include 'products/includes/product_admin_table_row.html' %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="col my-3 text-center">
+                    <p>Please amend your search term and try again...</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="btt-button shadow-sm card-rounded border cordovan border-black">
+        <a class="btt-link d-flex cordovan card-rounded h-100">
+            <i class="fas fa-arrow-up cordovan mx-auto my-auto"></i>
+        </a>	
+    </div>
+</div>
+{% endblock %}

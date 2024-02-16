@@ -1,0 +1,70 @@
+<!-- edit links -->
+<td>
+    <a href="{% url 'edit_product' product.id %}">
+        {{ product.sku }}
+    </a>
+</td>
+<td>
+    <a href="{% url 'edit_product' product.id %}">
+        {{ product.name }}
+    </a>
+</td>
+<td>
+    <a href="{% url 'edit_product' product.id %}">
+        {{ product.category | truncatechars:6 }}
+    </a>
+</td>
+<td>
+    <a href="{% url 'edit_product' product.id %}">
+        {{ product.skin_type | truncatechars:6 }}
+    </a>
+</td>
+<td>
+    <a href="{% url 'edit_product' product.id %}">
+        £{{ product.price }}
+    </a>
+</td>
+<td>
+    <a href="{% url 'edit_product' product.id %}">
+        {{ product.rating | floatformat:0 }} / 5
+    </a>
+</td>
+<td>
+    <a href="{% url 'edit_product' product.id %}">
+        {% if product.is_out_of_stock %}
+        <i class="fa-solid fa-square-xmark fa-xl text-danger"></i>
+        {% else %}
+        <i class="fa-solid fa-square-check fa-xl text-success"></i>
+        {% endif %}
+    </a>
+</td>
+<td>
+    <a href="{% url 'edit_product' product.id %}">
+        {% if product.is_discontinued %}
+        <i class="fa-solid fa-square-xmark fa-xl text-danger"></i>
+        {% else %}
+        <i class="fa-solid fa-square-check fa-xl text-success"></i>
+        {% endif %}
+    </a>
+</td>
+<td>
+    <a href="{% url 'edit_product' product.id %}">
+        {% if product.is_best_seller %}
+        <i class="fa-solid fa-square-check fa-xl text-success shadow"></i>
+        {% else %}
+        <i class="fa-solid fa-square-xmark fa-xl text-danger shadow"></i>
+        {% endif %}
+    </a>
+</td>
+<td>
+    <a href="{% url 'edit_product' product.id %}">
+        {{ product.quantity }}
+    </a>
+</td><!-- end edit links -->
+
+<!-- delete link -->
+<td>
+    <a href="{% url 'delete_product' product.id %}">
+        <i class="fa-solid fa-trash-can"></i> Delete
+    </a>
+</td><!-- end delete link -->
