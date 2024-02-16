@@ -7,8 +7,11 @@ from .models import Product, Category, SkinType
 from .forms import ProductForm
 
 
-def all_products(request):
-    """ A view to show all products, including sorting and search queries """
+def get_products_and_sorting(request, template_name):
+    """
+    function to show all products, including sorting and search queries
+    must pass the template name from view
+    """
     products = Product.objects.all()
 
     query = None
@@ -70,7 +73,17 @@ def all_products(request):
         'current_sorting': current_sorting,
     }
 
-    return render(request, 'products/products_list.html', context)
+    return render(request, template_name, context)
+
+
+def all_products(request):
+    """ View for consumer to see all products, includes sorting function """
+    return get_products_and_sorting(request, 'products/products_list.html')
+
+
+def admin_products_list(request):
+    """ View for consumer to see all products, includes sorting function """
+    return get_products_and_sorting(request, 'products/product_admin_product_list.html')
 
 
 def product_detail(request, product_id):
@@ -99,7 +112,7 @@ def add_product(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Successfully added product!')
-            return redirect(reverse('add_product'))
+            return redirect(reverse('product_admin'))
         else:
             messages.error(request, 'Failed to add product. Please ensure the form is valid.')
     else:
@@ -139,6 +152,13 @@ def edit_product(request, product_id):
 def delete_product(request, product_id):
     """ Delete a product from the store """
     product = get_object_or_404(Product, pk=product_id)
-    product.delete()
-    messages.success(request, 'Product successfully deleted!')
-    return redirect(reverse('product_list'))
+    if request.method == 'POST':
+        product.delete()
+        messages.success(request, 'Product successfully deleted!')
+        return redirect('admin_products_list')
+
+    context = {
+        'product': product
+    }
+        
+    return render(request, 'products/confirm_to_delete_product.html', context)
