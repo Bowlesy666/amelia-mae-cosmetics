@@ -1,7 +1,11 @@
 <div class="container">
     <div id="reviews" class="review-section">
         <div class="d-flex align-items-center justify-content-between mb-4">
-            <h4 class="m-0">37 Reviews</h4>
+            {% if reviews.count > 0 %}
+            <h4 class="m-0">{{ reviews.count }} Reviews</h4>
+            {% else %}
+            <p>We are in need of honest reviews, leave feedback for others to see!</p>
+            {% endif %}
         </div>
         <div class="row">
             <div class="col-md-6">
@@ -16,71 +20,72 @@
                             <td class="progress-bar-container">
                                 <div class="fit-progressbar fit-progressbar-bar star-progress-bar">
                                     <div class="fit-progressbar-background">
-                                        <span class="progress-fill" style="width: 50.3%;"></span>
+                                        
+                                        <span class="progress-fill" {{ five_stars_progress|safe }}></span>
                                     </div>
                                 </div>
                             </td>
-                            <td class="star-num">(36)</td>
+                            <td class="star-num">({{ ratings_count.five_stars }})</td>
                         </tr>
                         <tr class="">
                             <td>
                                 <span>
-                                    <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">5 Stars</button>
+                                    <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">4 Stars</button>
                                 </span>
                             </td>
                             <td class="progress-bar-container">
                                 <div class="fit-progressbar fit-progressbar-bar star-progress-bar">
                                     <div class="fit-progressbar-background">
-                                        <span class="progress-fill" style="width: 2.2973%;"></span>
+                                        <span class="progress-fill" {{ four_stars_progress|safe }}></span>
                                     </div>
                                 </div>
                             </td>
-                            <td class="star-num">(2)</td>
+                            <td class="star-num">({{ ratings_count.four_stars }})</td>
                         </tr>
                         <tr class="">
                             <td>
                                 <span>
-                                    <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">5 Stars</button>
+                                    <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">3 Stars</button>
                                 </span>
                             </td>
                             <td class="progress-bar-container">
                                 <div class="fit-progressbar fit-progressbar-bar star-progress-bar">
                                     <div class="fit-progressbar-background">
-                                        <span class="progress-fill" style="width: 0;"></span>
+                                        <span class="progress-fill" {{ three_stars_progress|safe }}></span>
                                     </div>
                                 </div>
                             </td>
-                            <td class="star-num">(0)</td>
+                            <td class="star-num">({{ ratings_count.three_stars }})</td>
                         </tr>
                         <tr class="">
                             <td>
                                 <span>
-                                    <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">5 Stars</button>
+                                    <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">2 Stars</button>
                                 </span>
                             </td>
                             <td class="progress-bar-container">
                                 <div class="fit-progressbar fit-progressbar-bar star-progress-bar">
                                     <div class="fit-progressbar-background">
-                                        <span class="progress-fill" style="width: 0;"></span>
+                                        <span class="progress-fill" {{ two_stars_progress|safe }}></span>
                                     </div>
                                 </div>
                             </td>
-                            <td class="star-num">(0)</td>
+                            <td class="star-num">({{ ratings_count.two_stars }})</td>
                         </tr>
                         <tr class="">
                             <td>
                                 <span>
-                                    <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">5 Stars</button>
+                                    <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">1 Stars</button>
                                 </span>
                             </td>
                             <td class="progress-bar-container">
                                 <div class="fit-progressbar fit-progressbar-bar star-progress-bar">
                                     <div class="fit-progressbar-background">
-                                        <span class="progress-fill" style="width: 0;"></span>
+                                        <span class="progress-fill" {{ one_stars_progress|safe }}></span>
                                     </div>
                                 </div>
                             </td>
-                            <td class="star-num">(0)</td>
+                            <td class="star-num">({{ ratings_count.one_stars }})</td>
                         </tr>
                     </tbody>
                 </table>
@@ -90,39 +95,45 @@
     </div>
 
     <div class="review-list">
-        <ul>
-            <li>
-                <div class="d-flex">
-                    <div class="left">
-                        <span>
-                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="profile-pict-img img-fluid" alt="" />
-                        </span>
-                    </div>
-                    <div class="right">
-                        <h4>
-                            Askbootstrap 
-                            <span class="text-body-2">
-                                <div class="d-inline-flex inline-star-rating-shadow">
-                                    <i class="fa-sharp fa-solid fa-star {% if product.rating >= 1 %}gold{% else %}silver{% endif %}"></i> 
-                                    <i class="fa-sharp fa-solid fa-star {% if product.rating >= 1.5 %}gold{% else %}silver{% endif %}"></i>
-                                    <i class="fa-sharp fa-solid fa-star {% if product.rating >= 2.5 %}gold{% else %}silver{% endif %}"></i>
-                                    <i class="fa-sharp fa-solid fa-star {% if product.rating >= 3.5 %}gold{% else %}silver{% endif %}"></i>
-                                    <i class="fa-sharp fa-solid fa-star {% if product.rating >= 4.5 %}gold{% else %}silver{% endif %}"></i>
+        {% if reviews %}
+            {% for review in reviews %}
+                <ul>
+                    <li>
+                        <div class="d-flex">
+                            <div class="left">
+                                <span>
+                                    <img src="{{ MEDIA_URL }}amelia-mae-logo-jet.png" class="img-fluid" alt="" />
+                                </span>
+                            </div>
+                            <div class="right">
+                                <h4>
+                                    {{ review.user.username }}
+                                    <span class="text-body-2">
+                                        <div class="d-inline-flex ml-2 inline-star-rating-shadow">
+                                            <i class="fa-sharp fa-solid fa-star fa-2xl {% if review.rating >= 1 %}gold{% else %}silver{% endif %}"></i> 
+                                            <i class="fa-sharp fa-solid fa-star fa-2xl {% if review.rating >= 1.5 %}gold{% else %}silver{% endif %}"></i>
+                                            <i class="fa-sharp fa-solid fa-star fa-2xl {% if review.rating >= 2.5 %}gold{% else %}silver{% endif %}"></i>
+                                            <i class="fa-sharp fa-solid fa-star fa-2xl {% if review.rating >= 3.5 %}gold{% else %}silver{% endif %}"></i>
+                                            <i class="fa-sharp fa-solid fa-star fa-2xl {% if review.rating >= 4.5 %}gold{% else %}silver{% endif %}"></i>
+                                        </div>
+                                    </span>
+                                </h4>
+                                <div class="review-description">
+                                    <p>{{ review.comment }}</p>
                                 </div>
-                            </span>
-                        </h4>
-                        
-                        <div class="review-description">
-                            <p>
-                                The process was smooth, after providing the required info, Pragyesh sent me an outstanding packet of wireframes. Thank you a lot!
-                            </p>
+                                {% if created_on == updated_on %}
+                                <span class="publish py-3 d-inline-block w-100">Published {{ review.created_on }}</span>
+                                {% else %}
+                                <span class="publish py-3 d-inline-block w-100">Updated {{ review.updated_on }}</span>
+                                {% endif %}
+                            </div>
                         </div>
-                        <span class="publish py-3 d-inline-block w-100">Published 4 weeks ago</span>
-                        
-                    </div>
-                </div>
-            </li>
-        </ul>
+                    </li>
+                </ul>
+            {% endfor %}
+        {% else %}
+            <p>be the first to review this product...</p>
+        {% endif %}
     </div>
 </div>
 

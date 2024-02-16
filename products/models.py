@@ -38,6 +38,7 @@ class Reviews(models.Model):
     """ Model representing the product reviews """
     class Meta:
         verbose_name_plural = 'Reviews'
+        ordering = ['-created_on']
 
     product = models.ForeignKey(
         'Product', on_delete=models.CASCADE, related_name='reviews',
@@ -50,6 +51,8 @@ class Reviews(models.Model):
         validators=[MinValueValidator(0),
         MaxValueValidator(5)]
     )
+    created_on = models.DateTimeField(auto_now=True)
+    updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         """ String to represent the Reviews Object """

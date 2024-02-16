@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.db.models.functions import Lower
 
 from django.shortcuts import render, redirect, reverse, get_object_or_404
-from .models import Product, Category, SkinType
+from .models import Product, Category, SkinType, Reviews
 from .forms import ProductForm
 
 
@@ -89,8 +89,45 @@ def admin_products_list(request):
 def product_detail(request, product_id):
     """ A view to show individual product detail """
     product = get_object_or_404(Product, pk=product_id)
+    reviews = Reviews.objects.filter(product_id=product_id)
+
+    ratings_count = {
+        'five_stars': reviews.filter(rating=5).count(),
+        'four_stars': reviews.filter(rating=4).count(),
+        'three_stars': reviews.filter(rating=3).count(),
+        'two_stars': reviews.filter(rating=2).count(),
+        'one_stars': reviews.filter(rating=1).count(),
+    }
+
+    def star_progress_method(ratings_value, reviews):
+        if reviews.count() != 0:
+            percentage = (
+                ratings_count[ratings_value] / reviews.count()
+                ) * 100
+
+            return f'style="width: { percentage }%;"'
+
+    five_stars_progress = star_progress_method(
+        'five_stars', reviews)
+    four_stars_progress = star_progress_method(
+        'four_stars', reviews)
+    three_stars_progress = star_progress_method(
+        'three_stars', reviews)
+    two_stars_progress = star_progress_method(
+        'two_stars', reviews)
+    one_stars_progress = star_progress_method(
+        'one_stars', reviews)
+
+    
 
     context = {
+        'reviews': reviews,
+        'ratings_count': ratings_count,
+        'five_stars_progress': five_stars_progress,
+        'four_stars_progress': four_stars_progress,
+        'three_stars_progress': three_stars_progress,
+        'two_stars_progress': two_stars_progress,
+        'one_stars_progress': one_stars_progress,
         'product': product,
     }
 
