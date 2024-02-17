@@ -54,6 +54,17 @@ class Reviews(models.Model):
     created_on = models.DateTimeField(auto_now=True)
     updated_on = models.DateTimeField(auto_now=True)
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        product = self.product
+        filtered_reviews = Reviews.objects.filter(product=product)
+        total_reviews = filtered_reviews.count()
+        total_ratings = sum(review.rating for review in filtered_reviews)
+        if total_reviews > 0:
+            find_average_rating = total_ratings / total_reviews
+            product.rating = find_average_rating
+            product.save(update_fields=['rating'])
+
     def __str__(self):
         """ String to represent the Reviews Object """
         return f"Review by {self.user.username}: {self.comment[:50]}..."
