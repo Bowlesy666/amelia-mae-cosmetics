@@ -166,6 +166,14 @@ def reviews_form(request, product_id):
     return redirect(redirect_url, product_id)
 
 
+def delete_review(request, product_id, review_id):
+    """ Delete a product from the store """
+    review = get_object_or_404(Reviews, pk=review_id)
+    review.delete()
+    messages.success(request, 'Review successfully deleted!')
+
+    return redirect(reverse('product_detail', args=[product_id]))
+
 def product_admin(request):
     """ Choose the admin type for your store """
     return render(request, 'products/product_admin.html')

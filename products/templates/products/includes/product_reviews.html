@@ -91,7 +91,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-6 card card-rounded mimi-pink py-3">
+            <div class="col-md-6 card card-rounded shadow mimi-pink py-3">
                 <h4>Leave your review:</h4>
                 {% if request.user.is_authenticated %}
                     <form method="POST" action="{% url 'reviews_form' product.id %}">
@@ -99,28 +99,28 @@
                         <input type="hidden" id="rating-value" value="0" name="rating" min="1" max="5">
                         <input type="hidden" name="redirect_url" value="{{ request.path }}">
                         <label for="comment">Comment:</label>
-                        <textarea class="white-smoke w-100" id="comment" name="comment" rows="4"></textarea>
+                        <textarea class="white-smoke review-text-area w-100 shadow" id="comment" name="comment" rows="4"></textarea>
                         <div class="d-flex justify-content-between mt-4">
                             <div>
                                 <label for="star-rating d-block">Star Rating:</label>
                                 <div id="star-rating" class="star-rating d-inline-flex">
-                                    <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
-                                    <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
-                                    <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
-                                    <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
-                                    <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
+                                    <span class="star"><i class="fa-sharp fa-solid fa-star star-rating shadow"></i></span>
+                                    <span class="star"><i class="fa-sharp fa-solid fa-star star-rating shadow"></i></span>
+                                    <span class="star"><i class="fa-sharp fa-solid fa-star star-rating shadow"></i></span>
+                                    <span class="star"><i class="fa-sharp fa-solid fa-star star-rating shadow"></i></span>
+                                    <span class="star"><i class="fa-sharp fa-solid fa-star star-rating shadow"></i></span>
                                 </div>
                             </div>
                             
-                            <button class="d-inline-flex" type="submit">Submit Review</button>
+                            <button class="d-inline-flex btn-dark shadow" type="submit">Submit Review</button>
                         </div>
                     </form>
                 {% else %}
                     <div class="my-5">
                         <strong>
-                            <a class="btn btn-outline-dark" href="{% url 'account_signup' %}">Create an account</a> 
+                            <a class="btn btn-outline-dark shadow" href="{% url 'account_signup' %}">Create an account</a> 
                             <p class="m-5">or</p> 
-                            <a class="btn btn-dark rounded px-5" href="{% url 'account_login' %}">login</a> to leave a review
+                            <a class="btn btn-dark shadow rounded px-5" href="{% url 'account_login' %}">login</a> to leave a review
                         </strong>
                     </div>
                 {% endif %}
@@ -136,7 +136,7 @@
                         <div class="d-flex">
                             <div class="left">
                                 <span>
-                                    <img src="{{ MEDIA_URL }}amelia-mae-logo-jet.png" class="img-fluid" alt="" />
+                                    <img src="{{ MEDIA_URL }}amelia-mae-logo-jet.png" class="img-fluid shadow" alt="" />
                                 </span>
                             </div>
                             <div class="right">
@@ -152,8 +152,17 @@
                                         </div>
                                     </span>
                                 </h4>
-                                <div class="review-description">
-                                    <p>{{ review.comment }}</p>
+                                <div class="review-description row">
+                                    <div class="col-10">
+                                        <p>{{ review.comment }}</p>
+                                    </div>
+                                    <div class="col-2">
+                                        {% if request.user == review.user %}
+                                        <a class="white-smoke" href="{% url 'delete_review' product.id review.id %}">
+                                            <i class="fa-solid white-smoke fa-trash-can shadow"></i> Delete
+                                        </a>
+                                        {% endif %}
+                                    </div>
                                 </div>
                                 {% if created_on == updated_on %}
                                 <span class="publish py-3 d-inline-block w-100">Published {{ review.created_on }}</span>
