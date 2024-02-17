@@ -1,14 +1,14 @@
 <div class="container">
     <div id="reviews" class="review-section">
-        <div class="d-flex align-items-center justify-content-between mb-4">
-            {% if reviews.count > 0 %}
-            <h4 class="m-0">{{ reviews.count }} Reviews</h4>
-            {% else %}
-            <p>We are in need of honest reviews, leave feedback for others to see!</p>
-            {% endif %}
-        </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 py-3">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    {% if reviews.count > 0 %}
+                    <h4 class="m-0">{{ reviews.count }} Reviews</h4>
+                    {% else %}
+                    <p>We are in need of honest reviews, leave feedback for others to see!</p>
+                    {% endif %}
+                </div>
                 <table class="stars-counters">
                     <tbody>
                         <tr class="">
@@ -90,7 +90,31 @@
                     </tbody>
                 </table>
             </div>
-            
+            <div class="col-md-6 card card-rounded mimi-pink py-3">
+                <h4>Leave your review:</h4>
+                <form method="POST" action="{% url 'reviews_form' product.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" id="rating-value" value="0" name="rating" min="1" max="5">
+                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                    <label for="comment">Comment:</label>
+                    <textarea class="white-smoke w-100" id="comment" name="comment" rows="4"></textarea>
+                    <div class="d-flex justify-content-between mt-4">
+                        <div>
+                            <label for="star-rating d-block">Star Rating:</label>
+                            <div id="star-rating" class="star-rating d-inline-flex">
+                                <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
+                                <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
+                                <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
+                                <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
+                                <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
+                            </div>
+                        </div>
+                        
+                        <button class="d-inline-flex" type="submit">Submit Review</button>
+                    </div>
+                    
+                </form>
+            </div>
         </div>
     </div>
 
@@ -135,17 +159,4 @@
             <p>be the first to review this product...</p>
         {% endif %}
     </div>
-</div>
-
-<div class="container">
-	
-    <div class="star-rating">
-        <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
-        <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
-        <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
-        <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
-        <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
-    </div>
-    <input type="hidden" id="rating-value" value="0">
-    
 </div>

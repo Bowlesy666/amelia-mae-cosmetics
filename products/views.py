@@ -4,7 +4,7 @@ from django.db.models.functions import Lower
 
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from .models import Product, Category, SkinType, Reviews
-from .forms import ProductForm
+from .forms import ProductForm, ReviewsForm
 
 
 def get_products_and_sorting(request, template_name):
@@ -118,8 +118,6 @@ def product_detail(request, product_id):
     one_stars_progress = star_progress_method(
         'one_stars', reviews)
 
-    
-
     context = {
         'reviews': reviews,
         'ratings_count': ratings_count,
@@ -132,6 +130,40 @@ def product_detail(request, product_id):
     }
 
     return render(request, 'products/product_detail.html', context)
+
+
+def reviews_form(request, product_id):
+    """ string """
+    redirect_url = request.POST.get('redirect_url')
+    if request.method == 'POST':
+        form = ReviewsForm(request.POST)
+        if form.is_valid():
+            # Process the form data
+            rating = form.cleaned_data['rating']
+            comment = form.cleaned_data['comment']
+            user_id = request.user.pk
+            product_id = product_id
+            
+            # Save the review to the database
+            Reviews.objects.create(
+                rating=rating,
+                comment=comment,
+                user_id=user_id,
+                product_id=product_id
+            )
+
+            # Redirect back to the product detail page
+            messages.success(request, "Successfully added your review!")
+            return redirect(redirect_url, product_id)
+    else:
+        # If the request method is not POST, redirect to the home page or handle it accordingly
+        messages.error(request, "Oops, your review was unsuccessful!")
+        return redirect(redirect_url, product_id)
+
+    # If the form is not valid or the request method is not POST,
+    # render the product detail page with the form
+    messages.error(request, "not POST!")
+    return redirect(redirect_url, product_id)
 
 
 def product_admin(request):

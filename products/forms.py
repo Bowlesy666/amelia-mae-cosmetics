@@ -1,5 +1,5 @@
 from django import forms
-from .models import Product, Category, SkinType
+from .models import Product, Category, Reviews
 
 
 class ProductForm(forms.ModelForm):
@@ -18,3 +18,20 @@ class ProductForm(forms.ModelForm):
             # match theme of the rest of the store
             for field_name, field in self.fields.items():
                 field.widget.attrs['class'] = 'border-black shadow rounded-0'
+
+
+class ReviewsForm(forms.Form):
+    rating = forms.IntegerField(widget=forms.HiddenInput(attrs={'id': 'rating-value'}))
+    comment = forms.CharField(label='Comment', widget=forms.Textarea)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        comment = cleaned_data.get('comment')
+        rating = cleaned_data.get('rating')
+
+        if not comment:
+            raise forms.ValidationError("Remember to add your comment here!")
+        if rating < 1:
+            raise forms.ValidationError("Remember to add your stars!")
+
+        return cleaned_data
