@@ -587,6 +587,16 @@ footer {
     color: #aab7c4;
 }
 
+/* -------------------- Articles Styles ----------------- */
+.article-hero-image {
+    background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/041.webp');
+    height: 50vh;
+}
+
+.articles-hero-overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
 /* Slightly larger container on xl screens */
 @media (min-width: 1200px) {
     .container {

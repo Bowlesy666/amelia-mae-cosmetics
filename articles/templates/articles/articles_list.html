@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- Head tags -->
+{% block meta_description %}Amelia Mae Cosmetics Articles, learn about your favourite brand and their world leading products{% endblock %}
+
+{% block og_title %}Amelia Mae Cosmetics Articles List{% endblock %}
+{% block og_description %}Amelia Mae Cosmetics Articles, learn about your favourite brand and their world leading products, keep up to date and in the know!{% endblock %}
+{% block og_image %}not default{% endblock %}
+{% block og_url %}not default{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block extra_title %}Articles & News{% endblock %}
+<!-- end Head tags -->
+
+{% block page_header %}
+<div class="header-container">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid white-smoke py-5">
+    <div class="p-5 text-center article-hero-image rounded-3">
+        <div class="articles-hero-overlay card-rounded p-3">
+            <div class="d-flex justify-content-center align-items-center h-100">
+            <div class="text-white">
+                <h2 class="logo-font mt-3 h-100">Amelia Mae Cosmetics Articles</h2>
+                <h3 class="mb-3 d-none d-sm-none d-md-block">Skincare Information & News</h3>
+                <a class="btn btn-outline-light btn-lg my-3" href="{% url 'product_list' %}" role="button">Shop Now</a>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="row py-3">
+        <div class="col text-center">
+            <h4 class="logo-font mt-3 h-100">SEO title in here</h4>
+        </div>
+    </div>
+    <div class="col px-3 py-5 container-fluid justify-content-center">
+        {% include 'products/includes/products_sorting.html' %}
+        <div class="row py-3 white-smoke">
+            {% if articles %}
+                <span class="d-lg-none mt-5"><strong>Scroll right to see all product details and 'Delete' button.</strong></span>
+                <table class="table table-responsive-lg mb-5">
+                    <thead>
+                        <tr>
+                            <th scope="col">sku</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Category</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for article in articles %}
+                            <tr>
+                                {% include 'products/includes/product_admin_table_row.html' %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="col my-3 text-center">
+                    <p>No articles to view at this time...</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="btt-button shadow-sm card-rounded border cordovan border-black">
+        <a class="btt-link d-flex cordovan card-rounded h-100">
+            <i class="fas fa-arrow-up cordovan mx-auto my-auto"></i>
+        </a>	
+    </div>
+</div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+    <script type="text/javascript">
+        $('.btt-link').click(function(e) {
+			window.scrollTo(0,0)
+		})
+    </script>
+    <script type="text/javascript">
+        $('#sort-selector').change(function() {
+            var selector = $(this);
+            var currentUrl = new URL(window.location);
+
+            var selectedVal = selector.val();
+            if(selectedVal != "reset"){
+                if(selectedVal === "skin_type_asc" || selectedVal === "skin_type_desc"){
+                    var sort = "skin_type";
+                    var direction = selectedVal.split("_")[2];
+                } else {
+                    var sort = selectedVal.split("_")[0];
+                    var direction = selectedVal.split("_")[1];
+                }
+
+                currentUrl.searchParams.set("sort", sort);
+                currentUrl.searchParams.set("direction", direction);
+
+                window.location.replace(currentUrl);
+            } else {
+                currentUrl.searchParams.delete("sort");
+                currentUrl.searchParams.delete("direction");
+
+                window.location.replace(currentUrl);
+            }
+        })
+    </script>
+{% endblock %}
