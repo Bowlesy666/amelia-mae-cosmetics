@@ -40,6 +40,7 @@
         <div class="col text-center">
             <h4 class="logo-font mt-3 h-100">SEO title in here</h4>
         </div>
+        <a class="btn btn-dark my-3 mt-5 mr-5" href="{% url 'add_article' %}" role="button">Add Article</a>
     </div>
     <div class="col px-3 py-5 container-fluid justify-content-center">
         {% include 'products/includes/products_sorting.html' %}
@@ -49,15 +50,38 @@
                 <table class="table table-responsive-lg mb-5">
                     <thead>
                         <tr>
-                            <th scope="col">sku</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Category</th>
+                            <th scope="col"></th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Content</th>
+                            <th scope="col">if superuser edit</th>
                         </tr>
                         </thead>
                         <tbody>
                             {% for article in articles %}
                             <tr>
-                                {% include 'products/includes/product_admin_table_row.html' %}
+                                <!-- view article links -->
+                                <td>
+                                    <a href="">
+                                        {{ article.image }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="">
+                                        {{ article.title }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="">
+                                        {{ article.content|truncatechars:150 }}
+                                    </a>
+                                </td>
+                                    <!-- end article links -->
+                                <!-- superuser edit link -->
+                                <td>
+                                    <a href="">
+                                        <i class="fa-solid fa-trash-can"></i> Delete
+                                    </a>
+                                </td><!-- superuser edit link -->
                             </tr>
                         {% endfor %}
                     </tbody>
