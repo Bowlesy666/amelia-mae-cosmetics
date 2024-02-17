@@ -1,4 +1,5 @@
 <div class="container">
+    
     <div id="reviews" class="review-section">
         <div class="row">
             <div class="col-md-6 py-3">
@@ -92,28 +93,37 @@
             </div>
             <div class="col-md-6 card card-rounded mimi-pink py-3">
                 <h4>Leave your review:</h4>
-                <form method="POST" action="{% url 'reviews_form' product.id %}">
-                    {% csrf_token %}
-                    <input type="hidden" id="rating-value" value="0" name="rating" min="1" max="5">
-                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                    <label for="comment">Comment:</label>
-                    <textarea class="white-smoke w-100" id="comment" name="comment" rows="4"></textarea>
-                    <div class="d-flex justify-content-between mt-4">
-                        <div>
-                            <label for="star-rating d-block">Star Rating:</label>
-                            <div id="star-rating" class="star-rating d-inline-flex">
-                                <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
-                                <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
-                                <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
-                                <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
-                                <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
+                {% if request.user.is_authenticated %}
+                    <form method="POST" action="{% url 'reviews_form' product.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" id="rating-value" value="0" name="rating" min="1" max="5">
+                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                        <label for="comment">Comment:</label>
+                        <textarea class="white-smoke w-100" id="comment" name="comment" rows="4"></textarea>
+                        <div class="d-flex justify-content-between mt-4">
+                            <div>
+                                <label for="star-rating d-block">Star Rating:</label>
+                                <div id="star-rating" class="star-rating d-inline-flex">
+                                    <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
+                                    <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
+                                    <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
+                                    <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
+                                    <span class="star"><i class="fa-sharp fa-solid fa-star star-rating"></i></span>
+                                </div>
                             </div>
+                            
+                            <button class="d-inline-flex" type="submit">Submit Review</button>
                         </div>
-                        
-                        <button class="d-inline-flex" type="submit">Submit Review</button>
+                    </form>
+                {% else %}
+                    <div class="my-5">
+                        <strong>
+                            <a class="btn btn-outline-dark" href="{% url 'account_signup' %}">Create an account</a> 
+                            <p class="m-5">or</p> 
+                            <a class="btn btn-dark rounded px-5" href="{% url 'account_login' %}">login</a> to leave a review
+                        </strong>
                     </div>
-                    
-                </form>
+                {% endif %}
             </div>
         </div>
     </div>
