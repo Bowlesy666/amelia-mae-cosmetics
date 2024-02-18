@@ -2,17 +2,17 @@
 {% load static %}
 
 <!-- Head tags -->
-{% block meta_description %}Amelia Mae Cosmetics Articles, Add new articles to keep your consumers up to date with products and news{% endblock %}
+{% block meta_description %}Amelia Mae Cosmetics Articles, update your article to keep your skincare news relevant{% endblock %}
 
-{% block og_title %}Amelia Mae Cosmetics Add New Article{% endblock %}
-{% block og_description %}Amelia Mae Cosmetics Articles, Add new articles to keep your consumers up to date with products and news{% endblock %}
+{% block og_title %}Amelia Mae Cosmetics Edit Article{% endblock %}
+{% block og_description %}Amelia Mae Cosmetics Articles, update your article to keep your skincare news relevant{% endblock %}
 {% block og_image %}not default{% endblock %}
 {% block og_url %}not default{% endblock %}
 
 {% block extra_css %}
 {% endblock %}
 
-{% block extra_title %}Add New Article{% endblock %}
+{% block extra_title %}Edit Article{% endblock %}
 <!-- end Head tags -->
 
 {% block page_header %}
@@ -30,14 +30,14 @@
             <div class="d-flex justify-content-center align-items-center h-100">
             <div class="text-white">
                 <h2 class="logo-font mt-3 h-100">Amelia Mae Cosmetics Articles</h2>
-                <h3 class="mb-3 d-none d-sm-none d-md-block">Add New Article</h3>
+                <h3 class="mb-3 d-none d-sm-none d-md-block">Edit Article</h3>
             </div>
             </div>
         </div>
     </div>
     <div class="row py-3">
         <div class="col text-center">
-            <h4 class="logo-font mt-3 h-100">SEO title in here</h4>
+            <h4 class="logo-font mt-3 h-100">You are editing: {{ article.title }}</h4>
         </div>
     </div>
     <div class="col px-3 py-5 container-fluid justify-content-center">
@@ -46,7 +46,7 @@
             {{ form | crispy }}
             <div class="text-right">
                 <a class="btn btn-outline-black rounded-0" href="{% url 'articles_list' %}">Cancel</a>
-            <button class="btn btn-black rounded-0" type="submit">Add Article</button>
+            <button class="btn btn-black rounded-0" type="submit">Submit Update</button>
             </div>
         </form>
     </div>

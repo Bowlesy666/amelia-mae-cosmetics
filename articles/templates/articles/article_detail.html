@@ -26,6 +26,7 @@
 {% block content %}
 <div class="container-fluid white-smoke py-5">
     <div class="p-5">
+        <!-- make image jumbotron/hero image -->
         {% if article.image %}
             <img class="img-fluid" src="{{ MEDIA_URL }}{{ article.image }}" alt="{{ article.title|truncatechars:50 }}">
         {% else %}
@@ -34,7 +35,7 @@
     </div>
     {% if request.user.is_superuser %}
         <div class="row pt-3 justify-content-center">
-            <a class="btn btn-dark mr-5" href="{% url 'add_article' %}" role="button">Edit this Article</a>
+            <a class="btn btn-dark mr-5" href="{% url 'edit_article' article.id %}" role="button">Edit this Article</a>
         </div>
     {% endif %}
     <div class="row py-3 justify-content-center">
@@ -46,7 +47,8 @@
             <h1 class="px-5"><strong>{{ article.title }}</strong></h1>
             <h2 class="px-5 my-5 overflow-hidden"><small>{{ article.content|safe }}</small></h2>
         </div>
-        <div>
+        <!-- col again then the next 2 rows inside it? -->
+        <div class="row">
             {% if article.product.id %}
             shop for {{ article.product }}
             {% endif %}
@@ -56,9 +58,9 @@
             {% if article.skin_type %}
             shop by {{ article.skin_type }} skin type
             {% endif %}
-
+        </div>
+        <div class="row">
             shop all 
-            
         </div>
     {% else %}
         <div class="col my-3 text-center">
