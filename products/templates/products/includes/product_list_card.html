@@ -28,9 +28,15 @@
         <i class="fa-sharp fa-solid fa-star {% if product.rating >= 4.5 %}gold{% else %}silver{% endif %}"></i>
     </span>
     <span class="position-absolute-favourite">
-        <!-- need to add the favourite model/field and logic here -->
-        <!-- <i class="fa-solid fa-heart"></i> -->
-        <i class="fa-regular fa-heart"></i>
+        {% if request.user.is_authenticated %}
+            {% if product in favourite_products %}
+                <a href="{% url 'delete_favourite' product.id %}?redirect={{ request.path }}"><i class="fa-solid fa-heart text-red"></i></a>
+            {% else %}
+                <a href="{% url 'add_favourite' product.id %}?redirect={{ request.path }}"><i class="fa-regular fa-heart text-red"></i></a>
+            {% endif %}
+        {% else %}
+            <a href=""><i class="fa-regular fa-heart text-red"></i></a>
+        {% endif %}
     </span>
     {% if product.is_discontinued and not product.is_out_of_stock %}
     <span class="ribbon ribbon-left px-5 shadow">Discontinued!<br>Only <strong>{{ product.quantity }}</strong> left</span>
