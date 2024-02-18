@@ -1,9 +1,11 @@
 from django.db.models import Q
 from django.contrib import messages
 from django.db.models.functions import Lower
+from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render, redirect, reverse, get_object_or_404
-from .models import Product, Category, SkinType, Reviews
+from .models import Product, Category, SkinType, Reviews, Favourite
 from .forms import ProductForm, ReviewsForm
 
 
@@ -118,6 +120,11 @@ def product_detail(request, product_id):
     one_stars_progress = star_progress_method(
         'one_stars', reviews)
 
+    if isinstance(request.user, AnonymousUser):
+        is_favourite = False
+    else:
+        is_favourite = Favourite.objects.filter(product_id=product_id, user=request.user).exists()
+
     context = {
         'reviews': reviews,
         'ratings_count': ratings_count,
@@ -127,6 +134,7 @@ def product_detail(request, product_id):
         'two_stars_progress': two_stars_progress,
         'one_stars_progress': one_stars_progress,
         'product': product,
+        'is_favourite': is_favourite,
     }
 
     return render(request, 'products/product_detail.html', context)
@@ -239,3 +247,21 @@ def delete_product(request, product_id):
     }
         
     return render(request, 'products/confirm_to_delete_product.html', context)
+
+
+def add_favourite(request, product_id):
+    product = Product.objects.get(pk=product_id)
+    favourite = Favourite.objects.get_or_create(user=request.user, product=product)
+    redirect_url = request.GET.get('redirect', reverse('product_list'))
+    messages.success(request, 'Product added to favourites')
+
+    return redirect(redirect_url)
+
+
+def delete_favourite(request, product_id):
+    product = Product.objects.get(pk=product_id)
+    favourite = Favourite.objects.filter(user=request.user, product=product).delete()
+    redirect_url = request.GET.get('redirect', reverse('product_list'))
+    messages.success(request, 'Product removed from favourites')
+
+    return redirect(redirect_url)
