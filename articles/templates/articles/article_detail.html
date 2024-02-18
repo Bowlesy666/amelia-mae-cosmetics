@@ -50,6 +50,11 @@
         <!-- col again then the next 2 rows inside it? -->
         <div class="row">
             {% if article.product.id %}
+                <div class="col-3">
+                    {% with article.product as product %}
+                    {% include 'products/includes/product_list_card.html' %}
+                    {% endwith %}
+                </div>
             shop for {{ article.product }}
             {% endif %}
             {% if article.category %}
