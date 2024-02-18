@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- Head tags -->
+{% block meta_description %}not default{% endblock %}
+
+{% block og_title %}Shop for Amelia Mae Skincare{% endblock %}
+{% block og_description %}Explore our wide range of high-quality skincare products designed to rejuvenate and nourish your skin. Find the perfect solution for your skincare needs today!{% endblock %}
+{% block og_image %}not default{% endblock %}
+{% block og_url %}not default{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block extra_title %}Shop all skincare products{% endblock %}
+<!-- end Head tags -->
+
+{% block page_header %}
+<div class="header-container">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid platinum pb-5">
+    <div class="row py-5">
+        <div class="col text-center platinum">
+            <h2 class="logo-font mt-3 mb-0 h-100">My Favourites</h2>
+            <a class="btn btn-dark btn-lg shadow-lg" href="{% url 'product_list' %}">Keep Shopping</a>
+        </div>
+    </div>
+    <div class="col-xl-9 px-0 my-5 container-fluid justify-content-center">
+        <div class="row py-3">
+            {% if request.user.is_authenticated %}
+                {% if products %}
+                    {% for product in products %}
+                        <div class="col-md-6 col-lg-4 col-xl-3 my-3 card-rounded">
+                            {% include 'products/includes/product_list_card.html' %}
+                            
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col my-3 text-center">
+                        <p>Please amend your search term and try again...</p>
+                        <p>Alternatively, why not check out our <a href="{% url 'product_list' %}?is_best_seller=True">Best Sellers</a></p>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="col my-3 text-center">
+                    <p>You need to be logged in to use this facility</p>
+                    <p>Login or register here<a href="{% url 'account_login' %}">Login</a></p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
