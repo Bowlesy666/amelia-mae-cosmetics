@@ -268,10 +268,4 @@ def delete_favourite(request, product_id):
 
 
 def favourites_list(request):
-    if isinstance(request.user, AnonymousUser):
-        products = []
-    else:
-        favourited_products = Favourite.objects.filter(user=request.user).values_list('product', flat=True)
-        products = Product.objects.filter(id__in=favourited_products)
-
-    return render(request, 'products/favourites_list.html', {'products': products})
+    return render(request, 'products/favourites_list.html')

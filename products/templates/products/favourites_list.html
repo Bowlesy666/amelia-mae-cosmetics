@@ -34,11 +34,10 @@
     <div class="col-xl-9 px-0 my-5 container-fluid justify-content-center">
         <div class="row py-3">
             {% if request.user.is_authenticated %}
-                {% if products %}
-                    {% for product in products %}
+                {% if favourite_products %}
+                    {% for product in favourite_products %}
                         <div class="col-md-6 col-lg-4 col-xl-3 my-3 card-rounded">
                             {% include 'products/includes/product_list_card.html' %}
-                            
                         </div>
                     {% endfor %}
                 {% else %}
