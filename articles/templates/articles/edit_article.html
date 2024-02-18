@@ -28,10 +28,11 @@
     <div class="p-5 text-center article-hero-image rounded-3">
         <div class="articles-hero-overlay card-rounded p-3">
             <div class="d-flex justify-content-center align-items-center h-100">
-            <div class="text-white">
-                <h2 class="logo-font mt-3 h-100">Amelia Mae Cosmetics Articles</h2>
-                <h3 class="mb-3 d-none d-sm-none d-md-block">Edit Article</h3>
-            </div>
+                <div class="text-white">
+                    <h2 class="logo-font mt-3 h-100">Amelia Mae Cosmetics Articles</h2>
+                    <h3 class="mb-3 d-none d-sm-none d-md-block">Edit Article</h3>
+                    <a class="btn btn-danger rounded-0" href="{% url 'delete_article' article.id %}">Delete Article</a>
+                </div>
             </div>
         </div>
     </div>

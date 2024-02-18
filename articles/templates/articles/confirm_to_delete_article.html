@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- Head tags -->
+{% block meta_description %}Article Admin for Amelia Mae Cosmetics store owners and managers, delete an article{% endblock %}
+
+{% block og_title %}Amelia Mae Cosmetics Delete Article{% endblock %}
+{% block og_description %}Article Admin for Amelia Mae Cosmetics store owners and managers, delete an article{% endblock %}
+{% block og_image %}not default{% endblock %}
+{% block og_url %}not default{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block extra_title %}Delete Article{% endblock %}
+<!-- end Head tags -->
+
+{% block page_header %}
+<div class="header-container">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid white-smoke">
+    <div class="row py-3">
+        <div class="col text-center white-smoke">
+            <h1 class="logo-font mt-3 h-100">Are you sure you want to delete?</h1>
+        </div>
+    </div>
+    <div class="col-lg-9 px-0 pb-5 white-smoke container-fluid justify-content-center">
+        <div class="row py-5 white-smoke">
+            <div class="card w-100 mb-3 mx-2 mx-lg-0 card-rounded white-smoke shadow">
+                <div class="row w-100">
+                    <div class="col-12">
+                        <P class="m-5"><strong>Are you sure you want to delete {{ article.title }}?</strong></P>
+                        <p class="mb-5 mx-5"><strong>This action can not be undone! Please consider archiving this post if you dont want to lose the information</strong></p>
+                        <form method="POST" action="{% url 'delete_article' article.id %}" class="form mb-5 mr-5" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="text-right">
+                                <a class="btn btn-outline-black rounded-0" href="{% url 'articles_list' %}">Back to all articles...</a>
+                            <button class="btn jet rounded" type="submit">Delete article</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

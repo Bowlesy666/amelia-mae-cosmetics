@@ -71,3 +71,18 @@ def edit_article(request, article_id):
     }
 
     return render(request, template, context)
+
+
+def delete_article(request, article_id):
+    """ Delete an article """
+    article = get_object_or_404(Article, pk=article_id)
+    if request.method == 'POST':
+        article.delete()
+        messages.success(request, 'Article successfully deleted!')
+        return redirect('articles_list')
+
+    context = {
+        'article': article,
+    }
+        
+    return render(request, 'articles/confirm_to_delete_article.html', context)
