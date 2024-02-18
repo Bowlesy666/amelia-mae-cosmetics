@@ -276,6 +276,10 @@ nav {
     top: 0px;
 }
 
+.text-red {
+    color: red;
+}
+
 .card-title-min-height-spacer {
     height: 85px;
 }

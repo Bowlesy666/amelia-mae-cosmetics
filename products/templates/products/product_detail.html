@@ -72,11 +72,6 @@
                         <form class="form" action="{% url 'add_to_bag' product.id %}" method="POST">
                             {% csrf_token %}
                             <div class="card-body h-100">
-                                <span class="position-absolute-favourite position-absolute-favourite-product-detail">
-                                    <!-- need to add the favourite model/field and logic here -->
-                                    <!-- <i class="fa-solid fa-heart"></i> -->
-                                    <i class="fa-regular fa-heart"></i>
-                                </span>
                                 <div class="my-2">
                                     <h2 class="card-title"><small>Product Details:</small></h2>
                                     <p class="card-text"><small>{{ product.description }}</small></p>
@@ -144,6 +139,17 @@
                                     <input type="hidden" name="redirect_url" value="{{ request.path }}">
                                     {% endif %}
                                 </div>
+                                <span class="position-absolute-favourite position-absolute-favourite-product-detail">
+                                    {% if request.user.is_authenticated %}
+                                        {% if is_favourite %}
+                                            <a href="{% url 'delete_favourite' product.id %}?redirect={{ request.path }}"><i class="fa-solid fa-heart text-red"></i></a>
+                                        {% else %}
+                                            <a href="{% url 'add_favourite' product.id %}?redirect={{ request.path }}"><i class="fa-regular fa-heart text-red"></i></a>
+                                        {% endif %}
+                                    {% else %}
+                                        <a href=""><i class="fa-regular fa-heart text-red"></i></a>
+                                    {% endif %}
+                                </span>
                             </div>
                         </form>
                     </div>
