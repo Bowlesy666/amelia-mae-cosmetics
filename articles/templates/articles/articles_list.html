@@ -57,7 +57,7 @@
                         <div class="col-md-{% if request.user.is_superuser %}7{% else %}9{% endif %} my-5">
                             <p class="my-4"><strong>{{ article.title }}</strong></p>
                             <p>{{ article.content|truncatechars:150 }}</p>
-                            <a class="stretched-link" href="">Continue reading article...</a>
+                            <a class="stretched-link" href="{% url 'article_detail' article.id %}">Continue reading article...</a>
                         </div>
                         {% if request.user.is_superuser %}
                         <div class="col-md-2 my-5 py-5">

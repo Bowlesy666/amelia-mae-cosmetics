@@ -1,4 +1,4 @@
-from django.shortcuts import render, reverse, redirect
+from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.contrib import messages
 
 from .models import Article
@@ -39,3 +39,11 @@ def add_article(request):
     return render(request, template, context)
 
 
+def article_detail(request, article_id):
+    article = get_object_or_404(Article, pk=article_id)
+
+    context = {
+        'article': article,
+    }
+
+    return render(request, 'articles/article_detail.html', context)
