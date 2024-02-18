@@ -40,7 +40,9 @@
         <div class="col text-center">
             <h4 class="logo-font mt-3 h-100">SEO title in here</h4>
         </div>
+        {% if request.user.is_superuser %}
         <a class="btn btn-dark my-3 mt-5 mr-5" href="{% url 'add_article' %}" role="button">Add Article</a>
+        {% endif %}
     </div>
     <div class="col py-5 px-0 justify-content-center">
         {% include 'products/includes/products_sorting.html' %}
