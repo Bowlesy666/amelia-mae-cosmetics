@@ -42,50 +42,36 @@
         </div>
         <a class="btn btn-dark my-3 mt-5 mr-5" href="{% url 'add_article' %}" role="button">Add Article</a>
     </div>
-    <div class="col px-3 py-5 container-fluid justify-content-center">
+    <div class="col py-5 px-0 justify-content-center">
         {% include 'products/includes/products_sorting.html' %}
         <div class="row py-3 white-smoke">
             {% if articles %}
-                <span class="d-lg-none mt-5"><strong>Scroll right to see all product details and 'Delete' button.</strong></span>
-                <table class="table table-responsive-lg mb-5">
-                    <thead>
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Content</th>
-                            <th scope="col">if superuser edit</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            {% for article in articles %}
-                            <tr>
-                                <!-- view article links -->
-                                <td>
-                                    <a href="">
-                                        {{ article.image }}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="">
-                                        {{ article.title }}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="">
-                                        {{ article.content|truncatechars:150 }}
-                                    </a>
-                                </td>
-                                    <!-- end article links -->
-                                <!-- superuser edit link -->
-                                <td>
-                                    <a href="">
-                                        <i class="fa-solid fa-trash-can"></i> Delete
-                                    </a>
-                                </td><!-- superuser edit link -->
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                <div class="col px-0 container">
+                    {% for article in articles %}
+                    <div class="row card-rounded mimi-pink my-5 mx-2 p-2">
+                        {% if article.image %}
+                            <img class="image-fluid product-card-image col-12 col-md-3 card-rounded shadow p-0" src="{{ MEDIA_URL }}{{ article.image }}" alt="">
+                        {% else %}
+                            <img class="image-fluid product-card-image col-12 col-md-3 card-rounded shadow p-0" src="{{ MEDIA_URL }}no_image.png" alt="">
+                        {% endif %}
+                        <div class="col-md-{% if request.user.is_superuser %}7{% else %}9{% endif %} my-5">
+                            <p class="my-4"><strong>{{ article.title }}</strong></p>
+                            <p>{{ article.content|truncatechars:150 }}</p>
+                            <a class="stretched-link" href="">Continue reading article...</a>
+                        </div>
+                        {% if request.user.is_superuser %}
+                        <div class="col-md-2 my-5 py-5">
+                            <a class="my-5 mimi-pink stretched-link" href="">
+                                <i class="fa-solid fa-trash-can pl-4"></i>
+                                <p>Edit / Delete</p>
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    {% endfor %}
+                </div>
+                
             {% else %}
                 <div class="col my-3 text-center">
                     <p>No articles to view at this time...</p>
