@@ -48,24 +48,31 @@
             <h2 class="px-5 my-5 overflow-hidden"><small>{{ article.content|safe }}</small></h2>
         </div>
         <!-- col again then the next 2 rows inside it? -->
-        <div class="row">
+        <div class="row justify-content-center">
             {% if article.product.id %}
-                <div class="col-3">
+                <div class="col-md-4 col-lg-3 my-5">
                     {% with article.product as product %}
                     {% include 'products/includes/product_list_card.html' %}
                     {% endwith %}
                 </div>
-            shop for {{ article.product }}
             {% endif %}
             {% if article.category %}
-            shop for {{ article.category }} category
+                <div class="col-md-4 col-lg-3 my-5">
+                    {% with article.category as category %}
+                    {% include 'products/includes/product_category_card.html' %}
+                    {% endwith %}
+                </div>
             {% endif %}
             {% if article.skin_type %}
-            shop by {{ article.skin_type }} skin type
+                <div class="col-md-4 col-lg-3 my-5">
+                    {% with article.skin_type as skin_type %}
+                    {% include 'products/includes/product_skin_type_card.html' %}
+                    {% endwith %}
+                </div>
             {% endif %}
         </div>
-        <div class="row">
-            shop all 
+        <div class="row mt-5 justify-content-center">
+            <a class="btn btn-outline-dark mr-5" href="{% url 'product_list' %}" role="button">Shop All Amelia Mae Products!</a>
         </div>
     {% else %}
         <div class="col my-3 text-center">

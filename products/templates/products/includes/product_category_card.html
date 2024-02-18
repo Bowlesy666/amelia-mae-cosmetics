@@ -1,0 +1,15 @@
+<div class="shadow white-smoke h-100 card-rounded">
+    <div class="card border-0 card-rounded white-smoke p-1">
+        <img
+            src="{% if product.image %}{{ product.image.url }}{% else %}{{ MEDIA_URL }}no_image.png{% endif %}"
+            class="card-img-top product-card-image card-rounded mb-4"
+            alt="{% if product.name %}{{ product.name }}{% else %}Amelia Mae luxury product{% endif %}"
+            >
+        <div class="card-body border-0 mb-0 white-smoke text-center">
+            <h5 class="card-title card-title-min-height-spacer mb-3"><strong>{{ category.name|title }}</strong></h5>
+        </div>
+    </div>
+    <div class="card-footer white-smoke py-3 border-top-0 card-rounded">
+        <a href="{% url 'product_list' %}?category={{ category.name }}" class="btn card-rounded shadow btn-outline-secondary d-flex justify-content-center stretched-link mt-3">Shop {{ category.name|title }}</a>
+    </div>
+</div>

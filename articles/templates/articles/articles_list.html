@@ -48,6 +48,8 @@
             {% if articles %}
                 <div class="col px-0 container">
                     {% for article in articles %}
+                    <!-- if articles.status is publish -->
+                    <!-- add articles to nav bars!! -->
                     <div class="row card-rounded mimi-pink my-5 mx-2 p-2">
                         {% if article.image %}
                             <img class="image-fluid product-card-image col-12 col-md-3 card-rounded shadow p-0" src="{{ MEDIA_URL }}{{ article.image }}" alt="">
