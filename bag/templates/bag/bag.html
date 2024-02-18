@@ -52,7 +52,21 @@
             <p>Oops! Looks like your shopping bag is empty!</p>
             <p><strong>Lets continue shopping! <a href="{% url 'product_list' %}">Shop all products</a></strong></p>
         </div>
-    {% endif %}   
+    {% endif %}
+    {% if favourite_products %}
+    <div class="row py-3 text-center">
+        <div class="col text-center white-smoke">
+            <h3 class="logo-font mt-3 h-100">Its never too late to add some of your favourites...</h3>
+        </div>
+    </div>
+    <div class="row py-3">
+        {% for product in favourite_products %}
+            <div class="col-md-6 col-lg-4 col-xl-3 my-3 card-rounded">
+                {% include 'products/includes/product_list_card.html' %}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 </div>
 
 {% endblock %}
