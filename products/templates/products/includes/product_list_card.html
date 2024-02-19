@@ -17,7 +17,7 @@
         <div class="card-body border-0 mb-0 white-smoke">
             <h5 class="card-title card-title-min-height-spacer mb-3">{{ product.name|truncatechars:50 }}</h5>
             <span class="product-card-price">£ {{ product.price }}</span>
-            <a href="{% url 'product_detail' product.id %}" class="btn card-rounded shadow btn-outline-secondary d-flex justify-content-center stretched-link mt-3">View Product</a>
+            <a href="{% url 'product_detail' product.id %}" class="btn card-rounded shadow btn-outline-dark d-flex justify-content-center stretched-link mt-3">View Product</a>
         </div>
     </div>
     <span class="position-absolute-rating">
