@@ -1,7 +1,7 @@
 <div class="shadow white-smoke h-100 card-rounded">
     <div class="card border-0 card-rounded white-smoke p-1">
         <img
-            src="{% if product.image %}{{ product.image.url }}{% else %}{{ MEDIA_URL }}no_image.png{% endif %}"
+            src="{{ MEDIA_URL }}skin_type.png"
             class="card-img-top product-card-image card-rounded mb-4"
             alt="{% if product.name %}{{ product.name }}{% else %}Amelia Mae luxury product{% endif %}"
             >

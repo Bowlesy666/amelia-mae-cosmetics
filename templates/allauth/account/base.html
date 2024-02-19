@@ -21,12 +21,15 @@
         <div class="row white-smoke mx-2 card-rounded shadow">
             <div class="col card mx-lg-0 white-smoke card-rounded">
                 <div class="row">
-                    <div class="col-xl-8 p-5 card-rounded allauth-form-inner-content">
+                    <div class="col-xl-8 p-5 my-auto card-rounded allauth-form-inner-content">
                         {% block inner_content %}
                         {% endblock %}
                     </div>
-                <div class="d-none d-xl-block col-xl-4 mimi-pink shadow card-rounded p-5">
-                    <p class="m-5">whack a disapearing on small screen image in here</p>
+                    <div class="d-none d-xl-block col-xl-4 mimi-pink shadow card-rounded h-100 p-2">
+                        <div class="h-100 w-100 overflow-hidden">
+                            <img class="img-fluid card-rounded shadow" src="{{ MEDIA_URL }}tall_allauth.png" alt="Woman with great skin, amelia mae cosmetics">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

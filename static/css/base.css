@@ -593,12 +593,28 @@ footer {
 
 /* -------------------- Articles Styles ----------------- */
 .article-hero-image {
-    background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/041.webp');
+    background-image: url('../../media/main_article_banner.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
     height: 50vh;
+    min-width: 100vw;
+}
+
+.article-detail-hero-image {
+    position: absolute;
+    height: 50vh;
+    width: 100%;
+    position: center center;
+    object-fit: cover;
 }
 
 .articles-hero-overlay {
     background-color: rgba(0, 0, 0, 0.6);
+}
+
+.article-detail-hero-spacer {
+    height: 50vh;
 }
 
 /* Slightly larger container on xl screens */
@@ -606,6 +622,16 @@ footer {
     .container {
       max-width: 80%;
     }
+}
+
+/* ---------  side panel image, allauth pages  ----------- */
+
+.tall-panel-image {
+    position: absolute;
+    height: auto;
+    width: 100%;
+    position: center center;
+    object-fit: cover;
 }
  
 @media (min-width: 992px) {

@@ -25,13 +25,16 @@
 
 {% block content %}
 <div class="container-fluid white-smoke py-5">
-    <div class="p-5">
-        <!-- make image jumbotron/hero image -->
-        {% if article.image %}
-            <img class="img-fluid" src="{{ MEDIA_URL }}{{ article.image }}" alt="{{ article.title|truncatechars:50 }}">
-        {% else %}
-            <img class="img-fluid product-card-image col-12 col-md-3 card-rounded shadow p-0" src="{{ MEDIA_URL }}no_image.png" alt="">
-        {% endif %}
+    <div class="row p-5">
+        <div class="article-detail-hero-spacer"></div>
+        <div class="col-12 d-flex justify-content-center">
+                <!-- make image jumbotron/hero image -->
+            {% if article.image %}
+                <img class="article-detail-hero-image card-rounded shadow" src="{{ MEDIA_URL }}{{ article.image }}" alt="{{ article.title|truncatechars:50 }}">
+            {% else %}
+                <img class="article-detail-hero-image card-rounded shadow" src="{{ MEDIA_URL }}no_image.png" alt="">
+            {% endif %}
+        </div>
     </div>
     {% if request.user.is_superuser %}
         <div class="row pt-3 justify-content-center">
