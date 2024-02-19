@@ -28,6 +28,7 @@
                                         </span>
                                     </button>
                                 </div>
+                                <input type="hidden" class="threshold threshold_{{ item.item_id }}" value="{{ item.product.quantity }}">
                                 <input class="form-control qty_input order-6 id_qty_{{ item.item_id }}" type="number"
                                     name="quantity" value="{{ item.quantity }}" min="1" max="99"
                                     data-item_id="{{ item.item_id }}" id="id_qty_{{ item.item_id }}">
