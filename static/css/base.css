@@ -88,6 +88,15 @@ nav {
     width: auto;
 }
 
+.jumbotron-trial {
+    background-image: url('../../media/home_page_bg.png');
+    height: 85vh;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-width: 100vw;
+}
+
 .home-jumbotron-image {
     height: 235px;
     width: auto;
@@ -597,8 +606,9 @@ footer {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    overflow: hidden;
     height: 50vh;
-    min-width: 100vw;
+    min-width: 100%;
 }
 
 .article-detail-hero-image {
