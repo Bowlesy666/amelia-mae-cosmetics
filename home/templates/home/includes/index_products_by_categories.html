@@ -2,29 +2,18 @@
     <h4 class="ml-5 pl-5">View products by category...</h4>
     <div class="container py-5">
         <div class="row">
-            <div class="col-md-6 col-lg-3 my-3"
-                data-aos="fade-in"
-                data-aos-delay="50"
-                data-aos-duration="1500"
-                data-aos-easing="ease-in-out"
-                data-aos-once="false"
-                data-aos-anchor-placement="center-bottom"
-                >
-                <div class="shadow-lg">
-                    <div class="card border-0">
-                        <img src="https://picsum.photos/200/150" class="card-img-top" alt="...">
-                        <div class="card-body border-0 mb-0 white-smoke">
-                            <h5 class="card-title">Category Title</h5>
-                            <a href="#" class="btn shadow platinum d-flex justify-content-center stretched-link">View Category</a>
-                        </div>
-                        
-                    </div>
-                    <div class="card-footer white-smoke py-4 border-top-0">
-                        <a href="#" class="btn shadow mimi-pink d-flex justify-content-center">Quick add</a>
-                    </div>
+            {% for category in category_list %}
+                <div class="col-md-6 col-lg-4 col-xl-3 my-3 card-rounded"
+                    data-aos="fade-in"
+                    data-aos-delay="50"
+                    data-aos-duration="1500"
+                    data-aos-easing="ease-in-out"
+                    data-aos-once="false"
+                    data-aos-anchor-placement="center-bottom">
+                    {% include 'products/includes/product_category_card.html' %}
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-3 my-3"
+            {% endfor %}
+            <div class="col-md-6 col-lg-4 col-xl-3 my-3 card-rounded"
                 data-aos="fade-in"
                 data-aos-delay="50"
                 data-aos-duration="1500"
@@ -32,54 +21,10 @@
                 data-aos-once="false"
                 data-aos-anchor-placement="center-bottom"
                 >
-                <div class="shadow-lg">
-                    <div class="card border-0">
-                        <img src="https://picsum.photos/200/150" class="card-img-top" alt="...">
-                        <div class="card-body border-0 mb-0 white-smoke">
-                            <h5 class="card-title">Category Title</h5>
-                            <a href="#" class="btn shadow platinum d-flex justify-content-center stretched-link">View Category</a>
-                        </div>
-                        
-                    </div>
-                    <div class="card-footer white-smoke py-4 border-top-0">
-                        <a href="#" class="btn shadow mimi-pink d-flex justify-content-center">Quick add</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 my-3"
-                data-aos="fade-in"
-                data-aos-delay="50"
-                data-aos-duration="1500"
-                data-aos-easing="ease-in-out"
-                data-aos-once="false"
-                data-aos-anchor-placement="center-bottom"
-                >
-                <div class="shadow-lg">
-                    <div class="card border-0">
-                        <img src="https://picsum.photos/200/150" class="card-img-top" alt="...">
-                        <div class="card-body border-0 mb-0 white-smoke">
-                            <h5 class="card-title">Category Title</h5>
-                            <a href="#" class="btn shadow platinum d-flex justify-content-center stretched-link">View Category</a>
-                        </div>
-                        
-                    </div>
-                    <div class="card-footer white-smoke py-4 border-top-0">
-                        <a href="#" class="btn shadow mimi-pink d-flex justify-content-center">Quick add</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 my-3"
-                data-aos="fade-in"
-                data-aos-delay="50"
-                data-aos-duration="1500"
-                data-aos-easing="ease-in-out"
-                data-aos-once="false"
-                data-aos-anchor-placement="center-bottom"
-                >
-                <div class="shadow-lg h-100">
-                    <div class="card h-100 platinum-opacity-low">
+                <div class="h-100">
+                    <div class="card h-100 shadow platinum-opacity-low card-rounded">
                         <div class="card-body d-flex align-items-center justify-content-center">
-                            <a href="#" class="btn shadow mimi-pink my-auto stretched-link">View all Categories -></a>
+                            <a href="{% url 'product_list' %}" class="btn shadow mimi-pink my-auto stretched-link">View all Products -></a>
                         </div>
                     </div>
                 </div>

@@ -9,7 +9,6 @@ def user_favourites(request):
         favourite_products = Product.objects.filter(id__in=favourited_by_user)
     else:
         favourite_products = favourited_by_user
-    
 
     context = {
         'favourite_products': favourite_products,
