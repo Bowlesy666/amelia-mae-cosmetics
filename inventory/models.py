@@ -1,6 +1,6 @@
 from django.db import models
 
-from products.models import products
+from products.models import Product
 
 
 class InventoryItem(models.Model):
@@ -11,7 +11,7 @@ class InventoryItem(models.Model):
     supplier_email = models.EmailField(max_length=254, blank=True)
     last_reorder_date = models.DateField(null=True, blank=True)
     is_expecting_delivery = models.BooleanField(default=False)
-    cost_per_product = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    cost_per_product = models.DecimalField(max_digits=10, decimal_places=2, default=10)
     total_units_sold = models.PositiveIntegerField(default=0)
     total_lost_or_damaged = models.PositiveIntegerField(default=0)
     total_revenue_generated = models.DecimalField(max_digits=10, decimal_places=2, default=0)
