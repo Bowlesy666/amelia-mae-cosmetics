@@ -7,7 +7,7 @@ from .forms import ArticleForm
 
 def articles_list(request):
     """ Display all articles """
-    articles = Article.objects.all()
+    articles = Article.objects.order_by('-created_on')
 
     context = {
         'articles': articles,

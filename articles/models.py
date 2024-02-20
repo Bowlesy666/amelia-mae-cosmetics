@@ -21,5 +21,7 @@ class Article(models.Model):
         'products.SkinType', null=True, blank=True, on_delete=models.SET_NULL
     )
 
+    ordering = ['-created_on']
+
     def __str__(self):
         return self.title
