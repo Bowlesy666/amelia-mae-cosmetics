@@ -1,0 +1,70 @@
+{% extends 'products/product_admin_base.html' %}
+{% load static %}
+
+<!-- Head tags -->
+{% block meta_description %}Amelia Mae Cosmetics admin facilities. Edit products in your store!{% endblock %}
+
+{% block og_title %}Amelia Mae Cosmetics Product Management - Edit Product{% endblock %}
+{% block og_description %}Amelia Mae Cosmetics admin facilities. Keep your store up to date by editing products that consumers love!{% endblock %}
+{% block og_image %}not default{% endblock %}
+{% block og_url %}not default{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block extra_title %}Product Management - Edit Product{% endblock %}
+<!-- end Head tags -->
+
+{% block page_heading_title %}Edit a Product{% endblock %}
+
+{% block inner_content %}
+<form method="POST" action="" class="form mb-2" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form | crispy }}
+    <div class="row">
+        <div class="col-4">
+            <p class="my-3"><strong>Total Lost or damaged products:</strong></p>
+            <p>{{ inventory_item.total_lost_or_damaged }}</p>
+        </div>
+        <div class="col-6">
+            <p class="my-3"><strong>Update Lost or damaged products:</strong></p>
+            {{ inventory_item.product.quantity }}{{ product.quantity }}
+            <div class="form-group">
+                <div class="input-group qty-input-width input-group-{{ inventory_item.id }}">
+                    <div class="input-group-prepend order-12 decrement-qty_{{ inventory_item.id }}">
+                        <button class="decrement-qty decrement-qty_{{ inventory_item.id }} btn btn-black rounded-0" 
+                            data-item_id="{{ inventory_item.id }}" id="decrement-qty_{{ inventory_item.id }}">
+                            <span class="icon">
+                                <i class="fas fa-minus"></i>
+                            </span>
+                        </button>
+                    </div>
+                    <input class="currently_in_stock_{{ inventory_item.id }}" type="hidden" value="{{ inventory_item.product.quantity }}">
+                    <input type="hidden" class="threshold threshold_{{ inventory_item.id }}" value="{{ inventory_item.product.quantity }}">
+                    <input class="form-control qty_input id_qty_{{ inventory_item.id }} order-6" type="number"
+                        name="quantity" value="0" min="0" max="{{ inventory_item.product.quantity }}"
+                        data-item_id="{{ inventory_item.id }}" id="id_qty_{{ inventory_item.id }}">
+                    <div class="input-group-append order-1 increment-qty_{{ inventory_item.id }}">
+                        <button class="increment-qty increment-qty_{{ inventory_item.id }} btn btn-black rounded-0"
+                            data-item_id="{{ inventory_item.id }}" id="increment-qty_{{ inventory_item.id }}">
+                            <span class="icon">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="text-right">
+        <a class="btn btn-outline-black rounded-0" href="{% url 'product_list' %}">Cancel</a>
+    <button class="btn btn-black rounded-0" type="submit">Update Product</button>
+    </div>
+</form>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+{% include 'inventory/includes/inventory_quantity_input_script.html' %}
+{% endblock %}

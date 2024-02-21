@@ -47,10 +47,11 @@
                             <th scope="col">Reordered on</th>
                             <th scope="col">Expecting Delivery</th>
                             <th scope="col">Cost Per Unit</th>
+                            <th scope="col">Stock</th>
                             <th scope="col">Total Sold</th>
                             <th scope="col">Lost / Damaged</th>
-                            <th scope="col">Stock</th>
                             <th scope="col">Total Revenue</th>
+                            <th scope="col">Edit / Reorder</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,6 +104,11 @@
                                 <td>
                                     <a href="{% url 'edit_product' product.id %}">
                                         £{{ product.cost_per_product }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'edit_product' product.id %}">
+                                        {{ product.product.quantity }}
                                     </a>
                                 </td>
                                 <td>
