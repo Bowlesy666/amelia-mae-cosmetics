@@ -112,11 +112,7 @@
                                                         </span>
                                                     </button>
                                                 </div>
-                                                {% for item in bag_items %}
-                                                    {% if product.i == item.id %}
-                                                        <input class="currently_in_bag_{{ item.item_id }}" type="hidden" value="0">
-                                                    {% endif %}
-                                                {% endfor %}
+                                                <input class="currently_in_bag_{{ product.id }}" type="hidden" value="0">
                                                 <input type="hidden" class="threshold threshold_{{ product.id }}" value="{{ product.quantity }}">
                                                 <input class="form-control qty_input id_qty_{{ product.id }} order-6" type="number"
                                                     name="quantity" value="1" min="1" max="99"
