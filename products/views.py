@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from .models import Product, Category, SkinType, Reviews, Favourite
+from inventory.models import InventoryItem
 from .forms import ProductForm, ReviewsForm
 
 
@@ -15,6 +16,7 @@ def get_products_and_sorting(request, template_name):
     must pass the template name from view
     """
     products = Product.objects.all()
+    inventory_item_list = InventoryItem.objects.all()
 
     query = None
     categories = None
@@ -73,6 +75,7 @@ def get_products_and_sorting(request, template_name):
         'search_term': query,
         'current_categories': categories,
         'current_sorting': current_sorting,
+        'inventory_item_list': inventory_item_list,
     }
 
     return render(request, template_name, context)
