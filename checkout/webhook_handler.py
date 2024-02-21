@@ -6,6 +6,7 @@ from django.conf import settings
 from .models import Order, OrderLineItem
 from products.models import Product
 from profiles.models import UserProfile
+from inventory.views import auto_check_inventory_item_quantity
 
 import json
 import stripe
@@ -105,6 +106,7 @@ class StripeWH_Handler:
                 time.sleep(1)
         if order_exists:
             self._send_confirmation_email(order)
+            auto_check_inventory_item_quantity(order)
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
                 status=200)
@@ -136,13 +138,13 @@ class StripeWH_Handler:
                             quantity=item_data,
                         )
                         order_line_item.save()
+                        auto_check_inventory_item_quantity(order)
             except Exception as e:
                 if order:
                     order.delete()
                 return HttpResponse(
                     content=f'Webhook received: {event["type"]} | ERROR: {e}',
                     status=500)
-        self._send_confirmation_email(order)
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
             status=200)
