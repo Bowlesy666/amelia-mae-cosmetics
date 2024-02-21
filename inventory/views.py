@@ -50,16 +50,22 @@ def auto_check_inventory_item_quantity(order):
     supplier_orders = {}
     for product_id, quantity in original_bag.items():
         inventory_item = InventoryItem.objects.get(product_id=product_id)
+        print('inventory item quantity:', inventory_item.product.quantity)
         
         supplier_name = inventory_item.supplier_name
-        min_order_quantity = inventory_item.min_order_quantity
-        
-        if supplier_name not in supplier_orders:
-            supplier_orders[supplier_name] = []
-        
-        supplier_orders[supplier_name].append(product_id)
+        total_stock = inventory_item.product.quantity
+        min_threshold = inventory_item.min_threshold
+        if total_stock <= min_threshold:
+            if supplier_name not in supplier_orders:
+                supplier_orders[supplier_name] = []
+            
+            supplier_orders[supplier_name].append(product_id)
 
-    print(supplier_orders)
+    if supplier_orders:
+        for supplier_name, product_ids in supplier_orders.items():
+            print("Supplier Name:", supplier_name)
+            print("Product IDs:", product_ids)
+
         # inventory_item = InventoryItem.objects.get(product_id=product_id)
         # print(inventory_item)
         # if order.original_bag[product_id] <= inventory_item.min_order_quantity:
