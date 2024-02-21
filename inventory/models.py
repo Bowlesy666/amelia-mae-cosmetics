@@ -7,8 +7,10 @@ class InventoryItem(models.Model):
     product = models.OneToOneField(Product, on_delete=models.CASCADE)
     min_threshold = models.PositiveIntegerField(default=20)
     min_order_quantity = models.PositiveIntegerField(default=100)
-    supplier_name = models.CharField(max_length=100, blank=True)
-    supplier_email = models.EmailField(max_length=254, blank=True)
+    supplier_name = models.CharField(
+        max_length=100, blank=False, default='Bowles Beauty Supplys')
+    supplier_email = models.EmailField(
+        max_length=254, blank=False, default='bowlesdevelopment906@gmail.com')
     last_reorder_date = models.DateField(null=True, blank=True)
     is_expecting_delivery = models.BooleanField(default=False)
     cost_per_product = models.DecimalField(max_digits=10, decimal_places=2, default=10)
