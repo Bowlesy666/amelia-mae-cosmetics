@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.template.loader import render_to_string
+from django.utils import timezone
 
 from products.views import get_products_and_sorting
 from .models import InventoryItem
@@ -76,6 +77,10 @@ def auto_check_inventory_item_quantity(order):
             for product_id in product_ids:
                 product = get_object_or_404(Product, id=product_id)
                 inventory_item = get_object_or_404(InventoryItem, product_id=product_id)
+                inventory_item.is_expecting_delivery = True
+                inventory_item.last_reorder_date = timezone.now()
+                inventory_item.save(update_fields=['is_expecting_delivery', 'last_reorder_date'])
+
                 inventory_items.append(inventory_item)
                 print('inventory items', inventory_items)
 
