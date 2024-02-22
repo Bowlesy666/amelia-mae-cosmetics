@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
+from django.template.loader import render_to_string
 
 from products.views import get_products_and_sorting
 from .models import InventoryItem
 from products.models import Product
 from .forms import InventoryItemForm
+from django.conf import settings
+from django.core.mail import send_mail
 
 import json
 
@@ -63,35 +66,31 @@ def auto_check_inventory_item_quantity(order):
 
     if supplier_orders:
         for supplier_name, product_ids in supplier_orders.items():
+            product_ids_count = len(product_ids)
             print("Supplier Name:", supplier_name)
             print("Product IDs:", product_ids)
+            print('Product count', product_ids_count)
 
-        # inventory_item = InventoryItem.objects.get(product_id=product_id)
-        # print(inventory_item)
-        # if order.original_bag[product_id] <= inventory_item.min_order_quantity:
-        #     supplier_name = inventory_item.supplier_name
-        #     if supplier_name not in supplier_orders:
-        #         supplier_orders[supplier_name] = []
+            products = []
+            inventory_items = []
+            for product_id in product_ids:
+                product = get_object_or_404(Product, id=product_id)
+                inventory_item = get_object_or_404(InventoryItem, product_id=product_id)
+                inventory_items.append(inventory_item)
+                print('inventory items', inventory_items)
+
+            cust_email = inventory_items[0].supplier_email
+            subject = render_to_string(
+                'inventory/supplier_restock_emails/restock_email_subject.txt')
+            body = render_to_string(
+                'inventory/supplier_restock_emails/restock_email_body.txt',
+                {'supplier_name': supplier_name,
+                'inventory_items': inventory_items,
+                'contact_email': settings.DEFAULT_FROM_EMAIL})
             
-        #     supplier_orders[supplier_name].append(product)
-
-    # print(supplier_orders)
-
-
-
-
-    # cust_email = inventory_item.supplier_email
-    # subject = render_to_string(
-    #     'checkout/confirmation_emails/confirmation_email_subject.txt',
-    #     {'inventory_item': inventory_item})
-    # body = render_to_string(
-    #     'checkout/confirmation_emails/confirmation_email_body.txt',
-    #     {'inventory_item': inventory_item, 'contact_email': settings.DEFAULT_FROM_EMAIL})
-    
-    # send_mail(
-    #     subject,
-    #     body,
-    #     settings.DEFAULT_FROM_EMAIL,
-    #     [cust_email]
-    # )
-
+            send_mail(
+                subject,
+                body,
+                settings.DEFAULT_FROM_EMAIL,
+                [cust_email]
+            )

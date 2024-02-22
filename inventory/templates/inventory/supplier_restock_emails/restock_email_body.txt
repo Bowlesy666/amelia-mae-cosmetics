@@ -1,0 +1,26 @@
+Dear {{ supplier_name }},
+
+
+We are writing to inform you that we are in need of the following stock:
+
+-----------------------------------------------------
+{% for inventory_item in inventory_items  %}
+Sku: {{ inventory_item.product.sku }} Name: {{ inventory_item.product }} Quantity: {{ inventory_item.min_order_quantity }}
+
+{% endfor %}
+-----------------------------------------------------
+
+Please deliver to the below within the agreed 24 hours, if at any time you feel the agreement will not be met please call urgently on 07783409714 and speak to our procurement team.
+
+Deliver to:
+Suite 5, Arundel House,
+Ackhurst Business Park,
+Foxhole Road.
+Lancashire
+PR71NY
+
+We appreciate your continued support and look forwrad to promptly receiving our order!
+
+Warmest regards,
+
+The Amelia Mae Cosmetics Procurement Team
