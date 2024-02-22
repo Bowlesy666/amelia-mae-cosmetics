@@ -61,7 +61,11 @@ def manual_stock_order(request, inventory_item_id):
         if order_quantity < 1000 and order_quantity > 0:
             inventory_item.is_expecting_delivery = True
             inventory_item.last_reorder_date = timezone.now()
-            inventory_item.save(update_fields=['is_expecting_delivery', 'last_reorder_date'])
+            inventory_item.ordered_quantity += order_quantity
+            inventory_item.save(
+                update_fields=[
+                    'is_expecting_delivery', 'last_reorder_date',
+                    'ordered_quantity'])
             messages.success(request, f'Purchase order Successful! \
                 { inventory_item.product.name } x { order_quantity }') 
             cust_email = inventory_item.supplier_email
@@ -117,11 +121,13 @@ def auto_check_inventory_item_quantity(order):
         sale_price = inventory_item.product.price
         trade_cost = inventory_item.cost_per_product
 
-        total_revenue_generated = ((total_units_sold * sale_price) - (total_units_sold * trade_cost))
+        total_revenue_generated = (
+            (total_units_sold * sale_price) - (total_units_sold * trade_cost))
         inventory_item.total_revenue_generated = total_revenue_generated
-
-        inventory_item.save(update_fields=['total_units_sold', 'total_revenue_generated'])
-        if total_stock <= min_threshold:
+        inventory_item.save(
+            update_fields=['total_units_sold', 'total_revenue_generated'])
+        expecting_delivery = inventory_item.is_expecting_delivery
+        if total_stock <= min_threshold and not expecting_delivery:
             if supplier_name not in supplier_orders:
                 supplier_orders[supplier_name] = []
             
@@ -134,10 +140,16 @@ def auto_check_inventory_item_quantity(order):
             inventory_items = []
             for product_id in product_ids:
                 product = get_object_or_404(Product, id=product_id)
-                inventory_item = get_object_or_404(InventoryItem, product_id=product_id)
+                inventory_item = get_object_or_404(
+                    InventoryItem, product_id=product_id)
                 inventory_item.is_expecting_delivery = True
                 inventory_item.last_reorder_date = timezone.now()
-                inventory_item.save(update_fields=['is_expecting_delivery', 'last_reorder_date'])
+                order_quantity = inventory_item.min_order_quantity
+                inventory_item.ordered_quantity += order_quantity
+                inventory_item.save(
+                    update_fields=[
+                        'is_expecting_delivery', 'last_reorder_date',
+                        'ordered_quantity'])
 
                 inventory_items.append(inventory_item)
 
@@ -163,18 +175,10 @@ def inbound_stock_recieved(request, inventory_item_id, quantity):
     inventory_items = InventoryItem.objects.filter('is_expecting_delivery')
     product = inventory_item.product
 
-    quantities = {}
-    if quantity:
-        if inventory_item_id not in quantities:
-            quantities[inventory_item_id] = quantity
-        else:
-            quantities[inventory_item_id] += quantity
-
     template = 'inventory/inbound_stock_list.html'
 
     context = {
         'inventory_items': inventory_items,
-        'quantities': quantities,
     }
 
     if request.method == 'POST':

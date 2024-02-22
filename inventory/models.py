@@ -13,6 +13,7 @@ class InventoryItem(models.Model):
         max_length=254, blank=False, default='bowlesdevelopment906@gmail.com')
     last_reorder_date = models.DateField(null=True, blank=True)
     is_expecting_delivery = models.BooleanField(default=False)
+    ordered_quantity = models.PositiveIntegerField(default=0)
     cost_per_product = models.DecimalField(max_digits=10, decimal_places=2, default=10)
     total_units_sold = models.PositiveIntegerField(default=0)
     total_lost_or_damaged = models.PositiveIntegerField(default=0)
