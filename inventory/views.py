@@ -54,11 +54,22 @@ def auto_check_inventory_item_quantity(order):
     supplier_orders = {}
     for product_id, quantity in original_bag.items():
         inventory_item = InventoryItem.objects.get(product_id=product_id)
-        print('inventory item quantity:', inventory_item.product.quantity)
         
         supplier_name = inventory_item.supplier_name
         total_stock = inventory_item.product.quantity
         min_threshold = inventory_item.min_threshold
+
+        total_units_sold = inventory_item.total_units_sold
+        total_units_sold += quantity
+        inventory_item.total_units_sold = total_units_sold
+
+        sale_price = inventory_item.product.price
+        trade_cost = inventory_item.cost_per_product
+
+        total_revenue_generated = ((total_units_sold * sale_price) - (total_units_sold * trade_cost))
+        inventory_item.total_revenue_generated = total_revenue_generated
+
+        inventory_item.save(update_fields=['total_units_sold', 'total_revenue_generated'])
         if total_stock <= min_threshold:
             if supplier_name not in supplier_orders:
                 supplier_orders[supplier_name] = []
@@ -67,10 +78,6 @@ def auto_check_inventory_item_quantity(order):
 
     if supplier_orders:
         for supplier_name, product_ids in supplier_orders.items():
-            product_ids_count = len(product_ids)
-            print("Supplier Name:", supplier_name)
-            print("Product IDs:", product_ids)
-            print('Product count', product_ids_count)
 
             products = []
             inventory_items = []
@@ -82,7 +89,6 @@ def auto_check_inventory_item_quantity(order):
                 inventory_item.save(update_fields=['is_expecting_delivery', 'last_reorder_date'])
 
                 inventory_items.append(inventory_item)
-                print('inventory items', inventory_items)
 
             cust_email = inventory_items[0].supplier_email
             subject = render_to_string(
