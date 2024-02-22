@@ -1,0 +1,1 @@
+Amelia Mae Cosmetics Purchase Order: {{ inventory_item.product.name }} x {{ order_quantity }}

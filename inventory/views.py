@@ -46,6 +46,57 @@ def edit_inventory_item(request, inventory_item_id):
     return render(request, template, context)
 
 
+def manual_stock_order(request, inventory_item_id):
+    inventory_item = get_object_or_404(InventoryItem, pk=inventory_item_id)
+    template = 'inventory/manual_stock_order.html'
+
+    if request.method == 'POST':
+        order_quantity_str = request.POST.get('quantity')
+        if order_quantity_str:
+            order_quantity = int(order_quantity_str)
+        else:
+            order_quantity = 0
+        print('POST')
+        print('order quantity: ', order_quantity)
+        if order_quantity < 1000 and order_quantity > 0:
+            inventory_item.is_expecting_delivery = True
+            inventory_item.last_reorder_date = timezone.now()
+            inventory_item.save(update_fields=['is_expecting_delivery', 'last_reorder_date'])
+            messages.success(request, f'Purchase order Successful! \
+                { inventory_item.product.name } x { order_quantity }') 
+            cust_email = inventory_item.supplier_email
+
+            subject = render_to_string(
+                'inventory/supplier_restock_emails/manual_restock_email_subject.txt')
+            body = render_to_string(
+                'inventory/supplier_restock_emails/manual_restock_email_body.txt',
+                {'inventory_item': inventory_item,
+                'order_quantity': order_quantity,
+                'contact_email': settings.DEFAULT_FROM_EMAIL})
+            
+            send_mail(
+                subject,
+                body,
+                settings.DEFAULT_FROM_EMAIL,
+                [cust_email]
+            )
+
+            return redirect(reverse('view_inventory'))
+        else:
+            messages.error(request, 'Failed to send purchase order. \
+                Please select a quantity between 1 and 1000. \
+                For higher quantities please consult procurement team.')
+    else:
+        messages.info(request, f'You are creatring a purchase order for: \
+            {inventory_item.product.name}')
+        
+    context = {
+        'inventory_item': inventory_item,
+    }
+
+    return render(request, template, context)
+
+
 def auto_check_inventory_item_quantity(order):
     print(order.original_bag)
 

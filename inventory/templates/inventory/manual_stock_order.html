@@ -15,20 +15,37 @@
 {% block extra_title %}Product Management - Edit Product{% endblock %}
 <!-- end Head tags -->
 
-{% block page_heading_title %}Edit a Product{% endblock %}
+{% block page_heading_title %}Purchase Order - {{ inventory_item.product.name }}{% endblock %}
 
 {% block inner_content %}
-<form method="POST" action="" class="form mb-2" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form | crispy }}
-    <div class="row">
-        <div class="col-4">
-            <p class="my-3"><strong>Total Lost or damaged products:</strong></p>
-            <p>{{ inventory_item.total_lost_or_damaged }}</p>
+    <div class="row mb-5">
+        <div class="col w-100 px-5 text-center">
+            <h2>Manual Purchase order:</h2>
         </div>
-        <div class="col-6">
-            <p class="my-3"><strong>Update Lost or damaged products:</strong></p>
-            {{ inventory_item.product.quantity }}{{ product.quantity }}
+    </div>
+    <div class="row my-5">
+        <div class="col-4">
+            <p>Last Ordered On: {{ inventory_item.last_reorder_date }}</p>
+        </div>
+        <div class="col-4">
+            <p>Delivery Expected:{% if inventory_item.is_expecting_delivery %}
+                <i class="fa-solid fa-square-check fa-xl text-success"></i>
+                {% else %}
+                <i class="fa-solid fa-square-xmark fa-xl text-danger"></i>
+                {% endif %}
+            </p>
+        </div>
+        <div class="col-4">
+            <p>Current Stock: {{ inventory_item.product.quantity }}</p>
+        </div>
+    </div>
+    <div class="row my-5">
+        <div class="col-4 h-100 py-5">
+            <p>Select Order Quantity</p>
+        </div>
+        <form method="post" action="{% url 'manual_stock_order' inventory_item.id %}">
+        {% csrf_token %}
+        <div class="col">
             <div class="form-group">
                 <div class="input-group qty-input-width input-group-{{ inventory_item.id }}">
                     <div class="input-group-prepend order-12 decrement-qty_{{ inventory_item.id }}">
@@ -39,10 +56,12 @@
                             </span>
                         </button>
                     </div>
-                    <input class="currently_in_stock_{{ inventory_item.id }}" type="hidden" value="{{ inventory_item.product.quantity }}">
-                    <input type="hidden" class="threshold threshold_{{ inventory_item.id }}" value="{{ inventory_item.product.quantity }}">
+                    <!-- hidden values are for the quantity input script to function correctly -->
+                    <input class="currently_in_stock_{{ inventory_item.id }}" type="hidden" value="1000">
+                    <input type="hidden" class="threshold threshold_{{ inventory_item.id }}" value="1000">
+                    <!-- end hidden values -->
                     <input class="form-control qty_input id_qty_{{ inventory_item.id }} order-6" type="number"
-                        name="quantity" value="0" min="0" max="{{ inventory_item.product.quantity }}"
+                        name="quantity" value="{{ inventory_item.min_order_quantity }}" min="0" max="500"
                         data-item_id="{{ inventory_item.id }}" id="id_qty_{{ inventory_item.id }}">
                     <div class="input-group-append order-1 increment-qty_{{ inventory_item.id }}">
                         <button class="increment-qty increment-qty_{{ inventory_item.id }} btn btn-black rounded-0"
@@ -55,13 +74,14 @@
                 </div>
             </div>
         </div>
-    </div>
+        <div class="text-right my-5 col-4">
+            <a class="btn btn-outline-black rounded-0" href="{% url 'view_inventory' %}">Cancel</a>
+            <button class="btn btn-black rounded-0" href="{% url 'manual_stock_order' inventory_item.id %}" type="submit">Send Purchase Order</button>
+        </div>
+    </form>
+</div>
+
     
-    <div class="text-right">
-        <a class="btn btn-outline-black rounded-0" href="{% url 'view_inventory' %}">Cancel</a>
-    <button class="btn btn-black rounded-0" type="submit">Update Product</button>
-    </div>
-</form>
 {% endblock %}
 
 {% block postloadjs %}
