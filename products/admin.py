@@ -8,6 +8,7 @@ class ProductAdmin(admin.ModelAdmin):
         'name',
         'category',
         'skin_type',
+        'quantity',
         'price',
         'rating',
         'image',
