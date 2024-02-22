@@ -87,7 +87,7 @@ def manual_stock_order(request, inventory_item_id):
                 Please select a quantity between 1 and 1000. \
                 For higher quantities please consult procurement team.')
     else:
-        messages.info(request, f'You are creatring a purchase order for: \
+        messages.info(request, f'You are creating a purchase order for: \
             {inventory_item.product.name}')
         
     context = {
@@ -156,3 +156,48 @@ def auto_check_inventory_item_quantity(order):
                 settings.DEFAULT_FROM_EMAIL,
                 [cust_email]
             )
+
+
+def inbound_stock_recieved(request, inventory_item_id, quantity):
+    inventory_item = get_object_or_404(InventoryItem, pk=inventory_item_id)
+    inventory_items = InventoryItem.objects.filter('is_expecting_delivery')
+    product = inventory_item.product
+
+    quantities = {}
+    if quantity:
+        if inventory_item_id not in quantities:
+            quantities[inventory_item_id] = quantity
+        else:
+            quantities[inventory_item_id] += quantity
+
+    template = 'inventory/inbound_stock_list.html'
+
+    context = {
+        'inventory_items': inventory_items,
+        'quantities': quantities,
+    }
+
+    if request.method == 'POST':
+        received_quantity = request.POST.get(f'quantity_{inventory_item_id}')
+
+        if received_quantity:
+            received_quantity = int(received_quantity)
+            if received_quantity > 0 and received_quantity <= quantity:
+                product.quantity += quantity
+                if received_quantity == quantity:
+                    inventory_item.is_expecting_delivery = False
+                    inventory_item.save(
+                        update_fields=['is_expecting_delivery'])
+                product.save(update_fields=['quantity'])
+                messages.success(
+                    request, f'{received_quantity} units received for \
+                        {inventory_item.product.name}.')
+            else:
+                messages.error(request, 'Please enter a valid quantity, \
+                    from 1 up to the requested amount. \
+                    Surplus stock must be taken to procurement \
+                        for investigation.')
+        return render(request, template, context)
+    else:
+        messages.info(request, 'Please accurately update stock received')
+        return render(request, template, context)
