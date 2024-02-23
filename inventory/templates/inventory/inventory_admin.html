@@ -39,6 +39,7 @@
                 <table class="table table-responsive-lg mb-5">
                     <thead>
                         <tr>
+                            <th scope="col">Order Stock</th>
                             <th scope="col">Product</th>
                             <th scope="col">Reorder Threshold</th>
                             <th scope="col">MOQ</th>
@@ -51,40 +52,47 @@
                             <th scope="col">Total Sold</th>
                             <th scope="col">Lost / Damaged</th>
                             <th scope="col">Total Revenue</th>
-                            <th scope="col">Edit / Reorder</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for product in inventory_item_list %}
                             <tr>
+                                <!-- Order stock link -->
+                                <td class="mimi-pink border-dark text-center">
+                                    <a href="{% url 'manual_stock_order' product.id %}" class="text-dark">
+                                        <i class="fa-solid fa-arrow-up-wide-short fa-xl"></i> 
+                                        <p class="my-1">Order</p>
+                                    </a>
+                                </td><!-- end order stock link -->
+
                                 <!-- edit links -->
                                 <td>
-                                    <a href="{% url 'edit_product' product.id %}">
+                                    <a href="{% url 'edit_inventory_item' product.id %}">
                                         {{ product.product.name }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'edit_product' product.id %}">
+                                    <a href="{% url 'edit_inventory_item' product.id %}">
                                         {{ product.min_threshold }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'edit_product' product.id %}">
+                                    <a href="{% url 'edit_inventory_item' product.id %}">
                                         {{ product.min_order_quantity }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'edit_product' product.id %}">
+                                    <a href="{% url 'edit_inventory_item' product.id %}">
                                         {{ product.supplier_name }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'edit_product' product.id %}">
+                                    <a href="{% url 'edit_inventory_item' product.id %}">
                                         {{ product.supplier_email }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'edit_product' product.id %}">
+                                    <a href="{% url 'edit_inventory_item' product.id %}">
                                         {% if product.last_reorder_date == None %}
                                         <p>N/A</p>
                                         {% else %}
@@ -93,7 +101,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'edit_product' product.id %}">
+                                    <a href="{% url 'edit_inventory_item' product.id %}">
                                         {% if product.is_expecting_delivery %}
                                         <i class="fa-solid fa-square-check fa-xl text-success"></i>
                                         {% else %}
@@ -102,37 +110,31 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'edit_product' product.id %}">
+                                    <a href="{% url 'edit_inventory_item' product.id %}">
                                         £{{ product.cost_per_product }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'edit_product' product.id %}">
+                                    <a href="{% url 'edit_inventory_item' product.id %}">
                                         {{ product.product.quantity }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'edit_product' product.id %}">
+                                    <a href="{% url 'edit_inventory_item' product.id %}">
                                         {{ product.total_units_sold }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'edit_product' product.id %}">
+                                    <a href="{% url 'edit_inventory_item' product.id %}">
                                         {{ product.total_lost_or_damaged }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'edit_product' product.id %}">
+                                    <a href="{% url 'edit_inventory_item' product.id %}">
                                         £{{ product.total_revenue_generated }}
                                     </a>
                                 </td><!-- end edit links -->
 
-                                <!-- delete link -->
-                                <td>
-                                    <a href="{% url 'delete_product' product.id %}">
-                                        <i class="fa-solid fa-trash-can"></i> Delete
-                                    </a>
-                                </td><!-- end delete link -->
                             </tr>
                         {% endfor %}
                     </tbody>
