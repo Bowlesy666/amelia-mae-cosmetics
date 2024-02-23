@@ -127,7 +127,11 @@ def auto_check_inventory_item_quantity(order):
         inventory_item.save(
             update_fields=['total_units_sold', 'total_revenue_generated'])
         expecting_delivery = inventory_item.is_expecting_delivery
-        if total_stock <= min_threshold and not expecting_delivery:
+        discontinued = inventory_item.product.is_discontinued
+        if (total_stock <= min_threshold and 
+            not expecting_delivery and 
+            not discontinued):
+
             if supplier_name not in supplier_orders:
                 supplier_orders[supplier_name] = []
             
