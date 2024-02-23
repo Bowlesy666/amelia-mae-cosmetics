@@ -310,6 +310,10 @@ nav {
     width: 60px;
 }
 
+.inline-qty-input-width {
+    width: 160px;
+}
+
 /* --- Ribbon Styles taken from Codepen https://codepen.io/t_afif/pen/gOXLdMR----- */
 .ribbon {
     --f: 10px; /* control the folded part*/

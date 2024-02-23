@@ -4,7 +4,7 @@
       function handleEnableDisable(itemId) {
           var currentValue = parseInt($(`.id_qty_${itemId}`).val());
           var threshold = parseInt($(`.currently_in_stock_${itemId}`).val());
-          var minusDisabled = currentValue <= 0;
+          var minusDisabled = currentValue < 0;
           var plusDisabled = currentValue >= threshold;
           $(`.decrement-qty_${itemId}`).prop('disabled', minusDisabled);
           $(`.increment-qty_${itemId}`).prop('disabled', plusDisabled);
@@ -38,7 +38,7 @@
           var itemId = $(this).data('item_id');
           var closestInput = $(this).closest('.input-group').find('.qty_input')[0];
           var currentValue = parseInt($(closestInput).val());
-          if (currentValue > 1) {
+          if (currentValue > 0) {
               $(closestInput).val(currentValue - 1);
           }
           handleEnableDisable(itemId);
