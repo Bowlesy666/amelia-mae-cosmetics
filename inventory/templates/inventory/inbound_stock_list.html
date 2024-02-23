@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- Head tags -->
+{% block meta_description %}not default{% endblock %}
+
+{% block og_title %}not default{% endblock %}
+{% block og_description %}not default{% endblock %}
+{% block og_image %}not default{% endblock %}
+{% block og_url %}not default{% endblock %}
+
+{% block extra_css %}
+
+{% endblock %}
+
+{% block extra_title %}Home{% endblock %}
+<!-- end Head tags -->
+
+{% block page_header %}
+<div class="header-container">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid white-smoke py-5">
+    <div class="row py-3">
+        <div class="col text-center">
+            <h2 class="logo-font mt-3 h-100">Product Management - Inbound Stock</h2>
+        </div>
+    </div>
+    <div class="col px-3 py-5 container-fluid justify-content-center">
+        {% include 'products/includes/products_sorting.html' %}
+        <div class="row py-3 white-smoke">
+            {% if inventory_items %}
+                <span class="d-lg-none mt-5"><strong>Scroll right to see all product data...</strong></span>
+                <table class="table table-responsive-lg mb-5">
+                    <thead>
+                        <tr>
+                            <th>Supplier</th>
+                            <th>Product</th>
+                            <th>Ordered on</th>
+                            <th>Ordered Quantity</th>
+                            <th>Stock Received</th>
+                            <th>Confirm Received</th>
+                            <th>Stock Cancelled</th>
+                            <th>Confirm Cancelled</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in inventory_items %}
+                            <tr>
+                                <td>
+                                    <p>
+                                        {{ product.supplier_name }}
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>
+                                        {{ product.product.name }}
+                                    </p>
+                                
+                                </td>
+                                <td>
+                                    <p>
+                                        {% if product.last_reorder_date == None %}
+                                        <p class="mb-0">Contact Procurement</p>
+                                        <p class="mt-0">for details</p>
+                                        {% else %}
+                                        {{ product.last_reorder_date }}
+                                        {% endif %}
+                                    </p>
+                                    
+                                </td>
+                                <td>
+                                    <p>
+                                        {{ product.ordered_quantity }}
+                                    </p>
+                                </td>
+                                {% with product as inventory_item %}
+                                <form method="POST" action="{% url 'inbound_stock_received' product.id %}" class="form mb-2" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {{ form | crispy }}
+                                    <td class="mimi-pink border-left">
+                                        <div class="form-group">
+                                            <div class="input-group inline-qty-input-width input-group-{{ inventory_item.id }}">
+                                                <div class="input-group-prepend decrement-qty_{{ inventory_item.id }}">
+                                                    <button class="decrement-qty decrement-qty_{{ inventory_item.id }} btn btn-black rounded-0" 
+                                                        data-item_id="{{ inventory_item.id }}" id="decrement-qty_{{ inventory_item.id }}">
+                                                        <span class="icon">
+                                                            <i class="fas fa-minus"></i>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <input class="currently_in_stock_{{ inventory_item.id }}" type="hidden" value="{{ product.ordered_quantity }}">
+                                                <input type="hidden" class="threshold threshold_{{ inventory_item.id }}" value="{{ product.ordered_quantity }}">
+                                                <input class="form-control qty_input id_qty_{{ inventory_item.id }}" type="number"
+                                                    name="quantity_{{ inventory_item.id }}" value="{{ product.ordered_quantity }}" min="1" max="{{ product.ordered_quantity }}"
+                                                    data-item_id="{{ inventory_item.id }}" id="id_qty_{{ inventory_item.id }}">
+                                                <div class="input-group-append increment-qty_{{ inventory_item.id }}">
+                                                    <button class="increment-qty increment-qty_{{ inventory_item.id }} btn btn-black rounded-0"
+                                                        data-item_id="{{ inventory_item.id }}" id="increment-qty_{{ inventory_item.id }}">
+                                                        <span class="icon">
+                                                            <i class="fas fa-plus"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="mimi-pink border-right">
+                                        <button class="btn btn-dark rounded mr-5" type="submit">Confirm</button>
+                                    </td>
+                                </form>
+                                
+                                <form method="POST" action="{% url 'inbound_stock_cancelled' product.id %}" class="form mb-2" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {{ form | crispy }}
+                                    <td class="platinum border-left">
+                                        <div class="form-group">
+                                            <div class="input-group inline-qty-input-width input-group-{{ inventory_item.id }}">
+                                                <div class="input-group-prepend decrement-qty_{{ inventory_item.id }}">
+                                                    <button class="decrement-qty decrement-qty_{{ inventory_item.id }} btn btn-black rounded-0" 
+                                                        data-item_id="{{ inventory_item.id }}" id="decrement-qty_{{ inventory_item.id }}">
+                                                        <span class="icon">
+                                                            <i class="fas fa-minus"></i>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <input class="currently_in_stock_{{ inventory_item.id }}" type="hidden" value="{{ inventory_item.ordered_quantity }}">
+                                                <input type="hidden" class="threshold threshold_{{ inventory_item.id }}" value="{{ inventory_item.ordered_quantity }}">
+                                                <input class="form-control qty_input id_qty_{{ inventory_item.id }}" type="number"
+                                                    name="quantity_{{ inventory_item.id }}" value="{{ inventory_item.ordered_quantity }}" min="1" max="{{ inventory_item.ordered_quantity }}"
+                                                    data-item_id="{{ inventory_item.id }}" id="id_qty_{{ inventory_item.id }}">
+                                                <div class="input-group-append increment-qty_{{ inventory_item.id }}">
+                                                    <button class="increment-qty increment-qty_{{ inventory_item.id }} btn btn-black rounded-0"
+                                                        data-item_id="{{ inventory_item.id }}" id="increment-qty_{{ inventory_item.id }}">
+                                                        <span class="icon">
+                                                            <i class="fas fa-plus"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="platinum border-right">
+                                        <button class="btn btn-dark rounded mr-5" type="submit">Confirm</button>
+                                    </td>
+                                </form>
+                                {% endwith %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="col my-3 text-center">
+                    <p>No items are showing as due delivery...</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="btt-button shadow-sm card-rounded border cordovan border-black">
+        <a class="btt-link d-flex cordovan card-rounded h-100">
+            <i class="fas fa-arrow-up cordovan mx-auto my-auto"></i>
+        </a>	
+    </div>
+</div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+{% include 'inventory/includes/inventory_quantity_input_script.html' %}
+<script type="text/javascript">
+    $('#sort-selector').change(function() {
+        var selector = $(this);
+        var currentUrl = new URL(window.location);
+
+        var selectedVal = selector.val();
+        if(selectedVal != "reset"){
+            if(selectedVal === "skin_type_asc" || selectedVal === "skin_type_desc"){
+                var sort = "skin_type";
+                var direction = selectedVal.split("_")[2];
+            } else {
+                var sort = selectedVal.split("_")[0];
+                var direction = selectedVal.split("_")[1];
+            }
+
+            currentUrl.searchParams.set("sort", sort);
+            currentUrl.searchParams.set("direction", direction);
+
+            window.location.replace(currentUrl);
+        } else {
+            currentUrl.searchParams.delete("sort");
+            currentUrl.searchParams.delete("direction");
+
+            window.location.replace(currentUrl);
+        }
+    })
+</script>
+{% endblock %}

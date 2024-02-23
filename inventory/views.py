@@ -170,10 +170,8 @@ def auto_check_inventory_item_quantity(order):
             )
 
 
-def inbound_stock_recieved(request, inventory_item_id, quantity):
-    inventory_item = get_object_or_404(InventoryItem, pk=inventory_item_id)
-    inventory_items = InventoryItem.objects.filter('is_expecting_delivery')
-    product = inventory_item.product
+def inbound_stock_list(request):
+    inventory_items = InventoryItem.objects.filter(is_expecting_delivery=True)
 
     template = 'inventory/inbound_stock_list.html'
 
@@ -181,18 +179,42 @@ def inbound_stock_recieved(request, inventory_item_id, quantity):
         'inventory_items': inventory_items,
     }
 
+    messages.info(request, 'Please accurately update stock')
+    return render(request, template, context)
+
+
+def inbound_stock_received(request, inventory_item_id):
+    inventory_item = get_object_or_404(InventoryItem, pk=inventory_item_id)
+    product = inventory_item.product
+    ordered_quantity = inventory_item.ordered_quantity
+
     if request.method == 'POST':
-        received_quantity = request.POST.get(f'quantity_{inventory_item_id}')
+        print('POST')
+        received_quantity_str = request.POST.get(
+            f'quantity_{inventory_item.id}')
+        if received_quantity_str:
+            received_quantity = int(received_quantity_str)
+        else:
+            received_quantity = 0
+        print('Received_quantity str', received_quantity_str)
+        print('Received_quantity', received_quantity)
 
         if received_quantity:
-            received_quantity = int(received_quantity)
-            if received_quantity > 0 and received_quantity <= quantity:
-                product.quantity += quantity
-                if received_quantity == quantity:
+            print('received!')
+            if received_quantity > 0 and received_quantity <= ordered_quantity:
+                product.quantity += received_quantity
+                print('ordered quantity before:', ordered_quantity)
+                ordered_quantity -= received_quantity
+                print('ordered quantity after:', ordered_quantity)
+
+                if ordered_quantity == 0:
                     inventory_item.is_expecting_delivery = False
-                    inventory_item.save(
-                        update_fields=['is_expecting_delivery'])
+                inventory_item.ordered_quantity = ordered_quantity
+                inventory_item.save(update_fields=['is_expecting_delivery', 'ordered_quantity'])
+                print('ordered quantity saved:', ordered_quantity)
+
                 product.save(update_fields=['quantity'])
+                print('Product quantity saved:', product.quantity)
                 messages.success(
                     request, f'{received_quantity} units received for \
                         {inventory_item.product.name}.')
@@ -201,7 +223,51 @@ def inbound_stock_recieved(request, inventory_item_id, quantity):
                     from 1 up to the requested amount. \
                     Surplus stock must be taken to procurement \
                         for investigation.')
-        return render(request, template, context)
+        return redirect(reverse('inbound_stock_list'))
     else:
-        messages.info(request, 'Please accurately update stock received')
-        return render(request, template, context)
+        messages.info(request, 'Please accurately update stock')
+        return redirect(reverse('inbound_stock_list'))
+
+
+def inbound_stock_cancelled(request, inventory_item_id):
+    inventory_item = get_object_or_404(InventoryItem, pk=inventory_item_id)
+    product = inventory_item.product
+    ordered_quantity = inventory_item.ordered_quantity
+
+    if request.method == 'POST':
+        print('POST')
+        cancelled_quantity_str = request.POST.get(
+            f'quantity_{inventory_item.id}')
+        if cancelled_quantity_str:
+            cancelled_quantity = int(cancelled_quantity_str)
+        else:
+            received_quantity = 0
+        print('cancelled_quantity str', cancelled_quantity_str)
+        print('cancelled_quantity', cancelled_quantity)
+
+        if cancelled_quantity:
+            print('cancelled!')
+            if cancelled_quantity > 0 and cancelled_quantity <= ordered_quantity:
+                print('quantity before:', product.quantity)
+                ordered_quantity -= cancelled_quantity
+                print('ordered quantity after:', ordered_quantity)
+
+                if ordered_quantity == 0:
+                    inventory_item.is_expecting_delivery = False
+                inventory_item.ordered_quantity = ordered_quantity
+                inventory_item.save(update_fields=['is_expecting_delivery', 'ordered_quantity'])
+                print('product quantity saved:', product.quantity)
+
+                messages.success(
+                    request, f'{cancelled_quantity} units cancelled for \
+                        {inventory_item.product.name}.')
+            else:
+                messages.error(request, 'Please enter a valid quantity, \
+                    from 1 up to the requested amount. \
+                    Surplus stock must be taken to procurement \
+                        for investigation.')
+        return redirect(reverse('inbound_stock_list'))
+    else:
+        messages.info(request, 'Please accurately update stock')
+        return redirect(reverse('inbound_stock_list'))
+
