@@ -3,6 +3,7 @@ from django.shortcuts import (
     get_object_or_404, HttpResponse)
 from django.views.decorators.http import require_POST
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
 from .forms import OrderForm
@@ -157,6 +158,14 @@ def checkout_success(request, order_number):
             user_profile_form = UserProfileForm(profile_data, instance=profile)
             if user_profile_form.is_valid():
                 user_profile_form.save()
+
+    if not request.user.is_authenticated:
+        if 'checkout_success_displayed_once_only' in request.session:
+            messages.error(request, 'Sorry, you must be logged in to your \
+                account to see you order history')
+            return redirect(reverse('home'))
+        else:
+            request.session['checkout_success_displayed_once_only'] = True
 
     messages.success(request, f'Order successfully processed! \
         Your order number is {order_number}. A confirmation \

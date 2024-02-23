@@ -86,8 +86,13 @@ def all_products(request):
     return get_products_and_sorting(request, 'products/products_list.html')
 
 
+@login_required
 def admin_products_list(request):
     """ View for consumer to see all products, includes sorting function """
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, this action is reserved \
+            for store owners only')
+        return redirect(reverse('home'))
     return get_products_and_sorting(request, 'products/product_admin_product_list.html')
 
 
@@ -143,9 +148,13 @@ def product_detail(request, product_id):
     return render(request, 'products/product_detail.html', context)
 
 
+@login_required
 def reviews_form(request, product_id):
-    """ string """
-    redirect_url = request.POST.get('redirect_url')
+    """ Handle form submission for adding reviews """
+    if not request.user.is_authenticated:
+        messages.error(request, 'You are not authorized to add a review.\
+            Please login for access to this function.')
+        return redirect(reverse('product_detail', args=[product_id]))
     if request.method == 'POST':
         form = ReviewsForm(request.POST)
         if form.is_valid():
@@ -163,35 +172,47 @@ def reviews_form(request, product_id):
                 product_id=product_id
             )
 
-            # Redirect back to the product detail page
             messages.success(request, "Successfully added your review!")
-            return redirect(redirect_url, product_id)
+            return redirect(reverse('product_detail', args=[product_id]))
     else:
-        # If the request method is not POST, redirect to the home page or handle it accordingly
         messages.error(request, "Oops, your review was unsuccessful!")
-        return redirect(redirect_url, product_id)
+        return redirect(reverse('product_detail', args=[product_id]))
 
-    # If the form is not valid or the request method is not POST,
-    # render the product detail page with the form
-    messages.error(request, "not POST!")
-    return redirect(redirect_url, product_id)
+    return redirect(reverse('product_detail', args=[product_id]))
 
 
+@login_required
 def delete_review(request, product_id, review_id):
     """ Delete a product from the store """
     review = get_object_or_404(Reviews, pk=review_id)
+    if request.user != review.user:
+        messages.error(request, 'You are not authorized to delete this review.\
+            Please login for access to this function.')
+        return redirect(reverse('product_detail', args=[product_id]))
+
     review.delete()
     messages.success(request, 'Review successfully deleted!')
 
     return redirect(reverse('product_detail', args=[product_id]))
 
+
+@login_required
 def product_admin(request):
     """ Choose the admin type for your store """
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, this action is reserved \
+            for store owners only')
+        return redirect(reverse('home'))
     return render(request, 'products/product_admin.html')
 
 
+@login_required
 def add_product(request):
     """ Add a product to the store """
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, this action is reserved \
+            for store owners only')
+        return redirect(reverse('home'))
     form = ProductForm()
     template = 'products/add_product.html'
 
@@ -213,8 +234,13 @@ def add_product(request):
     return render(request, template, context)
 
 
+@login_required
 def edit_product(request, product_id):
     """ Edit a product in the store """
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, this action is reserved \
+            for store owners only')
+        return redirect(reverse('home'))
     product = get_object_or_404(Product, pk=product_id)
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES, instance=product)
@@ -237,8 +263,13 @@ def edit_product(request, product_id):
     return render(request, template, context)
 
 
+@login_required
 def delete_product(request, product_id):
     """ Delete a product from the store """
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, this action is reserved \
+            for store owners only')
+        return redirect(reverse('home'))
     product = get_object_or_404(Product, pk=product_id)
     if request.method == 'POST':
         product.delete()
@@ -252,23 +283,39 @@ def delete_product(request, product_id):
     return render(request, 'products/confirm_to_delete_product.html', context)
 
 
+@login_required
 def add_favourite(request, product_id):
+    redirect_url = request.GET.get('redirect', reverse('product_list'))
+    if not request.user.is_authenticated:
+        messages.error(request, 'Login or Register to save your favourites \
+            to your profile')
+        return redirect(redirect_url)
+
     product = Product.objects.get(pk=product_id)
     favourite = Favourite.objects.get_or_create(user=request.user, product=product)
-    redirect_url = request.GET.get('redirect', reverse('product_list'))
     messages.success(request, 'Product added to favourites')
 
     return redirect(redirect_url)
 
 
+@login_required
 def delete_favourite(request, product_id):
+    redirect_url = request.GET.get('redirect', reverse('product_list'))
+    if not request.user.is_authenticated:
+        messages.error(request, 'Login or Register to edit your favourites \
+            on your profile')
+        return redirect(redirect_url)
+
     product = Product.objects.get(pk=product_id)
     favourite = Favourite.objects.filter(user=request.user, product=product).delete()
-    redirect_url = request.GET.get('redirect', reverse('product_list'))
     messages.success(request, 'Product removed from favourites')
 
     return redirect(redirect_url)
 
-
+@login_required
 def favourites_list(request):
+    if not request.user.is_authenticated:
+        messages.error(request, 'Login or Register to view your favourites \
+            on your profile')
+        return redirect(redirect_url)
     return render(request, 'products/favourites_list.html')

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from django.utils import timezone
 
@@ -12,13 +13,24 @@ from django.core.mail import send_mail
 
 import json
 
+
+@login_required
 def view_inventory(request):
     """A view that renders the inventory admin page"""
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, this action is reserved \
+            for store owners only')
+        return redirect(reverse('home'))
     return get_products_and_sorting(request, 'inventory/inventory_admin.html')
 
 
+@login_required
 def edit_inventory_item(request, inventory_item_id):
     """ Edit a inventory items details in the store """
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, this action is reserved \
+            for store owners only')
+        return redirect(reverse('home'))
     inventory_item = get_object_or_404(InventoryItem, pk=inventory_item_id)
     damaged_quantity = request.POST.get('quantity')
     if request.method == 'POST':
@@ -46,7 +58,12 @@ def edit_inventory_item(request, inventory_item_id):
     return render(request, template, context)
 
 
+@login_required
 def manual_stock_order(request, inventory_item_id):
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, this action is reserved \
+            for store owners only')
+        return redirect(reverse('home'))
     inventory_item = get_object_or_404(InventoryItem, pk=inventory_item_id)
     template = 'inventory/manual_stock_order.html'
 
@@ -102,7 +119,6 @@ def manual_stock_order(request, inventory_item_id):
 
 
 def auto_check_inventory_item_quantity(order):
-    print(order.original_bag)
 
     original_bag = json.loads(order.original_bag)
 
@@ -174,7 +190,12 @@ def auto_check_inventory_item_quantity(order):
             )
 
 
+@login_required
 def inbound_stock_list(request):
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, this action is reserved \
+            for store owners only')
+        return redirect(reverse('home'))
     inventory_items = InventoryItem.objects.filter(is_expecting_delivery=True)
 
     template = 'inventory/inbound_stock_list.html'
@@ -233,7 +254,12 @@ def inbound_stock_received(request, inventory_item_id):
         return redirect(reverse('inbound_stock_list'))
 
 
+@login_required
 def inbound_stock_cancelled(request, inventory_item_id):
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, this action is reserved \
+            for store owners only')
+        return redirect(reverse('home'))
     inventory_item = get_object_or_404(InventoryItem, pk=inventory_item_id)
     product = inventory_item.product
     ordered_quantity = inventory_item.ordered_quantity
