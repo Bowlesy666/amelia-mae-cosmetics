@@ -48,10 +48,14 @@ class StripeWH_Handler:
         """
         Handle the payment_intent.succeeded webhook from Stripe
         """
+        print("Webhook received:", event["type"])
+
         intent = event.data.object
         pid = intent.id
         bag = intent.metadata.bag
         save_info = intent.metadata.save_info
+        print("Received intent ID:", pid)
+        print("Received bag:", bag)
         # Get the Charge object
         stripe_charge = stripe.Charge.retrieve(
             intent.latest_charge
@@ -80,6 +84,8 @@ class StripeWH_Handler:
                 profile.default_county = shipping_details.address.state
                 profile.save()
 
+        print("Before attempting to create or retrieve the order")
+
         order_exists = False
         attempt = 1
         while attempt <= 5:
@@ -99,18 +105,22 @@ class StripeWH_Handler:
                     stripe_pid=pid,
                 )
                 order_exists = True
+                print('Order exists')
                 break
                 
             except Order.DoesNotExist:
                 attempt += 1
                 time.sleep(1)
         if order_exists:
+            print('Inside order exists block')
+
             self._send_confirmation_email(order)
             auto_check_inventory_item_quantity(order)
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
                 status=200)
         else:
+            print('Inside else block of if order exists')
             order = None
             try:
                 order = Order.objects.create(
@@ -139,6 +149,7 @@ class StripeWH_Handler:
                         )
                         order_line_item.save()
                         auto_check_inventory_item_quantity(order)
+                        print('Got up to auto_check_invetory_item')
             except Exception as e:
                 if order:
                     order.delete()
@@ -146,6 +157,8 @@ class StripeWH_Handler:
                     content=f'Webhook received: {event["type"]} | ERROR: {e}',
                     status=500)
         self._send_confirmation_email(order)
+        auto_check_inventory_item_quantity(order)
+        print('auto_check end of method')
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
             status=200)
