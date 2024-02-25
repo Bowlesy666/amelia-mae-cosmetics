@@ -114,6 +114,14 @@ nav {
 
 /* ---------- Bootstrap toasts ------------ */
 
+.toast-container {
+    position: relative;
+    top: 60px;
+    right: 0;
+    margin: 1rem;
+    z-index: 999999999;
+}
+
 .message-container {
     position: fixed;
     top: 72px;
