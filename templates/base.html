@@ -22,6 +22,7 @@
         {% block core_css %}
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
             <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+            <link href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v3.0.0/dist/cookieconsent.css" rel="stylesheet">
             <link rel="stylesheet" href="{% static 'css/base.css' %}">
         {% endblock %}
 
@@ -125,23 +126,25 @@
         <div class="nav-spacer"></div>
         <!-- end Navbar -->
 
-        {% if messages %}
-            <div class="message-container">
-                {% for message in messages %}
-                    {% with message.level as level %}
-                        {% if level == 40 %}
-                            {% include 'includes/toasts/toast_error.html' %}
-                        {% elif level == 30 %}
-                            {% include 'includes/toasts/toast_warning.html' %}
-                        {% elif level == 25 %}
-                            {% include 'includes/toasts/toast_success.html' %}
-                        {% else %}
-                            {% include 'includes/toasts/toast_info.html' %}
-                        {% endif %}
-                    {% endwith %}
-                {% endfor %}
-            </div>
-        {% endif %}
+            {% if messages %}
+                <div class="message-container">
+                    {% for message in messages %}
+                        {% with message.level as level %}
+                            {% if level == 40 %}
+                                {% include 'includes/toasts/toast_error.html' %}
+                            {% elif level == 30 %}
+                                {% include 'includes/toasts/toast_warning.html' %}
+                            {% elif level == 25 %}
+                                {% include 'includes/toasts/toast_success.html' %}
+                            {% else %}
+                                {% include 'includes/toasts/toast_info.html' %}
+                            {% endif %}
+                        {% endwith %}
+                    {% endfor %}
+                    <div class="toast-container" aria-live="polite" aria-atomic="true" style="position: relative; top: 0; right: 0; margin: 1rem; z-index: 9999;">
+                    </div>
+                </div>
+            {% endif %}
 
         {% block page_header %}
         {% endblock %}
@@ -245,7 +248,10 @@
                             </li>
                             <li class="mb-2">
                                 <a href="{% url 'cookie_policy' %}" class="text-white"><i class="fa-solid fa-link"></i> Cookie Policy</a>
-                            </li>                           
+                            </li>
+                            <li class="mb-2 ml-2 mt-0">
+                                <button type="button" data-cc="show-preferencesModal" class="btn btn-outline-light border-0 ml-n3 mt-n2"><i class="fa-solid fa-cookie"></i> Manage cookies</button>
+                            </li>
                         </ul>
                     </div>
                     <!-- end Grid column -->
@@ -315,7 +321,9 @@
             }(jQuery));
             var $mcj = jQuery.noConflict(true);
         </script>
+        <script type="module" src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v3.0.0/dist/cookieconsent.umd.js"></script>
+        <script type="module" src="{% static 'js/cookieconsent-config.js' %}"></script>
+        <script src="{% static 'js/show-toast-message-cookies.js' %}"></script>
         {% endblock %}
-        
     </body>
 </html>
