@@ -163,7 +163,7 @@
                             </form>
                             <div class="row justify-content-center">
                                 <div class="col ml-2 mt-3">
-                                    <h6>Subscribe to our newsletter for exclusive deals!</h6>
+                                    <span>Subscribe to our newsletter for exclusive deals!</span>
                                 </div>
                             </div>
 						</div>
@@ -173,91 +173,95 @@
 
             <div class="container jet p-4">
                 <div class="row my-4">
-                    <!--Grid column-->
+                    <!--Grid column logo and slogan-->
                     <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-
+                        
                         <div class="rounded-circle bg-white shadow-xl d-flex align-items-center justify-content-center mb-4 mx-auto" style="width: 150px; height: 150px;">
-                            <img src="{{ MEDIA_URL }}amelia-mae-logo-mimi-pink.png" height="150" alt=""
+                            <img src="{{ MEDIA_URL }}amelia-mae-logo-mimi-pink.png" height="150" alt="Pink Amelia Mae logo on dary grey background"
                                 loading="lazy" />
                         </div>
-
-                        <p class="text-center">Amelia Mae, some slogan here</p>
+                        <p class="text-center">Amelia Mae, skincare that works</p>
 
                     </div>
-                    <!--Grid column-->
+                    <!-- end Grid column -->
+                    <!--Grid column useful links-->
                     <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                        <h5 class="text-uppercase mb-4">Categories</h5>
+                        <h5 class="text-uppercase mb-4">Useful Links</h5>
 
                         <ul class="list-unstyled">
                             <li class="mb-2">
-                                <a href="#!" class="text-white"><i class="fas fa-bag-shopping"></i> Category</a>
+                                <a href="{% url 'profile' %}" class="text-white"><i class="fas fa-bag-shopping"></i> Profile &amp; Order History</a>
                             </li>
                             <li class="mb-2">
-                                <a href="#!" class="text-white"><i class="fas fa-bag-shopping"></i> Category</a>
+                                <a href="{% url 'favourites_list' %}" class="text-white"><i class="fas fa-bag-shopping"></i> My Favourites</a>
                             </li>
                             <li class="mb-2">
-                                <a href="#!" class="text-white"><i class="fas fa-bag-shopping"></i> Category</a>
+                                <a href="{% url 'product_list' %}?is_best_seller=True" class="text-white"><i class="fas fa-bag-shopping"></i> Best Sellers</a>
                             </li>
                             <li class="mb-2">
-                                <a href="#!" class="text-white"><i class="fas fa-bag-shopping"></i> Category</a>
+                                <a href="{% url 'shipping_policy' %}" class="text-white"><i class="fas fa-bag-shopping"></i> Shipping Policy</a>
                             </li>
                             <li class="mb-2">
-                                <a href="#!" class="text-white"><i class="fas fa-bag-shopping"></i> Category</a>
+                                <a href="{% url 'return_and_refund_policy' %}" class="text-white"><i class="fas fa-bag-shopping"></i> Refunds & Returns</a>
                             </li>
                         </ul>
                     </div>
-                    
-                    <!--Grid column-->
+                    <!-- end Grid column -->
+                    <!--Grid column useful links continued-->
                     <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
                         <h5 class="text-uppercase mb-4">Useful Links</h5>
                         
                         <ul class="list-unstyled">
                             <li class="mb-2">
-                                <a href="#!" class="text-white"><i class="fa-solid fa-link"></i> link item</a>
+                                <a href="{% url 'privacy_policy' %}" class="text-white"><i class="fa-solid fa-link"></i> Privacy Policy</a>
                             </li>
                             <li class="mb-2">
-                                <a href="#!" class="text-white"><i class="fa-solid fa-link"></i> link item</a>
+                                <a href="{% url 'terms_and_conditions' %}" class="text-white"><i class="fa-solid fa-link"></i> Terms &amp; Conditions</a>
                             </li>
                             <li class="mb-2">
-                                <a href="#!" class="text-white"><i class="fa-solid fa-link"></i> link item</a>
+                                <a href="{% url 'disclaimer' %}" class="text-white"><i class="fa-solid fa-link"></i> Disclaimer</a>
                             </li>
                             <li class="mb-2">
-                                <a href="#!" class="text-white"><i class="fa-solid fa-link"></i> link item</a>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#!" class="text-white"><i class="fa-solid fa-link"></i> link item</a>
-                            </li>                            
+                                <a href="{% url 'cookie_policy' %}" class="text-white"><i class="fa-solid fa-link"></i> Cookie Policy</a>
+                            </li>                           
                         </ul>
                     </div>
-                    <!--Grid column-->
-
+                    <!-- end Grid column -->
+                
                     <!--Grid column-->
                     <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
                         <h5 class="text-uppercase mb-4">Contact</h5>
 
                         <ul class="list-unstyled">
                             <li>
-                                <p><i class="fas fa-map-marker-alt pe-2"></i> Suite 5, Arundel House, Chorley. PR71NY</p>
+                                <p class="mb-1"><i class="fas fa-map-marker-alt pe-2"></i> Suite 5, Arundel House,</p>
+                            </li>
+                            <li class="ml-3">Ackhurst Business Park,</li>
+                            <li class="ml-3">Foxhole Road,</li>
+                            <li class="ml-3">Chorley</li>
+                            <li class="ml-3">PR71NY</li>
+                            <li class="mt-2">
+                                <a href="mailto:david.bowles84272@outlook.com">
+                                    <p><i class="fas fa-envelope pe-2 mb-0"></i> david.bowles84272@outlook.com</p>
+                                </a>
                             </li>
                             <li>
-                                <p><i class="fas fa-phone pe-2"></i> + 44 7783409714</p>
-                            </li>
-                            <li>
-                                <p><i class="fas fa-envelope pe-2 mb-0"></i>  bowlesdevelopment906@gmail.com</p>
+                                <a href="tel:+447783409714">
+                                    <p><i class="fas fa-phone pe-2"></i> + 44 7783409714</p>
+                                </a>
                             </li>
                         </ul>
                     </div>
-                    <!--Grid column-->
-                    </div>
-                    <!--Grid row-->
+                    <!--end Grid column -->
                 </div>
-                <!-- Grid container -->
+                <!--Grid row-->
+            </div>
+            <!-- end Grid container -->
 
-                <!-- Copyright -->
-                <div class="text-center p-4 mimi-pink">
-                    © 2024 Copyright:
-                    <a class="text-decoration-none mimi-pink" href="https://github.com/Bowlesy666/">Bowles Development</a>
-                </div>
+            <!-- Copyright -->
+            <div class="text-center p-4 mimi-pink">
+                © 2024 Copyright:
+                <a class="text-decoration-none mimi-pink" href="https://github.com/Bowlesy666/">Bowles Development</a>
             </div>
             
 		</footer>
