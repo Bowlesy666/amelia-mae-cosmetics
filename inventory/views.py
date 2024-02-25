@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -6,7 +7,6 @@ from django.utils import timezone
 
 from products.views import get_products_and_sorting
 from .models import InventoryItem
-from products.models import Product
 from .forms import InventoryItemForm
 from django.conf import settings
 from django.core.mail import send_mail
@@ -26,7 +26,7 @@ def view_inventory(request):
 
 @login_required
 def edit_inventory_item(request, inventory_item_id):
-    """ Edit a inventory items details in the store """
+    """ Edit an inventory items details in the store """
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, this action is reserved \
             for store owners only')
@@ -44,10 +44,13 @@ def edit_inventory_item(request, inventory_item_id):
             inventory_item.product.save(update_fields=['quantity'])
             return redirect(reverse('view_inventory'))
         else:
-            messages.error(request, 'Failed to update product. Please ensure the form is valid.')
+            messages.error(
+                request,
+                'Failed to update product. Please ensure the form is valid.')
     else:
         form = InventoryItemForm(instance=inventory_item)
-        messages.info(request, f'You are editing {inventory_item.product.name}')
+        messages.info(
+            request, f'You are editing {inventory_item.product.name}')
 
     template = 'inventory/edit_inventory_item.html'
     context = {
@@ -60,6 +63,11 @@ def edit_inventory_item(request, inventory_item_id):
 
 @login_required
 def manual_stock_order(request, inventory_item_id):
+    """ View for store owners to order stock manually """
+    email_path = 'inventory/supplier_restock_emails/'
+    subject = os.path.join(email_path, 'manual_restock_email_subject.txt')
+    body = os.path.join(email_path, 'manual_restock_email_body.txt')
+
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, this action is reserved \
             for store owners only')
@@ -73,8 +81,6 @@ def manual_stock_order(request, inventory_item_id):
             order_quantity = int(order_quantity_str)
         else:
             order_quantity = 0
-        print('POST')
-        print('order quantity: ', order_quantity)
         if order_quantity < 1000 and order_quantity > 0:
             inventory_item.is_expecting_delivery = True
             inventory_item.last_reorder_date = timezone.now()
@@ -84,17 +90,16 @@ def manual_stock_order(request, inventory_item_id):
                     'is_expecting_delivery', 'last_reorder_date',
                     'ordered_quantity'])
             messages.success(request, f'Purchase order Successful! \
-                { inventory_item.product.name } x { order_quantity }') 
+                { inventory_item.product.name } x { order_quantity }')
             cust_email = inventory_item.supplier_email
 
-            subject = render_to_string(
-                'inventory/supplier_restock_emails/manual_restock_email_subject.txt')
+            subject = render_to_string(subject)
             body = render_to_string(
-                'inventory/supplier_restock_emails/manual_restock_email_body.txt',
+                body,
                 {'inventory_item': inventory_item,
-                'order_quantity': order_quantity,
-                'contact_email': settings.DEFAULT_FROM_EMAIL})
-            
+                    'order_quantity': order_quantity,
+                    'contact_email': settings.DEFAULT_FROM_EMAIL})
+
             send_mail(
                 subject,
                 body,
@@ -110,7 +115,7 @@ def manual_stock_order(request, inventory_item_id):
     else:
         messages.info(request, f'You are creating a purchase order for: \
             {inventory_item.product.name}')
-        
+
     context = {
         'inventory_item': inventory_item,
     }
@@ -119,13 +124,18 @@ def manual_stock_order(request, inventory_item_id):
 
 
 def auto_check_inventory_item_quantity(order):
-
+    """ Automated stock ordering, checked after a product is sold """
     original_bag = json.loads(order.original_bag)
 
     supplier_orders = {}
     for product_id, quantity in original_bag.items():
         inventory_item = InventoryItem.objects.get(product_id=product_id)
-        
+
+        if not inventory_item.product.is_best_seller:
+            if inventory_item.product.quantity >= 100:
+                inventory_item.product.is_best_seller = True
+                inventory_item.product.save(update_fields=['is_best_seller'])
+
         supplier_name = inventory_item.supplier_name
         total_stock = inventory_item.product.quantity
         min_threshold = inventory_item.min_threshold
@@ -144,22 +154,20 @@ def auto_check_inventory_item_quantity(order):
             update_fields=['total_units_sold', 'total_revenue_generated'])
         expecting_delivery = inventory_item.is_expecting_delivery
         discontinued = inventory_item.product.is_discontinued
-        if (total_stock <= min_threshold and 
-            not expecting_delivery and 
-            not discontinued):
+        if (total_stock <= min_threshold and
+            not expecting_delivery and
+                not discontinued):
 
             if supplier_name not in supplier_orders:
                 supplier_orders[supplier_name] = []
-            
+
             supplier_orders[supplier_name].append(product_id)
 
     if supplier_orders:
         for supplier_name, product_ids in supplier_orders.items():
 
-            products = []
             inventory_items = []
             for product_id in product_ids:
-                product = get_object_or_404(Product, id=product_id)
                 inventory_item = get_object_or_404(
                     InventoryItem, product_id=product_id)
                 inventory_item.is_expecting_delivery = True
@@ -179,9 +187,9 @@ def auto_check_inventory_item_quantity(order):
             body = render_to_string(
                 'inventory/supplier_restock_emails/restock_email_body.txt',
                 {'supplier_name': supplier_name,
-                'inventory_items': inventory_items,
-                'contact_email': settings.DEFAULT_FROM_EMAIL})
-            
+                    'inventory_items': inventory_items,
+                    'contact_email': settings.DEFAULT_FROM_EMAIL})
+
             send_mail(
                 subject,
                 body,
@@ -192,6 +200,7 @@ def auto_check_inventory_item_quantity(order):
 
 @login_required
 def inbound_stock_list(request):
+    """ View to show items ordered from suppliers """
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, this action is reserved \
             for store owners only')
@@ -209,37 +218,32 @@ def inbound_stock_list(request):
 
 
 def inbound_stock_received(request, inventory_item_id):
+    """ View for store owners to re introduce stock after delivery """
     inventory_item = get_object_or_404(InventoryItem, pk=inventory_item_id)
     product = inventory_item.product
     ordered_quantity = inventory_item.ordered_quantity
 
     if request.method == 'POST':
-        print('POST')
         received_quantity_str = request.POST.get(
             f'quantity_{inventory_item.id}')
         if received_quantity_str:
             received_quantity = int(received_quantity_str)
         else:
             received_quantity = 0
-        print('Received_quantity str', received_quantity_str)
-        print('Received_quantity', received_quantity)
 
         if received_quantity:
-            print('received!')
             if received_quantity > 0 and received_quantity <= ordered_quantity:
                 product.quantity += received_quantity
-                print('ordered quantity before:', ordered_quantity)
                 ordered_quantity -= received_quantity
-                print('ordered quantity after:', ordered_quantity)
 
                 if ordered_quantity == 0:
                     inventory_item.is_expecting_delivery = False
                 inventory_item.ordered_quantity = ordered_quantity
-                inventory_item.save(update_fields=['is_expecting_delivery', 'ordered_quantity'])
-                print('ordered quantity saved:', ordered_quantity)
+                inventory_item.save(
+                    update_fields=[
+                        'is_expecting_delivery', 'ordered_quantity'])
 
                 product.save(update_fields=['quantity'])
-                print('Product quantity saved:', product.quantity)
                 messages.success(
                     request, f'{received_quantity} units received for \
                         {inventory_item.product.name}.')
@@ -256,37 +260,31 @@ def inbound_stock_received(request, inventory_item_id):
 
 @login_required
 def inbound_stock_cancelled(request, inventory_item_id):
+    """ View to reduce inbound stock levels if 100% of order not fulfilled """
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, this action is reserved \
             for store owners only')
         return redirect(reverse('home'))
     inventory_item = get_object_or_404(InventoryItem, pk=inventory_item_id)
-    product = inventory_item.product
     ordered_quantity = inventory_item.ordered_quantity
 
     if request.method == 'POST':
-        print('POST')
         cancelled_quantity_str = request.POST.get(
             f'quantity_{inventory_item.id}')
         if cancelled_quantity_str:
             cancelled_quantity = int(cancelled_quantity_str)
-        else:
-            received_quantity = 0
-        print('cancelled_quantity str', cancelled_quantity_str)
-        print('cancelled_quantity', cancelled_quantity)
 
         if cancelled_quantity:
-            print('cancelled!')
-            if cancelled_quantity > 0 and cancelled_quantity <= ordered_quantity:
-                print('quantity before:', product.quantity)
+            if (cancelled_quantity > 0 and
+                    cancelled_quantity <= ordered_quantity):
                 ordered_quantity -= cancelled_quantity
-                print('ordered quantity after:', ordered_quantity)
 
                 if ordered_quantity == 0:
                     inventory_item.is_expecting_delivery = False
                 inventory_item.ordered_quantity = ordered_quantity
-                inventory_item.save(update_fields=['is_expecting_delivery', 'ordered_quantity'])
-                print('product quantity saved:', product.quantity)
+                inventory_item.save(
+                    update_fields=[
+                        'is_expecting_delivery', 'ordered_quantity'])
 
                 messages.success(
                     request, f'{cancelled_quantity} units cancelled for \
@@ -300,4 +298,3 @@ def inbound_stock_cancelled(request, inventory_item_id):
     else:
         messages.info(request, 'Please accurately update stock')
         return redirect(reverse('inbound_stock_list'))
-
