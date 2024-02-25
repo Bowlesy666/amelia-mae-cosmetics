@@ -132,7 +132,7 @@ def auto_check_inventory_item_quantity(order):
         inventory_item = InventoryItem.objects.get(product_id=product_id)
 
         if not inventory_item.product.is_best_seller:
-            if inventory_item.product.quantity >= 100:
+            if inventory_item.total_units_sold >= 100:
                 inventory_item.product.is_best_seller = True
                 inventory_item.product.save(update_fields=['is_best_seller'])
 
