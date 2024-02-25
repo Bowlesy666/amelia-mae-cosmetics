@@ -32,33 +32,32 @@
         </div>
     </div>
     <div class="col px-3 py-5 container-fluid justify-content-center">
-        <a href="{% url 'view_inventory' %}?is_expecting_delivery=True" class="logo-font font-weight-bold nav-link text-black">
-            is expecting delivery
-        </a>
-        <a href="{% url 'view_inventory' %}?is_not_expecting_delivery=True" class="logo-font font-weight-bold nav-link text-black">
-            is not expecting delivery
-        </a>
-        <a href="{% url 'view_inventory' %}" class="btn btn-outline-dark logo-font font-weight-bold nav-link text-black">
-            <i class="fa-solid fa-arrows-rotate"></i> Reset
-        </a>
-        <form class="form" method="GET" action="{% url 'view_inventory' %}">
-            <div class="input-group w-100">
-                <input class="form-control border border-black rounded-0 mimi-pink" type="text" name="q" placeholder="Search our site">
-                <div class="input-group-append">
-                    <button class="form-control form-control btn btn-black border border-black rounded-0" type="submit">
-                        <span class="icon">
-                            <i class="fas fa-search white-smoke"></i>
-                        </span>
-                    </button>
-                </div>
-            </div>
-        </form>
+
+        <h3 class="ml-2 my-2">Search inventory using the below....</h3>
 
         <div class="row mt-1 mb-2">
-            <div class="col-12 col-md-6 my-auto order-md-last d-flex justify-content-center justify-content-md-end">
-                <div class="sort-select-wrapper w-50">
-                    <select id="sort-selector" class="custom-select custom-select-sm rounded-0 border white-smoke border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %}">
+            <div class="col-12 col-md-9 col-lg-10 my-auto order-md-last d-flex flex-wrap justify-content-center justify-content-md-end">
+                
+                <div class="col-12 col-sm-6 my-3">
+                    <form class="form" method="GET" action="{% url 'view_inventory' %}">
+                        <div class="input-group w-100">
+                            <input class="form-control border border-black rounded-0 mimi-pink shadow" type="text" name="q" placeholder="Search our site">
+                            <div class="input-group-append">
+                                <button class="form-control form-control btn btn-black border border-black rounded-0" type="submit">
+                                    <span class="icon">
+                                        <i class="fas fa-search white-smoke"></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="sort-select-wrapper col-12 col-sm-6 my-3">
+                    <select id="sort-selector" class="custom-select custom-select-sm rounded-0 border white-smoke border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %} shadow">
                         <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
+                        <option value="name_asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>Name (A-Z)</option>
+                        <option value="name_desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>Name (Z-A)</option>
                         <option value="min_threshold_asc" {% if current_sorting == 'min_threshold_asc' %}selected{% endif %}>Threshold (low to high)</option>
                         <option value="min_threshold_desc" {% if current_sorting == 'min_threshold_desc' %}selected{% endif %}>Threshold (high to low)</option>
                         <option value="min_order_quantity_asc" {% if current_sorting == 'min_order_quantity_asc' %}selected{% endif %}>MOQ (low to high)</option>
@@ -71,25 +70,33 @@
                         <option value="total_lost_or_damaged_desc" {% if current_sorting == 'total_lost_or_damaged_desc' %}selected{% endif %}>Total Lost (high to low)</option>
                         <option value="total_revenue_generated_asc" {% if current_sorting == 'total_revenue_generated_asc' %}selected{% endif %}>Total Revenue (low to high)</option>
                         <option value="total_revenue_generated_desc" {% if current_sorting == 'total_revenue_generated_desc' %}selected{% endif %}>Total Revenue (high to low)</option>
-                        <option value="name_asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>Name (A-Z)</option>
-                        <option value="name_desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>Name (Z-A)</option>
+                        <option value="is_expecting_delivery_desc" {% if current_sorting == 'is_expecting_delivery_desc' %}selected{% endif %}>Awaiting Delivery (Deliveries First)</option>
+                        <option value="is_expecting_delivery_asc" {% if current_sorting == 'is_expecting_delivery_asc' %}selected{% endif %}>Awaiting Delivery (Deliveries Last)</option>
                     </select>
                 </div>
             </div>
-            <div class="col-12 col-md-6 order-md-first">
-                <p class="text-dark mt-3 text-center text-md-left">
-                    {% if search_term or current_categories or current_sorting != 'None_None' %}
-                        <span class="small"><a href="{% url 'view_inventory' %}">Back to all products</a> | </span>
-                    {% endif %}
-                    {{ inventory_item_list|length }} Products{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
-                </p>
+            <div class="col col-md-3 col-lg-2 order-md-first my-3">
+                <a href="{% url 'view_inventory' %}" class="btn btn-dark logo-font font-weight-bold nav-link text-black shadow">
+                    <i class="fa-solid fa-arrows-rotate"></i> Reset
+                </a>
             </div>
+        </div>
+        <div class="d-flex p-2 justify-content-around">
+            <p class="text-dark mt-3 d-inline">
+                {{ inventory_item_list|length }} Products{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
+            </p>
+            <a href="{% url 'view_inventory' %}?is_expecting_delivery=True" class="btn btn-outlin-dark border-dark d-none d-md-block my-2 logo-font font-weight-bold text-black shadow">
+                Delivery Expected
+            </a>
+            <a href="{% url 'view_inventory' %}?is_not_expecting_delivery=True" class="btn btn-outlin-dark border-dark d-none d-md-block my-2 logo-font font-weight-bold text-black shadow">
+                No Delivery Expected
+            </a>
         </div>
 
         <div class="row py-3 white-smoke">
             {% if inventory_item_list %}
                 <span class="d-lg-none mt-5"><strong>Scroll right to see all product details and 'Delete' button.</strong></span>
-                <table class="table table-responsive-lg mb-5">
+                <table class="table table-responsive mb-5">
                     <thead>
                         <tr>
                             <th scope="col">Order Stock</th>
@@ -235,6 +242,9 @@
                     var direction = selectedVal.split("_")[3];
                 } else if(selectedVal === "total_revenue_generated_asc" || selectedVal === "total_revenue_generated_desc"){
                     var sort = "total_revenue_generated";
+                    var direction = selectedVal.split("_")[3];
+                } else if(selectedVal === "is_expecting_delivery_asc" || selectedVal === "is_expecting_delivery_desc"){
+                    var sort = "is_expecting_delivery";
                     var direction = selectedVal.split("_")[3];
                 } else if(selectedVal === "total_lost_or_damaged_asc" || selectedVal === "total_lost_or_damaged_desc"){
                     var sort = "total_lost_or_damaged";

@@ -7,7 +7,6 @@ from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from django.utils import timezone
 
-from products.views import get_products_and_sorting
 from .models import InventoryItem
 from .forms import InventoryItemForm
 from django.conf import settings
@@ -32,9 +31,9 @@ def get_inventory_and_sorting(request, template_name):
             sortkey = request.GET['sort']
             sort = sortkey
             if sortkey == 'name':
-                # avoid losing original field name, use lower_name in place of sortkey
+                # avoid losing original field name
                 sortkey = 'product__name'
-                inventory_item_list = inventory_item_list.product.annotate(lower_name=Lower('name'))
+                inventory_item_list = inventory_item_list.annotate(lower_name=Lower('product'))
 
             if 'direction' in request.GET:
                 direction = request.GET['direction']
