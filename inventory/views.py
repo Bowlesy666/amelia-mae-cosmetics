@@ -34,7 +34,6 @@ def get_inventory_and_sorting(request, template_name):
             if sortkey == 'name':
                 # avoid losing original field name
                 sortkey = 'product__name'
-                inventory_item_list = inventory_item_list.annotate(lower_name=Lower('product'))
 
             if 'direction' in request.GET:
                 direction = request.GET['direction']
