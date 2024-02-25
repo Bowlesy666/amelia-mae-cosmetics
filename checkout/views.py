@@ -119,7 +119,7 @@ def checkout(request):
 
     if not stripe_public_key:
         messages.warning(request, 'Stripe public key is missing. \
-            Contact Bowles Developmenmt to rport this issue 07783409714')
+            Contact Bowles Developmenmt to report this issue 07783409714')
     template = 'checkout/checkout.html'
     context = {
         'order_form': order_form,

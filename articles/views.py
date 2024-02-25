@@ -1,19 +1,64 @@
 from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.contrib import messages
+from django.db.models import Q
 
 from .models import Article
 from .forms import ArticleForm
 
 
-def articles_list(request):
-    """ Display all articles """
+def get_articles_and_sorting(request, template_name):
+    """
+    function to show all articles, including sorting
+    and search queries,
+    must pass the template name from view
+    """
     articles = Article.objects.order_by('-created_on')
 
+    query = None
+    sort = None
+    direction = None
+
+    if request.GET:
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+            sort = sortkey
+
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sortkey = f'-{sortkey}'
+            articles = articles.order_by(sortkey)
+
+        if 'q' in request.GET:
+            query = request.GET['q']
+            if not query:
+                messages.error(request, "You didnt enter any search criteria!")
+                return redirect(reverse('view_inventory'))
+
+            # i before contains makes it not case sensitive, double underscore used here
+            queries = Q(title__icontains=query) | Q(content__icontains=query)
+            articles = articles.filter(queries)
+
+    current_sorting = f'{sort}_{direction}'
+
     context = {
+        'search_term': query,
+        'current_sorting': current_sorting,
         'articles': articles,
     }
 
-    return render(request, 'articles/articles_list.html', context)
+    return render(request, template_name, context)
+
+
+def articles_list(request):
+    """ Display all articles """
+    # articles = Article.objects.order_by('-created_on')
+
+    # context = {
+    #     'articles': articles,
+    # }
+
+    return get_articles_and_sorting(request, 'articles/articles_list.html')
 
 
 def add_article(request):
@@ -84,5 +129,5 @@ def delete_article(request, article_id):
     context = {
         'article': article,
     }
-        
+
     return render(request, 'articles/confirm_to_delete_article.html', context)

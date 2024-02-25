@@ -45,7 +45,49 @@
         {% endif %}
     </div>
     <div class="col py-5 px-0 justify-content-center">
-        {% include 'products/includes/products_sorting.html' %}
+
+        <h3 class="ml-2 my-2">Search articles using the below....</h3>
+
+        <div class="row mt-1 mb-2">
+            <div class="col-12 col-md-9 col-lg-10 my-auto order-md-last d-flex flex-wrap justify-content-center justify-content-md-end">
+                
+                <div class="col-12 col-sm-6 my-3">
+                    <form class="form" method="GET" action="{% url 'articles_list' %}">
+                        <div class="input-group w-100">
+                            <input class="form-control border border-black rounded-0 mimi-pink shadow" type="text" name="q" placeholder="Search our site">
+                            <div class="input-group-append">
+                                <button class="form-control form-control btn btn-black border border-black rounded-0" type="submit">
+                                    <span class="icon">
+                                        <i class="fas fa-search white-smoke"></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="sort-select-wrapper col-12 col-sm-6 my-3">
+                    <select id="sort-selector" class="custom-select custom-select-sm rounded-0 border white-smoke border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %} shadow">
+                        <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
+                        <option value="created_on_desc" {% if current_sorting == 'created_on_desc' %}selected{% endif %}>Newest First</option>
+                        <option value="created_on_asc" {% if current_sorting == 'created_on_asc' %}selected{% endif %}>Oldest First</option>
+                        <option value="title_asc" {% if current_sorting == 'title_asc' %}selected{% endif %}>Title (A to Z)</option>
+                        <option value="title_desc" {% if current_sorting == 'title_desc' %}selected{% endif %}>Title (Z to A)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col col-md-3 col-lg-2 order-md-first my-3">
+                <a href="{% url 'articles_list' %}" class="btn btn-dark logo-font font-weight-bold nav-link text-black shadow">
+                    <i class="fa-solid fa-arrows-rotate"></i> Reset
+                </a>
+            </div>
+        </div>
+        <div class="d-flex p-2 justify-content-around">
+            <p class="text-dark mt-3 d-inline">
+                {{ articles|length }} Articles{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
+            </p>
+        </div>
+
         <div class="row py-3 white-smoke">
             {% if articles %}
                 <div class="col px-0 container">
@@ -105,14 +147,17 @@
 
             var selectedVal = selector.val();
             if(selectedVal != "reset"){
-                if(selectedVal === "skin_type_asc" || selectedVal === "skin_type_desc"){
-                    var sort = "skin_type";
+                if(selectedVal === "title_asc" || selectedVal === "title_desc"){
+                    var sort = "title";
+                    var direction = selectedVal.split("_")[1];
+                } else if(selectedVal === "created_on_asc" || selectedVal === "created_on_desc"){
+                    var sort = 'created_on';
                     var direction = selectedVal.split("_")[2];
                 } else {
                     var sort = selectedVal.split("_")[0];
                     var direction = selectedVal.split("_")[1];
                 }
-
+                
                 currentUrl.searchParams.set("sort", sort);
                 currentUrl.searchParams.set("direction", direction);
 

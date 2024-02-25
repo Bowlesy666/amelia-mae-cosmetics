@@ -17,7 +17,8 @@ import json
 
 def get_inventory_and_sorting(request, template_name):
     """
-    function to show all products, including sorting and search queries
+    function to show all products in inventory, including sorting
+    and search queries,
     must pass the template name from view
     """
     inventory_item_list = InventoryItem.objects.all()
