@@ -1,4 +1,6 @@
 import os
+from django.db.models import Q
+from django.db.models.functions import Lower
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -14,6 +16,63 @@ from django.core.mail import send_mail
 import json
 
 
+def get_inventory_and_sorting(request, template_name):
+    """
+    function to show all products, including sorting and search queries
+    must pass the template name from view
+    """
+    inventory_item_list = InventoryItem.objects.all()
+
+    query = None
+    sort = None
+    direction = None
+
+    if request.GET:
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+            sort = sortkey
+            if sortkey == 'name':
+                # avoid losing original field name, use lower_name in place of sortkey
+                sortkey = 'product__name'
+                inventory_item_list = inventory_item_list.product.annotate(lower_name=Lower('name'))
+
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sortkey = f'-{sortkey}'
+            inventory_item_list = inventory_item_list.order_by(sortkey)
+
+        if 'is_expecting_delivery' in request.GET:
+            expecting_delivery = request.GET['is_expecting_delivery']
+            if expecting_delivery:
+                inventory_item_list = inventory_item_list.filter(is_expecting_delivery=True)
+
+        if 'is_not_expecting_delivery' in request.GET:
+            not_expecting_delivery = request.GET['is_not_expecting_delivery']
+            if not_expecting_delivery:
+                inventory_item_list = inventory_item_list.filter(is_expecting_delivery=False)
+
+        if 'q' in request.GET:
+            query = request.GET['q']
+            if not query:
+                    messages.error(request, "You didnt enter any search criteria!")
+                    return redirect(reverse('view_inventory'))
+
+            # i before contains makes it not case sensitive, double underscore used here
+            queries = Q(product__name__icontains=query) | Q(supplier_name__icontains=query) | Q(supplier_email__icontains=query)
+            inventory_item_list = inventory_item_list.filter(queries)
+
+    current_sorting = f'{sort}_{direction}'
+
+    context = {
+        'search_term': query,
+        'current_sorting': current_sorting,
+        'inventory_item_list': inventory_item_list,
+    }
+
+    return render(request, template_name, context)
+
+
 @login_required
 def view_inventory(request):
     """A view that renders the inventory admin page"""
@@ -21,7 +80,7 @@ def view_inventory(request):
         messages.error(request, 'Sorry, this action is reserved \
             for store owners only')
         return redirect(reverse('home'))
-    return get_products_and_sorting(request, 'inventory/inventory_admin.html')
+    return get_inventory_and_sorting(request, 'inventory/inventory_admin.html')
 
 
 @login_required
