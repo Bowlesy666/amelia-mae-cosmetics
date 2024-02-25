@@ -1,3 +1,32 @@
+"""
+1. `home`:
+   - URL pattern for the home page.
+   - Maps to the `index` view.
+
+2. `privacy_policy`:
+   - URL pattern for the privacy policy page.
+   - Maps to the `privacy_policy` view.
+
+3. `shipping_policy`:
+   - URL pattern for the shipping policy page.
+   - Maps to the `shipping_policy` view.
+
+4. `cookie_policy`:
+   - URL pattern for the cookie policy page.
+   - Maps to the `cookie_policy` view.
+
+5. `disclaimer`:
+   - URL pattern for the disclaimer page.
+   - Maps to the `disclaimer` view.
+
+6. `terms_and_conditions`:
+   - URL pattern for the terms and conditions page.
+   - Maps to the `terms_and_conditions` view.
+
+7. `return_and_refund_policy`:
+   - URL pattern for the return and refund policy page.
+   - Maps to the `return_and_refund_policy` view.
+"""
 from django.urls import path
 from . import views
 
