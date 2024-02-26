@@ -3,7 +3,9 @@ from .models import InventoryItem
 
 
 class InventoryItemForm(forms.ModelForm):
-
+    """
+    Form for creating or updating InventoryItem instances.
+    """
     class Meta:
         model = InventoryItem
         fields = [
@@ -15,6 +17,9 @@ class InventoryItemForm(forms.ModelForm):
         ]
 
         def __init__(self, *args, **kwargs):
+            """
+            Initialize form with custom field attributes.
+            """
             super().__init__(*args, **kwargs)
 
             for field_name, field in self.fields.items():

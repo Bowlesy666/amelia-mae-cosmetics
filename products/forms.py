@@ -1,9 +1,9 @@
 from django import forms
-from .models import Product, Category, Reviews
+from .models import Product, Category
 
 
 class ProductForm(forms.ModelForm):
-
+    """ Form for creating and updating products """
     class Meta:
         model = Product
         fields = '__all__'
@@ -12,7 +12,8 @@ class ProductForm(forms.ModelForm):
             super().__init__(*args, **kwargs)
             categories = Category.objects.all()
             # list comprehension
-            friendly_names = [(c.id, c.get_friendly_name()) for c in categories]
+            friendly_names = [(
+                c.id, c.get_friendly_name()) for c in categories]
 
             self.fields['category'].choices = friendly_names
             # match theme of the rest of the store
@@ -21,7 +22,10 @@ class ProductForm(forms.ModelForm):
 
 
 class ReviewsForm(forms.Form):
-    rating = forms.IntegerField(widget=forms.HiddenInput(attrs={'id': 'rating-value'}))
+    """ Form for creating reviews """
+    rating = forms.IntegerField(
+        widget=forms.HiddenInput(attrs={'id': 'rating-value'})
+    )
     comment = forms.CharField(label='Comment', widget=forms.Textarea)
 
     def clean(self):

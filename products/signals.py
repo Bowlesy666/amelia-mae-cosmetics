@@ -3,6 +3,7 @@ from django.dispatch import receiver
 from .models import Product
 from inventory.models import InventoryItem
 
+
 @receiver(post_save, sender=Product)
 def create_inventory_item(sender, instance, created, **kwargs):
     """
@@ -12,10 +13,12 @@ def create_inventory_item(sender, instance, created, **kwargs):
         # Create an InventoryItem for the newly created Product
         InventoryItem.objects.create(product=instance)
 
+
 @receiver(post_delete, sender=Product)
 def delete_inventory_item(sender, instance, **kwargs):
     """
-    Signal receiver function to delete the corresponding InventoryItem when a Product is deleted.
+    Signal receiver function to delete the corresponding InventoryItem
+    when a Product is deleted.
     """
     try:
         inventory_item = InventoryItem.objects.get(product=instance)

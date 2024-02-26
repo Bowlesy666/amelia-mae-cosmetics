@@ -1,10 +1,10 @@
 from django import forms
 from .models import Article
-from products.models import Product, Category, SkinType
+from products.models import Category
 
 
 class ArticleForm(forms.ModelForm):
-
+    """ Form to create and edit articles """
     class Meta:
         model = Article
         fields = '__all__'
@@ -13,7 +13,8 @@ class ArticleForm(forms.ModelForm):
             super().__init__(*args, **kwargs)
             categories = Category.objects.all()
             # list comprehension
-            friendly_names = [(c.id, c.get_friendly_name()) for c in categories]
+            friendly_names = [(
+                c.id, c.get_friendly_name()) for c in categories]
 
             self.fields['category'].choices = friendly_names
             # match theme of the rest of the store

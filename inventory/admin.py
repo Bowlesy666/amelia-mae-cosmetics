@@ -3,6 +3,9 @@ from .models import InventoryItem
 
 
 class InventoryItemAdmin(admin.ModelAdmin):
+    """
+    Admin view configuration for the InventoryItem model.
+    """
     list_display = (
         'product',
         'min_threshold',

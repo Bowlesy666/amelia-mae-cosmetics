@@ -3,6 +3,9 @@ from .models import Product, Category, SkinType, Reviews
 
 
 class ProductAdmin(admin.ModelAdmin):
+    """
+    Admin options for the Product model.
+    """
     list_display = (
         'sku',
         'name',
@@ -18,6 +21,9 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 class CategoryAdmin(admin.ModelAdmin):
+    """
+    Admin options for the Category model.
+    """
     list_display = (
         'friendly_name',
         'name',
@@ -25,6 +31,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class SkinTypeAdmin(admin.ModelAdmin):
+    """
+    Admin options for the SkinType model.
+    """
     list_display = (
         'friendly_name',
         'name',
@@ -32,6 +41,9 @@ class SkinTypeAdmin(admin.ModelAdmin):
 
 
 class ReviewsAdmin(admin.ModelAdmin):
+    """
+    Admin options for the Reviews model.
+    """
     list_display = (
         'product',
         'user',

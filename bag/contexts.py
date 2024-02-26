@@ -5,7 +5,9 @@ from products.models import Product
 
 
 def bag_contents(request):
-
+    """
+    Calculate the contents of the shopping bag.
+    """
     bag_items = []
     # initialise counts
     total = 0
@@ -23,7 +25,7 @@ def bag_contents(request):
         })
 
     if total < settings.FREE_DELIVERY_THRESHOLD:
-        # using decimal instead of float is said to be more accurate and less problematic
+        # using decimal instead of float is said to be more accurate
         delivery = total * Decimal(settings.STANDARD_DELIVERY_PERCENTAGE/100)
         free_delivery_delta = settings.FREE_DELIVERY_THRESHOLD - total
     else:
