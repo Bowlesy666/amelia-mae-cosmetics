@@ -667,14 +667,14 @@ footer {
  
 @media (min-width: 992px) {
     .header-container {
-        padding-top: 145px;
+        padding-top: 150px;
     }
 }
 
 /* pad the top a bit when navbar is collapsed on mobile */
 @media (max-width: 991px) {
     .header-container {
-        padding-top: 100px;
+        padding-top: 116px;
     }
 
     body {

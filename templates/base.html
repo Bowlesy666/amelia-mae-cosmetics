@@ -59,7 +59,7 @@
                         <div class="input-group w-100">
                             <input class="form-control border border-black rounded-0 mimi-pink" type="text" name="q" placeholder="Search Amelia Mae Products...">
                             <div class="input-group-append">
-                                <button class="form-control btn btn-black border border-black rounded-0" type="submit">
+                                <button aria-label="search for products" class="form-control btn btn-black border border-black rounded-0" type="submit">
                                     <span class="icon">
                                         <i class="fas fa-search"></i>
                                     </span>
@@ -74,7 +74,7 @@
                             <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <div class="text-center white-smoke">
                                     <div><i class="fas fa-user fa-lg"></i></div>
-                                    <p class="my-0">My Account</p>
+                                    <p class="my-0">{% if request.user.is_authenticated %}{{ request.user }}{% else %}My Account{% endif %}</p>
                                 </div>
                             </a>
                             <div class="dropdown-menu border-0 white-smoke" aria-labelledby="user-options">
@@ -143,8 +143,6 @@
                     {% endfor %}
                 </div>
             {% endif %}
-            <div class="toast-container" aria-live="polite" aria-atomic="true">
-            </div>
                 
         {% block page_header %}
         {% endblock %}
