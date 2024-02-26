@@ -162,14 +162,6 @@ def checkout_success(request, order_number):
             if user_profile_form.is_valid():
                 user_profile_form.save()
 
-    if not request.user.is_authenticated:
-        if 'checkout_success_displayed_once_only' in request.session:
-            messages.error(request, 'Sorry, you must be logged in to your \
-                account to see you order history')
-            return redirect(reverse('home'))
-        else:
-            request.session['checkout_success_displayed_once_only'] = True
-
     messages.success(request, f'Order successfully processed! \
         Your order number is {order_number}. A confirmation \
         email will be sent to {order.email}.')
@@ -178,8 +170,11 @@ def checkout_success(request, order_number):
         del request.session['bag']
 
     template = 'checkout/checkout_success.html'
-    context = {
-        'order': order,
-    }
+    if request.user.is_authenticated and request.user.email == order.email:
+        context = {
+            'order': order,
+        }
+    else:
+        context = {}
 
     return render(request, template, context)
