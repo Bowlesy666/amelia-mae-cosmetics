@@ -6,8 +6,8 @@
 
 {% block og_title %}My Amelia Mae Customer Profile{% endblock %}
 {% block og_description %}My Amelia Mae customer profile, view previous transactions and edit my personal details{% endblock %}
-{% block og_image %}not default{% endblock %}
-{% block og_url %}not default{% endblock %}
+{% block og_image %}{% endblock %}
+{% block og_url %}{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'profiles/css/profile.css' %}">
@@ -25,18 +25,24 @@
 {% endblock %}
 
 {% block content %}
-
+<!-- Profile Page -->
 <div class="container-fluid white-smoke py-5">
+
+    <!-- Page heading -->
     <div class="row py-3 text-center">
         <div class="col text-center white-smoke">
-            <h2 class="logo-font mt-3 h-100">My Profile</h2>
+            <h1 class="logo-font mt-3 h-100">My Profile</h1>
         </div>
     </div>
+    <!-- end Page heading -->
     
+    <!-- Profile info and order history -->
     <div class="col-lg-9 px-0 py-5 container-fluid justify-content-center card-rounded">
         <div class="row white-smoke mx-2 card-rounded">
             <div class="col card mx-lg-0 white-smoke card-rounded shadow">
                 <div class="row">
+
+                    <!-- Profile info -->
                     <div class="col-xl-6 p-5 card-rounded allauth-form-inner-content">
                         <p class="text-muted">Default Delivery Information</p>
                         <form class="mt-3" action="{% url 'profile' %}" method="POST" id="profile-update-form">
@@ -45,6 +51,9 @@
                             <button class="btn btn-black rounded-0 text-uppercase float-right">Update Information</button>
                         </form>
                     </div>
+                    <!-- end Profile info -->
+
+                    <!-- Order History -->
                     <div class="col-xl-6 mimi-pink shadow card-rounded p-5">
                         <p class="text-muted">Order History</p>
                         <div class="order-history table-responsive">
@@ -83,12 +92,16 @@
                             </table>
                         </div>
                     </div>
+                    <!-- end Order History -->
+
                 </div>
             </div>
         </div>
     </div>
-    
+    <!-- end Profile info and order history -->
+
 </div>
+<!-- end Profile page -->
 {% endblock %}
 
 {% block postloadjs %}

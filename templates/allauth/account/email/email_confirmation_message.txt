@@ -1,8 +1,18 @@
 {% load account %}{% user_display user as user_display %}{% load i18n %}{% autoescape off %}{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}Hello from {{ site_name }}!
 
-You're receiving this e-mail because user {{ user_display }} has given yours as an e-mail address to connect their account.
+Congratulations {{ user_display }},
 
-To confirm this is correct, go to {{ activate_url }}
+Welcome to Amelia Mae Cosmetics, you will find all your skincare needs are met with us.
+
+Confirm your email here on the link provide to get started: {{ activate_url }}
+
+Thank you for Choosing Amelia Mae
+Kind regards
+Amelia Mae Cosmetics team.
+
+
+If you did not sign up with us, simply ignore this email!
+
 {% endblocktrans %}
 {% blocktrans with site_name=current_site.name site_domain=current_site.domain %}Thank you from {{ site_name }}!
 {{ site_domain }}{% endblocktrans %}

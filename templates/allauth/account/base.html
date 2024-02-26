@@ -10,30 +10,41 @@
 
 
 {% block content %}
-
 <div class="container-fluid white-smoke py-5">
+    <!-- Page heading -->
     <div class="row py-3 text-center">
         <div class="col text-center white-smoke">
-            <h2 class="logo-font mt-3 h-100">{% block page_heading_title %}{% endblock %}</h2>
+            <h1 class="logo-font mt-3 h-100">{% block page_heading_title %}{% endblock %}</h1>
         </div>
     </div>
+    <!-- end Page heading -->
+
+    <!-- Inner content and side image -->
     <div class="col-lg-9 px-0 py-5 container-fluid justify-content-center card-rounded">
         <div class="row white-smoke mx-2 card-rounded shadow">
             <div class="col card mx-lg-0 white-smoke card-rounded">
                 <div class="row">
+
+                    <!-- Inner content -->
                     <div class="col-xl-8 p-5 my-auto card-rounded allauth-form-inner-content">
                         {% block inner_content %}
                         {% endblock %}
                     </div>
+                    <!-- end Inner content -->
+
+                    <!-- Side image -->
                     <div class="d-none d-xl-block col-xl-4 mimi-pink shadow card-rounded h-100 p-2">
                         <div class="h-100 w-100 overflow-hidden">
                             <img class="img-fluid card-rounded shadow" src="{{ MEDIA_URL }}tall_allauth.png" alt="Woman with great skin, amelia mae cosmetics">
                         </div>
                     </div>
+                    <!-- end side image -->
+
                 </div>
             </div>
         </div>
     </div>
+    <!-- end Inner content and side image -->
 </div>
 
 
