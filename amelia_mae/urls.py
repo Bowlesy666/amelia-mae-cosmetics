@@ -30,3 +30,8 @@ urlpatterns = [
     path('profile/', include('profiles.urls')),
     path('inventory/', include('inventory.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler400 = 'amelia_mae.views.handler400'
+handler403 = 'amelia_mae.views.handler403'
+handler404 = 'amelia_mae.views.handler404'
+handler500 = 'amelia_mae.views.handler500'
