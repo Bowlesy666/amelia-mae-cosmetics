@@ -1,11 +1,18 @@
 from django.db import models
 
-from products.models import Category, Product, SkinType
-
 STATUS = ((0, "Archived"), (1, "Published"))
 
 
 class Article(models.Model):
+    """
+    Represents an article containing title, content,
+    optional image, creation date,
+    status (published or archived), category, associated product,
+    and applicable skin type.
+
+    The 'ordering' is set to display articles
+    in descending order of creation.
+    """
     title = models.CharField(max_length=200, unique=True)
     content = models.TextField(blank=False)
     image = models.ImageField(null=True, blank=True)

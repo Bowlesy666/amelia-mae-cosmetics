@@ -48,8 +48,7 @@ class Reviews(models.Model):
     comment = models.CharField(max_length=254, null=True, blank=True)
     rating = models.DecimalField(
         max_digits=2, decimal_places=0,
-        validators=[MinValueValidator(0),
-        MaxValueValidator(5)]
+        validators=[MinValueValidator(0), MaxValueValidator(5)]
     )
     created_on = models.DateTimeField(auto_now=True)
     updated_on = models.DateTimeField(auto_now=True)
