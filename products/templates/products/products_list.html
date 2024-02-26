@@ -6,13 +6,13 @@
 
 {% block og_title %}Shop for Amelia Mae Skincare{% endblock %}
 {% block og_description %}Explore our wide range of high-quality skincare products designed to rejuvenate and nourish your skin. Find the perfect solution for your skincare needs today!{% endblock %}
-{% block og_image %}not default{% endblock %}
-{% block og_url %}not default{% endblock %}
+{% block og_image %}{% endblock %}
+{% block og_url %}{% endblock %}
 
 {% block extra_css %}
 {% endblock %}
 
-{% block extra_title %}Shop all skincare products{% endblock %}
+{% block extra_title %}Luxury skincare products{% endblock %}
 <!-- end Head tags -->
 
 {% block page_header %}
@@ -26,18 +26,26 @@
 {% block content %}
 <div class="container-fluid mimi-pink">
     <div class="row py-3">
+
+        <!-- Page Header -->
         <div class="col text-center mimi-pink">
-            <h2 class="logo-font mt-3 h-100">Shop Amelia Mae Products</h2>
+            <h1 class="logo-font mt-3 h-100">Amelia Mae Luxury SKincare</h1>
         </div>
+        <!-- end Page Header -->
+
     </div>
     <div class="col-xl-9 px-0 mimi-pink container-fluid justify-content-center">
+
+        <!-- Product sort -->
         {% include 'products/includes/products_sorting.html' %}
+        <!-- end Product sort -->
+
+        <!-- Product cards -->
         <div class="row py-3 mimi-pink">
             {% if products %}
                 {% for product in products %}
                     <div class="col-md-6 col-lg-4 col-xl-3 my-3 card-rounded">
                         {% include 'products/includes/product_list_card.html' %}
-                        
                     </div>
                 {% endfor %}
             {% else %}
@@ -47,9 +55,11 @@
                 </div>
             {% endif %}
         </div>
+        <!-- end Product cards -->
+
     </div>
     <div class="btt-button shadow-sm card-rounded border cordovan border-black">
-        <a class="btt-link d-flex cordovan card-rounded h-100">
+        <a href="#top" aria-label="back to top" class="btt-link d-flex cordovan card-rounded h-100">
             <i class="fas fa-arrow-up cordovan mx-auto my-auto"></i>
         </a>	
     </div>

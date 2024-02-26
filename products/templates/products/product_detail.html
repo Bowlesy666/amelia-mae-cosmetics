@@ -6,8 +6,8 @@
 
 {% block og_title %}Shop for Amelia Mae - {{ product.name }}{% endblock %}
 {% block og_description %}{{ product.description }}{% endblock %}
-{% block og_image %}not default{% endblock %}
-{% block og_url %}not default{% endblock %}
+{% block og_image %}{% if product.image %}{{ product.image.url }}{% else %}{{ MEDIA_URL }}no_image.png{% endif %}{% endblock %}
+{% block og_url %}{% endblock %}
 
 {% block extra_css %}
 {% endblock %}
@@ -35,24 +35,38 @@
 
             <div class="card mb-3 mx-2 mx-lg-0 card-rounded white-smoke shadow">
                 <div class="row no-gutters">
+
+                    <!-- Image side of card -->
                     <div class="col-md-6 card-rounded">
                         <div class="white-smoke card-rounded">
+
+                            <!-- Best seller label -->
                             {% if product.is_best_seller %}
                             <span class="position-absolute-best-seller position-absolute-best-seller-product-detail rounded">BEST SELLER <i class="fa-solid fa-award"></i></span>
                             {% endif %}
+                            <!-- end Best seller label -->
+
                             <div class="card border-0 card-rounded white-smoke p-1">
+                                <!-- image -->
                                 <img
-                                    src="{% if product.image.url %}{{ product.image.url }}{% else %}{{ MEDIA_URL }}no_image.png{% endif %}"
+                                    src="{% if product.image %}{{ product.image.url }}{% else %}{{ MEDIA_URL }}no_image.png{% endif %}"
                                     class="card-img-top product-card-image product-detail-card-image card-rounded shadow"
                                     alt="{% if product.name %}{{ product.name }}{% else %}Amelia Mae luxury product{% endif %}"
                                     >
+                                <!-- end image -->
+
+                                <!-- Out of stock overlay -->
                                 {% if product.is_out_of_stock %}
                                 <span class="out-of-stock-overlay out-of-stock-overlay-product-detail card-rounded text-center">
                                     <i class="fa-solid fa-ban fa-flip-horizontal"></i>
                                     <p class="out-of-stock-text">Currently Out Of Stock</p>
                                 </span>
                                 {% endif %}
+                                <!-- end Out of stock overlay -->
+
                             </div>
+
+                            <!-- Star rating -->
                             <span class="position-absolute-rating position-absolute-rating-product-detail">
                                 <i class="fa-sharp fa-solid fa-star {% if product.rating >= 1 %}gold{% else %}silver{% endif %}"></i>
                                 <i class="fa-sharp fa-solid fa-star {% if product.rating >= 1.5 %}gold{% else %}silver{% endif %}"></i>
@@ -60,22 +74,34 @@
                                 <i class="fa-sharp fa-solid fa-star {% if product.rating >= 3.5 %}gold{% else %}silver{% endif %}"></i>
                                 <i class="fa-sharp fa-solid fa-star {% if product.rating >= 4.5 %}gold{% else %}silver{% endif %}"></i>
                             </span>
+                            <!-- end Star rating -->
+
+                            <!-- Ribbon overlay -->
                             {% if product.is_discontinued and not product.is_out_of_stock %}
                             <span class="ribbon ribbon-product-detail px-5 shadow">Discontinued!<br>Only <strong>{{ product.quantity }}</strong> left</span>
                             {% elif product.quantity >= 1 and product.quantity <= 25 %}
                             <span class="ribbon ribbon-product-detail px-5">Hurry!<br>Only <strong>{{ product.quantity }}</strong> left</span>
                             {% endif %}
+                            <!-- endRibbon overlay -->
+
                         </div>
                     </div>
+                    <!-- end Image side of card -->
 
+                    <!-- Product info and form -->
                     <div class="col-md-6">
                         <form class="form" action="{% url 'add_to_bag' product.id %}" method="POST">
                             {% csrf_token %}
                             <div class="card-body h-100">
+
+                                <!-- Product details -->
                                 <div class="my-2">
                                     <h2 class="card-title"><small>Product Details:</small></h2>
                                     <p class="card-text"><small>{{ product.description }}</small></p>
                                 </div>
+                                <!-- end Product details -->
+
+                                <!-- Product rating and link to reviews -->
                                 <div class="my-2">
                                     <p class="d-inline-flex"><small>Product Rating: </small></p>
                                     <div class="d-inline-flex inline-star-rating-shadow">
@@ -86,15 +112,22 @@
                                         <i class="fa-sharp fa-solid fa-star {% if product.rating >= 4.5 %}gold{% else %}silver{% endif %}"></i>
                                     </div>
                                     {% if product.rating < 1 %}
-                                        <a href="#reviews" class="d-inline-flex"><small>Be the first to leave a review</small></a>
+                                        <a href="#reviews" class="d-inline-flex btn btn-outline-dark border-0"><small>Be the first to leave a review</small></a>
                                     {% else %}
-                                    <a href="#reviews" class="d-inline-flex"><small>See product reviews!</small></a>
+                                        <a href="#reviews" class="d-inline-flex btn btn-outline-dark border-0"><small>See product reviews!</small></a>
                                     {% endif %}
                                 </div>
+                                <!-- end Product rating and link to reviews -->
+
                                 <div class="row">
+
+                                    <!-- Product price -->
                                     <div class="col-8 pt-5">
                                         <span class="mt-5 product-detail-price"><strong>£ {{ product.price }}</strong></span>
                                     </div>
+                                    <!-- end Product price -->
+
+                                    <!-- Quantity Input -->
                                     <div class="col-4">
                                         {% if product.quantity < 1 and not product.is_discontinued %}
                                         <p class="mr-2 mt-5">This item is currently out of stock!</p>
@@ -106,7 +139,8 @@
                                             <div class="input-group qty-input-width input-group-{{ product.id }}">
                                                 <div class="input-group-prepend order-12 decrement-qty_{{ product.id }}">
                                                     <button class="decrement-qty decrement-qty_{{ product.id }} btn btn-black rounded-0" 
-                                                        data-item_id="{{ product.id }}" id="decrement-qty_{{ product.id }}">
+                                                        data-item_id="{{ product.id }}" id="decrement-qty_{{ product.id }}"
+                                                        aria-label="Decrease quantity by 1">
                                                         <span class="icon">
                                                             <i class="fas fa-minus"></i>
                                                         </span>
@@ -116,10 +150,12 @@
                                                 <input type="hidden" class="threshold threshold_{{ product.id }}" value="{{ product.quantity }}">
                                                 <input class="form-control qty_input id_qty_{{ product.id }} order-6" type="number"
                                                     name="quantity" value="1" min="1" max="99"
-                                                    data-item_id="{{ product.id }}" id="id_qty_{{ product.id }}">
+                                                    data-item_id="{{ product.id }}" id="id_qty_{{ product.id }}"
+                                                    aria-label="Quantity" aria-describedby="quantity to add to bag">
                                                 <div class="input-group-append order-1 increment-qty_{{ product.id }}">
                                                     <button class="increment-qty increment-qty_{{ product.id }} btn btn-black rounded-0"
-                                                        data-item_id="{{ product.id }}" id="increment-qty_{{ product.id }}">
+                                                        data-item_id="{{ product.id }}" id="increment-qty_{{ product.id }}"
+                                                        aria-label="Increase quantity by 1">
                                                         <span class="icon">
                                                             <i class="fas fa-plus"></i>
                                                         </span>
@@ -129,7 +165,11 @@
                                         </div>
                                         {% endif %}
                                     </div>
+                                    <!-- end Quantity Input -->
+
                                 </div>
+
+                                <!-- Add to bag -->
                                 <div class="card-footer white-smoke mt-5 py-4 border-top-0 card-rounded">
                                     {% if product.quantity < 1 and not product.is_discontinued %}
                                     <a href="#" class="btn shadow btn-dark d-flex justify-content-center card-rounded">Restock Alert</a>
@@ -141,27 +181,36 @@
                                     <input type="hidden" name="redirect_url" value="{{ request.path }}">
                                     {% endif %}
                                 </div>
+                                <!-- end Add to bag -->
+
+                                <!-- Favourite -->
                                 <span class="position-absolute-favourite position-absolute-favourite-product-detail">
                                     {% if request.user.is_authenticated %}
                                         {% if is_favourite %}
-                                            <a href="{% url 'delete_favourite' product.id %}?redirect={{ request.path }}"><i class="fa-solid fa-heart text-red"></i></a>
+                                            <a aria-label="Remove from Favourites" href="{% url 'delete_favourite' product.id %}?redirect={{ request.path }}"><i class="fa-solid fa-heart text-red"></i></a>
                                         {% else %}
-                                            <a href="{% url 'add_favourite' product.id %}?redirect={{ request.path }}"><i class="fa-regular fa-heart text-red"></i></a>
+                                            <a aria-label="Add to Favourites" href="{% url 'add_favourite' product.id %}?redirect={{ request.path }}"><i class="fa-regular fa-heart text-red"></i></a>
                                         {% endif %}
                                     {% else %}
-                                        <a href=""><i class="fa-regular fa-heart text-red"></i></a>
+                                        <a href="#top" aria-label="Favourites"><i class="fa-regular fa-heart text-red"></i></a>
                                     {% endif %}
                                 </span>
+                                <!-- end Favourite -->
+
                             </div>
                         </form>
                     </div>
+                    <!-- end Product info and form -->
+
                 </div>
             </div>
+
+            <!-- Customer reviews -->
             <div id="reviews" class="my-5 white-smoke w-100">
-                read and leave reviews
                 {% include 'products/includes/product_reviews.html' %}
             </div>
-            
+            <!-- end Customer reviews -->
+
         </div>
     </div>
 </div>

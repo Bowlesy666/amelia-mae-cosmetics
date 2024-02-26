@@ -2,17 +2,17 @@
 {% load static %}
 
 <!-- Head tags -->
-{% block meta_description %}not default{% endblock %}
+{% block meta_description %}View and manage your favourite skincare products with Amelia Mae Cosmetics. Explore our collection of high-quality skincare products curated to meet your skincare needs.{% endblock %}
 
-{% block og_title %}Shop for Amelia Mae Skincare{% endblock %}
-{% block og_description %}Explore our wide range of high-quality skincare products designed to rejuvenate and nourish your skin. Find the perfect solution for your skincare needs today!{% endblock %}
-{% block og_image %}not default{% endblock %}
-{% block og_url %}not default{% endblock %}
+{% block og_title %}Amelia Mae Cosmetics - My Favourites{% endblock %}
+{% block og_description %}View and manage your favourite skincare products with Amelia Mae Cosmetics. Explore our collection of high-quality skincare products curated to meet your skincare needs.{% endblock %}
+{% block og_image %}{% endblock %}
+{% block og_url %}{% endblock %}
 
 {% block extra_css %}
 {% endblock %}
 
-{% block extra_title %}Shop all skincare products{% endblock %}
+{% block extra_title %}Favourites{% endblock %}
 <!-- end Head tags -->
 
 {% block page_header %}
@@ -26,8 +26,9 @@
 {% block content %}
 <div class="container-fluid platinum pb-5">
     <div class="row py-5">
+
         <div class="col text-center platinum">
-            <h2 class="logo-font mt-3 mb-0 h-100">My Favourites</h2>
+            <h1 class="logo-font mt-3 mb-0 h-100">My Favourites</h1>
             <a class="btn btn-dark btn-lg shadow-lg" href="{% url 'product_list' %}">Keep Shopping</a>
         </div>
     </div>

@@ -5,7 +5,7 @@
             <div class="col-md-6 py-3">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     {% if reviews.count > 0 %}
-                    <h4 class="m-0">{{ reviews.count }} Reviews</h4>
+                    <h3 class="m-0">{{ reviews.count }} Reviews</h3>
                     {% else %}
                     <p>We are in need of honest reviews, leave feedback for others to see!</p>
                     {% endif %}
@@ -15,7 +15,7 @@
                         <tr class="">
                             <td>
                                 <span>
-                                    <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">5 Stars</button>
+                                    <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter text-dark">5 Stars</button>
                                 </span>
                             </td>
                             <td class="progress-bar-container">
@@ -26,12 +26,12 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="star-num">({{ ratings_count.five_stars }})</td>
+                            <td class="star-num text-dark">({{ ratings_count.five_stars }})</td>
                         </tr>
                         <tr class="">
                             <td>
                                 <span>
-                                    <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">4 Stars</button>
+                                    <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter text-dark">4 Stars</button>
                                 </span>
                             </td>
                             <td class="progress-bar-container">
@@ -41,12 +41,12 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="star-num">({{ ratings_count.four_stars }})</td>
+                            <td class="star-num text-dark">({{ ratings_count.four_stars }})</td>
                         </tr>
                         <tr class="">
                             <td>
                                 <span>
-                                    <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">3 Stars</button>
+                                    <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter text-dark">3 Stars</button>
                                 </span>
                             </td>
                             <td class="progress-bar-container">
@@ -56,12 +56,12 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="star-num">({{ ratings_count.three_stars }})</td>
+                            <td class="star-num text-dark">({{ ratings_count.three_stars }})</td>
                         </tr>
                         <tr class="">
                             <td>
                                 <span>
-                                    <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">2 Stars</button>
+                                    <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter text-dark">2 Stars</button>
                                 </span>
                             </td>
                             <td class="progress-bar-container">
@@ -71,12 +71,12 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="star-num">({{ ratings_count.two_stars }})</td>
+                            <td class="star-num text-dark">({{ ratings_count.two_stars }})</td>
                         </tr>
                         <tr class="">
                             <td>
                                 <span>
-                                    <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">1 Stars</button>
+                                    <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter text-dark">1 Stars</button>
                                 </span>
                             </td>
                             <td class="progress-bar-container">
@@ -86,7 +86,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="star-num">({{ ratings_count.one_stars }})</td>
+                            <td class="star-num text-dark">({{ ratings_count.one_stars }})</td>
                         </tr>
                     </tbody>
                 </table>
@@ -152,11 +152,11 @@
                                         </div>
                                     </span>
                                 </h4>
-                                <div class="review-description row">
-                                    <div class="col-10">
+                                <div class="review-description row text-dark">
+                                    <div class="col-9">
                                         <p>{{ review.comment }}</p>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-2 pr-5">
                                         {% if request.user == review.user %}
                                         <a class="white-smoke" href="{% url 'delete_review' product.id review.id %}">
                                             <i class="fa-solid white-smoke fa-trash-can shadow"></i> Delete
@@ -165,9 +165,9 @@
                                     </div>
                                 </div>
                                 {% if created_on == updated_on %}
-                                <span class="publish py-3 d-inline-block w-100">Published {{ review.created_on }}</span>
+                                <span class="publish py-3 d-inline-block w-100 text-dark">Published {{ review.created_on }}</span>
                                 {% else %}
-                                <span class="publish py-3 d-inline-block w-100">Updated {{ review.updated_on }}</span>
+                                <span class="publish py-3 d-inline-block w-100 text-dark">Updated {{ review.updated_on }}</span>
                                 {% endif %}
                             </div>
                         </div>

@@ -28,10 +28,15 @@
     <div class="row py-3">
         <div class="col text-center">
             <h2 class="logo-font mt-3 h-100">Product Management - Product List</h2>
+            <p>click on a products text to start editing details or select delete button</p>
         </div>
     </div>
     <div class="col px-3 py-5 container-fluid justify-content-center">
+        <!-- Sort bar -->
         {% include 'products/includes/products_sorting.html' %}
+        <!-- end Sort bar -->
+
+        <!-- Table containing headers and product rows -->
         <div class="row py-3 white-smoke">
             {% if products %}
                 <span class="d-lg-none mt-5"><strong>Scroll right to see all product details and 'Delete' button.</strong></span>
@@ -65,9 +70,11 @@
                 </div>
             {% endif %}
         </div>
+        <!-- end Table containing headers and product rows -->
+
     </div>
     <div class="btt-button shadow-sm card-rounded border cordovan border-black">
-        <a class="btt-link d-flex cordovan card-rounded h-100">
+        <a href="#top" aria-label="back to top" class="btt-link d-flex cordovan card-rounded h-100">
             <i class="fas fa-arrow-up cordovan mx-auto my-auto"></i>
         </a>	
     </div>

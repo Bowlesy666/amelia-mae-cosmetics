@@ -1,25 +1,41 @@
 <div class="shadow white-smoke card-rounded">
+
+    <!-- Best seller badge -->
     {% if product.is_best_seller %}
     <span class="position-absolute-best-seller rounded">BEST SELLER <i class="fa-solid fa-award"></i></span>
     {% endif %}
+    <!-- end Best seller badge -->
+
     <div class="card border-0 card-rounded white-smoke p-1">
+
+        <!-- Product image -->
         <img
             src="{% if product.image %}{{ product.image.url }}{% else %}{{ MEDIA_URL }}no_image.png{% endif %}"
             class="card-img-top product-card-image card-rounded mb-4"
             alt="{% if product.name %}{{ product.name }}{% else %}Amelia Mae luxury product{% endif %}"
             >
+        <!-- end Product image -->
+
+        <!-- Out of stock overlay -->
         {% if product.is_out_of_stock %}
         <span class="out-of-stock-overlay card-rounded text-center">
             <i class="fa-solid fa-ban fa-flip-horizontal"></i>
             <p class="out-of-stock-text">Currently Out Of Stock</p>
         </span>
         {% endif %}
+        <!-- end Out of stock overlay -->
+
+        <!-- Product info and button-->
         <div class="card-body border-0 mb-0 white-smoke">
-            <h5 class="card-title card-title-min-height-spacer mb-3">{{ product.name|truncatechars:50 }}</h5>
+            <h2 class="card-title card-title-min-height-spacer mb-3 small">{{ product.name|truncatechars:50 }}</h2>
             <span class="product-card-price">£ {{ product.price }}</span>
             <a href="{% url 'product_detail' product.id %}" class="btn card-rounded shadow btn-outline-dark d-flex justify-content-center stretched-link mt-3">View Product</a>
         </div>
+        <!-- end Product info and button-->
+
     </div>
+
+    <!-- Star Ratings -->
     <span class="position-absolute-rating">
         <i class="fa-sharp fa-solid fa-star {% if product.rating >= 1 %}gold{% else %}silver{% endif %}"></i>
         <i class="fa-sharp fa-solid fa-star {% if product.rating >= 1.5 %}gold{% else %}silver{% endif %}"></i>
@@ -27,34 +43,44 @@
         <i class="fa-sharp fa-solid fa-star {% if product.rating >= 3.5 %}gold{% else %}silver{% endif %}"></i>
         <i class="fa-sharp fa-solid fa-star {% if product.rating >= 4.5 %}gold{% else %}silver{% endif %}"></i>
     </span>
+    <!-- end Star Ratings -->
+
+    <!-- Favourite button -->
     <span class="position-absolute-favourite">
         {% if request.user.is_authenticated %}
             {% if product in favourite_products %}
-                <a href="{% url 'delete_favourite' product.id %}?redirect={{ request.path }}"><i class="fa-solid fa-heart text-red"></i></a>
+                <a aria-label="Remove from Favourites" href="{% url 'delete_favourite' product.id %}?redirect={{ request.path }}"><i class="fa-solid fa-heart text-red"></i></a>
             {% else %}
-                <a href="{% url 'add_favourite' product.id %}?redirect={{ request.path }}"><i class="fa-regular fa-heart text-red"></i></a>
+                <a aria-label="Add to Favourites" href="{% url 'add_favourite' product.id %}?redirect={{ request.path }}"><i class="fa-regular fa-heart text-red"></i></a>
             {% endif %}
         {% else %}
-            <a href=""><i class="fa-regular fa-heart text-red"></i></a>
+            <a href="" aria-label="Add to Favourites"><i class="fa-regular fa-heart text-red"></i></a>
         {% endif %}
     </span>
+    <!-- end Favourite button -->
+
+    <!-- Ribbon indicators -->
     {% if product.is_discontinued and not product.is_out_of_stock %}
     <span class="ribbon ribbon-left px-5 shadow">Discontinued!<br>Only <strong>{{ product.quantity }}</strong> left</span>
     {% elif product.quantity >= 1 and product.quantity <= 25 %}
     <span class="ribbon ribbon-left px-5">Hurry!<br>Only <strong>{{ product.quantity }}</strong> left</span>
     {% endif %}
+    <!-- end Ribbon indicators -->
+
+    <!-- Card footer -->
     <div class="card-footer white-smoke py-4 border-top-0 card-rounded">
         {% if product.quantity < 1 and not product.is_discontinued %}
-        <a href="#" class="btn shadow btn-dark d-flex justify-content-center card-rounded">Restock Alert</a>
-        <p class="mt-1 ml-1"><small>Get notified when this product is restocked!</small></p>
+        <a href="#" class="btn shadow btn-dark d-flex justify-content-center card-rounded"aria-label="Out of Stock">Out of Stock</a>
         {% elif product.quantity < 1 and product.is_discontinued %}
-        <p class="py-1 my-1 shadow platinum d-flex justify-content-center card-rounded">Discontinued</p>
+        <p class="py-1 my-1 shadow platinum d-flex justify-content-center card-rounded" aria-label="Discontinued">Discontinued</p>
         {% else %}
         <form class="form" action="{% url 'quick_add_to_bag' product.id %}" method="POST">
             {% csrf_token %}
-            <input type="submit"  class="btn shadow btn-dark w-100 d-flex justify-content-center card-rounded" value="Quick Add">
+            <input type="submit"  class="btn shadow btn-dark w-100 d-flex justify-content-center card-rounded" value="Quick Add" aria-label="Quick Add to Cart">
             <input type="hidden" name="redirect_url" value="{{ request.get_full_path }}">
         </form>
         {% endif %}
     </div>
+    <!-- end Card footer -->
+
 </div>

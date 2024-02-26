@@ -1,3 +1,4 @@
+<!-- Category badges -->
 {% for c in current_categories %}
     {% if c.friendly_name != None %}
         <a class="category-badge text-decoration-none" href="{% url 'product_list' %}?category={{ c.name }}">
@@ -6,9 +7,13 @@
         </a>
     {% endif %}
 {% endfor %}
+<!-- end Category badges -->
+
 <div class="row mt-1 mb-2">
+    <!-- Sort and direction -->
     <div class="col-12 col-md-6 my-auto order-md-last d-flex justify-content-center justify-content-md-end">
         <div class="sort-select-wrapper w-50">
+            <label for="sort-selector" class="sr-only">Sort by:</label>
             <select id="sort-selector" class="custom-select custom-select-sm rounded-0 border white-smoke border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %}">
                 <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
                 <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price (low to high)</option>
@@ -24,6 +29,9 @@
             </select>
         </div>
     </div>
+    <!-- end Sort and direction -->
+
+    <!-- Search length indicator -->
     <div class="col-12 col-md-6 order-md-first">
         <p class="text-dark mt-3 text-center text-md-left">
             {% if search_term or current_categories or current_sorting != 'None_None' %}
@@ -32,4 +40,6 @@
             {{ products|length }} Products{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
         </p>
     </div>
+    <!-- end Search length indicator -->
+    
 </div>
