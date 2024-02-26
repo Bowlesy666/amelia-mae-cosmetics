@@ -1,11 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
-from .models import UserProfile
-from .forms import UserProfileForm
+from django.urls import reverse
 
 from checkout.models import Order
+from .models import UserProfile
+from .forms import UserProfileForm
 
 
 @login_required
@@ -22,7 +22,10 @@ def profile(request):
             form.save()
             messages.success(request, 'Profile updated successfully')
         else:
-            messages.error(request, 'Update failed! Please make sure the form is valid.')
+            messages.error(
+                request,
+                'Update failed! Please make sure the form is valid.'
+            )
     else:
         form = UserProfileForm(instance=profile)
     orders = profile.orders.all()
@@ -39,9 +42,12 @@ def profile(request):
 
 @login_required
 def order_history(request, order_number):
+    """
+    Display the order history for a specific order.
+    """
     if not request.user.is_authenticated:
         messages.error(request, 'Login to view your profile')
-        redirect(reverse('home'))
+        return redirect(reverse('home'))
     order = get_object_or_404(Order, order_number=order_number)
 
     messages.info(request, (

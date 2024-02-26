@@ -1,5 +1,6 @@
 from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
 from .models import Article
@@ -35,7 +36,7 @@ def get_articles_and_sorting(request, template_name):
                 messages.error(request, "You didnt enter any search criteria!")
                 return redirect(reverse('view_inventory'))
 
-            # i before contains makes it not case sensitive, double underscore used here
+            # i before contains makes it not case sensitive
             queries = Q(title__icontains=query) | Q(content__icontains=query)
             articles = articles.filter(queries)
 
@@ -52,16 +53,15 @@ def get_articles_and_sorting(request, template_name):
 
 def articles_list(request):
     """ Display all articles """
-    # articles = Article.objects.order_by('-created_on')
-
-    # context = {
-    #     'articles': articles,
-    # }
-
     return get_articles_and_sorting(request, 'articles/articles_list.html')
 
 
+@login_required
 def add_article(request):
+    """ view to add articles to the store """
+    if not request.user.is_superuser:
+        messages.error(request, 'This activity is reserved for store owners')
+        redirect(reverse('home'))
     form = ArticleForm()
     template = 'articles/add_article.html'
 
@@ -76,7 +76,10 @@ def add_article(request):
             messages.success(request, 'Successfully added article!')
             return redirect(reverse('articles_list'))
         else:
-            messages.error(request, 'Failed to add article. Please ensure the form is valid.')
+            messages.error(
+                request,
+                'Failed to add article. Please ensure the form is valid.'
+            )
             form = ArticleForm()
     else:
         form = ArticleForm()
@@ -85,6 +88,7 @@ def add_article(request):
 
 
 def article_detail(request, article_id):
+    """ View to show article detail to user """
     article = get_object_or_404(Article, pk=article_id)
 
     context = {
@@ -94,8 +98,12 @@ def article_detail(request, article_id):
     return render(request, 'articles/article_detail.html', context)
 
 
+@login_required
 def edit_article(request, article_id):
     """ Edit an article """
+    if not request.user.is_superuser:
+        messages.error(request, 'This activity is reserved for store owners')
+        redirect(reverse('home'))
     article = get_object_or_404(Article, pk=article_id)
     if request.method == 'POST':
         form = ArticleForm(request.POST, request.FILES, instance=article)
@@ -104,7 +112,10 @@ def edit_article(request, article_id):
             messages.success(request, 'Successfully updated article!')
             return redirect(reverse('article_detail', args=[article.id]))
         else:
-            messages.error(request, 'Failed to update article. Please ensure the form is valid.')
+            messages.error(
+                request,
+                'Failed to update article. Please ensure the form is valid.'
+            )
     else:
         form = ArticleForm(instance=article)
         messages.info(request, f'You are editing {article.title}')
@@ -118,8 +129,12 @@ def edit_article(request, article_id):
     return render(request, template, context)
 
 
+@login_required
 def delete_article(request, article_id):
     """ Delete an article """
+    if not request.user.is_superuser:
+        messages.error(request, 'This activity is reserved for store owners')
+        redirect(reverse('home'))
     article = get_object_or_404(Article, pk=article_id)
     if request.method == 'POST':
         article.delete()

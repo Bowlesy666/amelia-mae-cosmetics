@@ -1,4 +1,7 @@
 import os
+import json
+
+from django.conf import settings
 from django.db.models import Q
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
@@ -8,10 +11,7 @@ from django.utils import timezone
 
 from .models import InventoryItem
 from .forms import InventoryItemForm
-from django.conf import settings
 from django.core.mail import send_mail
-
-import json
 
 
 def get_inventory_and_sorting(request, template_name):
