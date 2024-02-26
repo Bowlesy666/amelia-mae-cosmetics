@@ -194,11 +194,6 @@ def auto_check_inventory_item_quantity(order):
     for product_id, quantity in original_bag.items():
         inventory_item = InventoryItem.objects.get(product_id=product_id)
 
-        if not inventory_item.product.is_best_seller:
-            if inventory_item.total_units_sold >= 100:
-                inventory_item.product.is_best_seller = True
-                inventory_item.product.save(update_fields=['is_best_seller'])
-
         supplier_name = inventory_item.supplier_name
         total_stock = inventory_item.product.quantity
         min_threshold = inventory_item.min_threshold
@@ -225,6 +220,11 @@ def auto_check_inventory_item_quantity(order):
                 supplier_orders[supplier_name] = []
 
             supplier_orders[supplier_name].append(product_id)
+
+        if not inventory_item.product.is_best_seller:
+            if inventory_item.total_units_sold >= 100:
+                inventory_item.product.is_best_seller = True
+                inventory_item.product.save(update_fields=['is_best_seller'])
 
     if supplier_orders:
         for supplier_name, product_ids in supplier_orders.items():
