@@ -295,7 +295,7 @@ def delete_product(request, product_id):
     return render(request, 'products/confirm_to_delete_product.html', context)
 
 
-@login_required
+# @login_required
 def add_favourite(request, product_id):
     """ Add a product to favourites """
     redirect_url = request.GET.get('redirect', reverse('product_list'))
@@ -304,12 +304,17 @@ def add_favourite(request, product_id):
             to your profile')
         return redirect(redirect_url)
 
+    product = Product.objects.get(pk=product_id)
+    Favourite.objects.get_or_create(
+        user=request.user, product=product
+    )
+
     messages.success(request, 'Product added to favourites')
 
     return redirect(redirect_url)
 
 
-@login_required
+# @login_required
 def delete_favourite(request, product_id):
     """ Delete a product from favourites """
     redirect_url = request.GET.get('redirect', reverse('product_list'))
@@ -317,6 +322,9 @@ def delete_favourite(request, product_id):
         messages.error(request, 'Login or Register to edit your favourites \
             on your profile')
         return redirect(redirect_url)
+
+    product = Product.objects.get(pk=product_id)
+    Favourite.objects.filter(user=request.user, product=product).delete()
 
     messages.success(request, 'Product removed from favourites')
 

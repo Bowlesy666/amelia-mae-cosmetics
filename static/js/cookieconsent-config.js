@@ -28,27 +28,21 @@ CookieConsent.run({
     },
 
     onFirstConsent: ({cookie}) => {
-        console.log('onFirstConsent fired',cookie);
     },
 
     onConsent: ({cookie}) => {
-        console.log('onConsent fired!', cookie)
     },
 
     onChange: ({changedCategories, changedServices}) => {
-        console.log('onChange fired!', changedCategories, changedServices);
     },
 
     onModalReady: ({modalName}) => {
-        console.log('ready:', modalName);
     },
 
     onModalShow: ({modalName}) => {
-        console.log('visible:', modalName);
     },
 
     onModalHide: ({modalName}) => {
-        console.log('hidden:', modalName);
     },
 
     categories: {
@@ -72,10 +66,10 @@ CookieConsent.run({
                 our_services: {
                     label: 'Product Suggestions',
                     onAccept: () => {
-                        showToastMessage('Product suggestions tracking enabled!', "success");
+                        
                     },
                     onReject: () => {
-                        showToastMessage('Product suggestions tracking disabled!', "success");
+                        
                     }
                 },
             }
