@@ -11,7 +11,7 @@
             </div>
             <div class="col-md-3 col-lg-3 col-xl-3 my-4">
                 <p class="my-0"><strong>{{ item.product.name }}</strong></p>
-                <p class="my-0 small text-muted">SKU: {{ item.product.sku|upper }}</p>
+                <p class="my-0 small text-dark">SKU: {{ item.product.sku|upper }}</p>
                 <p class="my-0">£{{ item.product.price }}</p>
             </div>
             <div class="col-md-1 col-lg-1 col-xl-1 update-form-traverse">
@@ -22,7 +22,8 @@
                             <div class="input-group qty-input-width input-group-{{ item.item_id }}">
                                 <div class="input-group-prepend order-12 decrement-qty_{{ item.item_id }}">
                                     <button class="decrement-qty btn btn-black rounded-0 decrement-qty_{{ item.item_id }}" 
-                                        data-item_id="{{ item.item_id }}" id="decrement-qty_{{ item.item_id }}">
+                                        data-item_id="{{ item.item_id }}" id="decrement-qty_{{ item.item_id }}"
+                                        aria-label="decrement-qty_{{ item.item_id }}">
                                         <span class="icon">
                                             <i class="fas fa-minus"></i>
                                         </span>
@@ -32,10 +33,12 @@
                                 <input type="hidden" class="threshold threshold_{{ item.item_id }}" value="{{ item.product.quantity }}">
                                 <input class="form-control qty_input order-6 id_qty_{{ item.item_id }}" type="number"
                                     name="quantity" value="{{ item.quantity }}" min="1" max="99"
-                                    data-item_id="{{ item.item_id }}" id="id_qty_{{ item.item_id }}">
+                                    data-item_id="{{ item.item_id }}" id="id_qty_{{ item.item_id }}"
+                                    aria-label="id_qty_{{ item.item_id }}">
                                 <div class="input-group-append order-1 increment-qty_{{ item.item_id }}">
                                     <button class="increment-qty btn btn-black rounded-0 increment-qty_{{ item.item_id }}"
-                                        data-item_id="{{ item.item_id }}" id="increment-qty_{{ item.item_id }}">
+                                        data-item_id="{{ item.item_id }}" id="increment-qty_{{ item.item_id }}"
+                                        aria-label="increment-qty_{{ item.item_id }}">
                                         <span class="icon">
                                             <i class="fas fa-plus"></i>
                                         </span>
@@ -45,14 +48,14 @@
                         </div>
                     </form>
                 </div>
-                <a class="update-link text-center mt-0 text-nowrap"><small>update</small></a>
+                <a class="update-link text-center mt-0 text-nowrap text-dark"><small>update</small></a>
             </div>
             <div class="col-md-2 col-lg-2 col-xl-2 my-4">
                 <p class="mb-0">Subtotal:</p>
                 <p class="my-0">£{{ item.product.price | calc_subtotal:item.quantity }}</p>
             </div>
             <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                <a id="remove_{{ item.item_id }}" class="text-muted remove-item"><i class="fas fa-times"></i></a>
+                <a id="remove_{{ item.item_id }}" class="text-dark remove-item"><i class="fas fa-times"></i></a>
             </div>
         </div>
         <hr class="my-4 mx-4">

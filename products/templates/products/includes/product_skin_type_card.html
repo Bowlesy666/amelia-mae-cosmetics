@@ -11,7 +11,7 @@
 
         <!-- Skin type name -->
         <div class="card-body border-0 mb-0 white-smoke text-center">
-            <h5 class="card-title card-title-min-height-spacer mb-3"><strong>{{ skin_type.name|title }} Skin</strong></h5>
+            <span class="card-title card-title-min-height-spacer mb-3"><strong>{{ skin_type.name|title }} Skin</strong></span>
         </div>
         <!-- end Skin type name -->
 
@@ -19,7 +19,7 @@
 
     <!-- CTA -->
     <div class="card-footer white-smoke py-3 border-top-0 card-rounded">
-        <a href="{% url 'product_list' %}?skin_type={{ skin_type.name }}" class="btn card-rounded shadow btn-outline-secondary d-flex justify-content-center stretched-link mt-3">Shop {{ skin_type.name|title }} Skin</a>
+        <a href="{% url 'product_list' %}?skin_type={{ skin_type.name }}" class="btn card-rounded shadow btn-dark d-flex justify-content-center stretched-link mt-3">Shop {{ skin_type.name|title }} Skin</a>
     </div>
     <!-- end CTA -->
     

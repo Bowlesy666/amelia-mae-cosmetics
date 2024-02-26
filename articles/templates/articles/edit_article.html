@@ -6,8 +6,8 @@
 
 {% block og_title %}Amelia Mae Cosmetics Edit Article{% endblock %}
 {% block og_description %}Amelia Mae Cosmetics Articles, update your article to keep your skincare news relevant{% endblock %}
-{% block og_image %}not default{% endblock %}
-{% block og_url %}not default{% endblock %}
+{% block og_image %}{% endblock %}
+{% block og_url %}{% endblock %}
 
 {% block extra_css %}
 {% endblock %}
@@ -25,20 +25,27 @@
 
 {% block content %}
 <div class="container-fluid white-smoke py-5">
+
+    <!-- Hero Image -->
     <div class="p-5 text-center article-hero-image rounded-3">
         <div class="articles-hero-overlay card-rounded p-3">
             <div class="d-flex justify-content-center align-items-center h-100">
                 <div class="text-white">
-                    <h2 class="logo-font mt-3 h-100">Amelia Mae Cosmetics Articles</h2>
-                    <h3 class="mb-3 d-none d-sm-none d-md-block">Edit Article</h3>
+                    <h1 class="logo-font mt-3 h-100">Amelia Mae Cosmetics Articles</h1>
+                    <h2 class="mb-3 d-none d-sm-none d-md-block">Edit Article</h2>
+                    {% if request.user.is_superuser %}
                     <a class="btn btn-danger rounded-0" href="{% url 'delete_article' article.id %}">Delete Article</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
+    <!--end Hero Image -->
+
+    <!-- Edit Form -->
     <div class="row py-3">
         <div class="col text-center">
-            <h4 class="logo-font mt-3 h-100">You are editing: {{ article.title }}</h4>
+            <h2 class="logo-font mt-3 h-100">You are editing: {{ article.title }}</h2>
         </div>
     </div>
     <div class="col px-3 py-5 container-fluid justify-content-center">
@@ -51,6 +58,8 @@
             </div>
         </form>
     </div>
+    <!-- end Edit Form -->
+    
 </div>
 {% endblock %}
 

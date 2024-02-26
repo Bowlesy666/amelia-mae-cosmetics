@@ -5,17 +5,10 @@
     <h5 class="mt-4"><strong>Grand Total: £{{ grand_total|floatformat:2 }}</strong></h5>
     {% if free_delivery_delta > 0 %}
         <p class="mb-1">
-            You could get free delivery by spending just <strong>${{ free_delivery_delta }}</strong> more!
+            You could get free delivery by spending just <strong>£{{ free_delivery_delta }}</strong> more!
         </p>
     {% endif %}
-    <a href="{% url 'checkout' %}" class="btn jet p-3 my-5 rounded">
-        <span class="text-uppercase">Secure Checkout</span>
-        <span class="icon">
-            <i class="fas fa-lock"></i>
-        </span>
-    </a>
+    
 </div>
-<div class="mx-0 px-0 w-100">
-    
-    
+<div class="mx-0 px-0 w-100 spacer">
 </div>

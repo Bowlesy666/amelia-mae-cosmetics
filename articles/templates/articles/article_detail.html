@@ -6,8 +6,8 @@
 
 {% block og_title %}Amelia Mae Cosmetics {{ article.title }}{% endblock %}
 {% block og_description %}Amelia Mae Cosmetics - {{ article.content|truncatechars:50 }}{% endblock %}
-{% block og_image %}not default{% endblock %}
-{% block og_url %}not default{% endblock %}
+{% block og_image %}{% endblock %}
+{% block og_url %}{% endblock %}
 
 {% block extra_css %}
 {% endblock %}
@@ -25,10 +25,11 @@
 
 {% block content %}
 <div class="container-fluid white-smoke py-5">
+
+    <!-- Article hero image -->
     <div class="row p-5">
         <div class="article-detail-hero-spacer"></div>
         <div class="col-12 d-flex justify-content-center">
-                <!-- make image jumbotron/hero image -->
             {% if article.image %}
                 <img class="article-detail-hero-image card-rounded shadow" src="{{ MEDIA_URL }}{{ article.image }}" alt="{{ article.title|truncatechars:50 }}">
             {% else %}
@@ -36,6 +37,9 @@
             {% endif %}
         </div>
     </div>
+    <!-- end Article hero image -->
+
+    <!-- button block -->
     {% if request.user.is_superuser %}
         <div class="row pt-3 justify-content-center">
             <a class="btn btn-dark mr-5" href="{% url 'edit_article' article.id %}" role="button">Edit this Article</a>
@@ -44,13 +48,19 @@
     <div class="row py-3 justify-content-center">
         <a class="btn btn-outline-dark mr-5" href="{% url 'articles_list' %}" role="button">Back to all articles</a>
     </div>
+    <!-- end button block -->
+
     <div class="col py-5 px-0">
     {% if article %}
+
+        <!-- article title and content -->
         <div class="row py-3 white-smoke">
             <h1 class="px-5"><strong>{{ article.title }}</strong></h1>
             <h2 class="px-5 my-5 overflow-hidden"><small>{{ article.content|safe }}</small></h2>
         </div>
-        <!-- col again then the next 2 rows inside it? -->
+        <!-- end article title and content -->
+
+        <!-- show associated products, categories, skintypes -->
         <div class="row justify-content-center">
             {% if article.product.id %}
                 <div class="col-md-4 col-lg-3 my-5">
@@ -77,6 +87,8 @@
         <div class="row mt-5 justify-content-center">
             <a class="btn btn-outline-dark mr-5" href="{% url 'product_list' %}" role="button">Shop All Amelia Mae Products!</a>
         </div>
+        <!-- end show associated products, categories, skintypes -->
+
     {% else %}
         <div class="col my-3 text-center">
             <p>No article to view at this time...</p>
@@ -84,9 +96,9 @@
     {% endif %}
     </div>
     <div class="btt-button shadow-sm card-rounded border cordovan border-black">
-        <a class="btt-link d-flex cordovan card-rounded h-100">
+        <a href="#top" aria-label="back to top" class="btt-link d-flex cordovan card-rounded h-100">
             <i class="fas fa-arrow-up cordovan mx-auto my-auto"></i>
-        </a>	
+        </a>
     </div>
 </div>
 {% endblock %}

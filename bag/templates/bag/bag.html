@@ -6,8 +6,8 @@
 
 {% block og_title %}Shop for Amelia Mae - Your Shopping Bag{% endblock %}
 {% block og_description %}View your products in your shopping bag{% endblock %}
-{% block og_image %}not default{% endblock %}
-{% block og_url %}not default{% endblock %}
+{% block og_image %}{% endblock %}
+{% block og_url %}{% endblock %}
 
 {% block extra_css %}
 {% endblock %}
@@ -28,17 +28,32 @@
 <div class="container-fluid white-smoke py-5">
     <div class="row py-3 text-center">
         <div class="col text-center white-smoke">
-            <h2 class="logo-font mt-3 h-100">Your Shopping Bag</h2>
+            <h1 class="logo-font mt-3 h-100">Your Shopping Bag</h1>
         </div>
     </div>
     
     {% if bag_items %}
     <div class="col-lg-9 px-0 py-5 container-fluid justify-content-center card-rounded">
+        <!-- Main content -->
         <div class="row white-smoke mx-2 card-rounded shadow">
             <div class="col card mx-lg-0 white-smoke card-rounded">
                 <div class="row">
                     <div class="col-xl-8 p-5 card-rounded">
                             {% include 'bag/includes/bag_product_card.html' %}
+                            <div class="submit-button text-right mt-5 mb-2">                    
+                                <a href="{% url 'product_list' %}" class="btn btn-outline-black rounded-0 mx-2">
+                                    <span class="icon">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="font-weight-bold">Keep Shopping</span>
+                                </a>
+                                <a href="{% url 'checkout' %}" class="btn jet p-3 my-5 rounded mx-2">
+                                    <span class="text-uppercase">Secure Checkout</span>
+                                    <span class="icon">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                </a>
+                            </div>
                         </div>
                         <div class="col-xl-4 mimi-pink shadow card-rounded p-5">
                             {% include 'bag/includes/bag_summary.html' %}
@@ -47,17 +62,22 @@
                 </div>
             </div>
         </div>
+
+    <!-- empty bag message -->
     {% else %}
         <div class="col py-5 text-center">
             <p>Oops! Looks like your shopping bag is empty!</p>
             <p><strong>Lets continue shopping! <a href="{% url 'product_list' %}">Shop all products</a></strong></p>
         </div>
     {% endif %}
+    <!-- end empty bag message -->
+
+    <!-- User Favourites list -->
     {% if request.user.is_authenticated %}
         {% if favourite_products %}
         <div class="row py-3 text-center">
             <div class="col text-center white-smoke">
-                <h3 class="logo-font mt-3 h-100">Its never too late to add some of your favourites...</h3>
+                <h3 class="logo-font mt-3 h-100">It's never too late to add some of your favourites to checkout with...</h3>
             </div>
         </div>
         <div class="row py-3">
@@ -69,6 +89,8 @@
         </div>
         {% endif %}
     {% endif %}
+    <!-- end User Favourites list -->
+
 </div>
 
 {% endblock %}
@@ -76,7 +98,6 @@
 {% block postloadjs %}
 {{ block.super }}
 {% include 'products/includes/quantity_input_script.html' %}
-
 <script type="text/javascript">
     // Update quantity on click
     $('.update-link').click(function(e) {

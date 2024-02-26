@@ -6,13 +6,13 @@
 
 {% block og_title %}Amelia Mae Cosmetics Articles List{% endblock %}
 {% block og_description %}Amelia Mae Cosmetics Articles, learn about your favourite brand and their world leading products, keep up to date and in the know!{% endblock %}
-{% block og_image %}not default{% endblock %}
-{% block og_url %}not default{% endblock %}
+{% block og_image %}{% endblock %}
+{% block og_url %}{% endblock %}
 
 {% block extra_css %}
 {% endblock %}
 
-{% block extra_title %}Articles & News{% endblock %}
+{% block extra_title %}Skincare News, Tips & Advice{% endblock %}
 <!-- end Head tags -->
 
 {% block page_header %}
@@ -25,29 +25,39 @@
 
 {% block content %}
 <div class="container-fluid white-smoke py-5">
+
+    <!-- Hero Image -->
     <div class="p-5 text-center article-hero-image rounded-3">
         <div class="articles-hero-overlay card-rounded p-3">
             <div class="d-flex justify-content-center align-items-center h-100">
             <div class="text-white">
-                <h2 class="logo-font mt-3 h-100">Amelia Mae Cosmetics Articles</h2>
-                <h3 class="mb-3 d-none d-sm-none d-md-block">Skincare Information & News</h3>
+                <h1 class="logo-font mt-3 h-100">Skincare News, Tips & Advice</h1>
+                <h2 class="mb-3 d-none d-sm-none d-md-block">Skincare That Really Works!</h2>
                 <a class="btn btn-outline-light btn-lg my-3" href="{% url 'product_list' %}" role="button">Shop Now</a>
             </div>
             </div>
         </div>
     </div>
+    <!-- end Hero Image -->
+
+
     <div class="row py-3">
+
+        <!-- title and admin 'add article' button -->
         <div class="col text-center">
-            <h4 class="logo-font mt-3 h-100">SEO title in here</h4>
+            <h2 class="logo-font mt-3 h-100">Amelia Mae Skincare: Discover Radiant Beauty with Our Luxurious Products</h2>
         </div>
         {% if request.user.is_superuser %}
         <a class="btn btn-dark my-3 mt-5 mr-5" href="{% url 'add_article' %}" role="button">Add Article</a>
         {% endif %}
+        <!-- endtitle and admin 'add article' button -->
+
     </div>
     <div class="col py-5 px-0 justify-content-center">
 
         <h3 class="ml-2 my-2">Search articles using the below....</h3>
 
+        <!-- Search and sort -->
         <div class="row mt-1 mb-2">
             <div class="col-12 col-md-9 col-lg-10 my-auto order-md-last d-flex flex-wrap justify-content-center justify-content-md-end">
                 
@@ -56,7 +66,7 @@
                         <div class="input-group w-100">
                             <input class="form-control border border-black rounded-0 mimi-pink shadow" type="text" name="q" placeholder="Search our site">
                             <div class="input-group-append">
-                                <button class="form-control form-control btn btn-black border border-black rounded-0" type="submit">
+                                <button aria-label="Search articles" class="form-control form-control btn btn-black border border-black rounded-0" type="submit">
                                     <span class="icon">
                                         <i class="fas fa-search white-smoke"></i>
                                     </span>
@@ -67,6 +77,7 @@
                 </div>
 
                 <div class="sort-select-wrapper col-12 col-sm-6 my-3">
+                    <label for="sort-selector" class="sr-only">Sort articles:</label>
                     <select id="sort-selector" class="custom-select custom-select-sm rounded-0 border white-smoke border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %} shadow">
                         <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
                         <option value="created_on_desc" {% if current_sorting == 'created_on_desc' %}selected{% endif %}>Newest First</option>
@@ -87,46 +98,56 @@
                 {{ articles|length }} Articles{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
             </p>
         </div>
+        <!-- end Search and sort -->
 
         <div class="row py-3 white-smoke">
+
+            <!-- show articles or message -->
             {% if articles %}
                 <div class="col px-0 container">
                     {% for article in articles %}
-                    <!-- if articles.status is publish -->
-                    <!-- add articles to nav bars!! -->
-                    <div class="row card-rounded mimi-pink my-5 mx-2 p-2">
-                        {% if article.image %}
-                            <img class="image-fluid product-card-image col-12 col-md-3 card-rounded shadow p-0" src="{{ MEDIA_URL }}{{ article.image }}" alt="">
-                        {% else %}
-                            <img class="image-fluid product-card-image col-12 col-md-3 card-rounded shadow p-0" src="{{ MEDIA_URL }}no_image.png" alt="">
-                        {% endif %}
-                        <div class="col-md-{% if request.user.is_superuser %}7{% else %}9{% endif %} my-5">
-                            <p class="my-4"><strong>{{ article.title }}</strong></p>
-                            <p>{{ article.content|truncatechars:150 }}</p>
-                            <a class="stretched-link" href="{% url 'article_detail' article.id %}">Continue reading article...</a>
-                        </div>
-                        {% if request.user.is_superuser %}
-                        <div class="col-md-2 my-5 py-5">
-                            <a class="my-5 mimi-pink stretched-link" href="{% url 'edit_article' article.id %}">
-                                <i class="fa-solid fa-trash-can pl-4"></i>
-                                <p>Edit / Delete</p>
-                            </a>
-                        </div>
-                        {% endif %}
-                    </div>
-                    
+                        {% if article.status == 1 %}
+                            <div class="row card-rounded mimi-pink my-5 mx-2 p-2">
+
+                                <!-- image -->
+                                {% if article.image %}
+                                    <img class="image-fluid product-card-image col-12 col-md-3 card-rounded shadow p-0" src="{{ MEDIA_URL }}{{ article.image }}" alt="">
+                                {% else %}
+                                    <img class="image-fluid product-card-image col-12 col-md-3 card-rounded shadow p-0" src="{{ MEDIA_URL }}no_image.png" alt="">
+                                {% endif %}
+                                <!-- end image -->
+
+                                <!-- article details and buttons -->
+                                <div class="col-md-{% if request.user.is_superuser %}7{% else %}9{% endif %} my-5">
+                                    <p class="my-4"><strong>{{ article.title }}</strong></p>
+                                    <p>{{ article.content|truncatechars:150 }}</p>
+                                    <a class="stretched-link text-dark" href="{% url 'article_detail' article.id %}">Continue reading article...</a>
+                                </div>
+                                {% if request.user.is_superuser %}
+                                <div class="col-md-2 my-5 py-5">
+                                    <a class="my-5 mimi-pink stretched-link" href="{% url 'edit_article' article.id %}">
+                                        <i class="fa-solid fa-trash-can pl-4"></i>
+                                        <p>Edit / Delete</p>
+                                    </a>
+                                </div>
+                                {% endif %}
+                                <!-- endarticle details and buttons -->
+
+                            </div>
+                        {% endif%}
                     {% endfor %}
                 </div>
-                
             {% else %}
                 <div class="col my-3 text-center">
                     <p>No articles to view at this time...</p>
                 </div>
             {% endif %}
+            <!-- end show articles or message -->
+
         </div>
     </div>
     <div class="btt-button shadow-sm card-rounded border cordovan border-black">
-        <a class="btt-link d-flex cordovan card-rounded h-100">
+        <a href="#top" aria-label="back to top" class="btt-link d-flex cordovan card-rounded h-100">
             <i class="fas fa-arrow-up cordovan mx-auto my-auto"></i>
         </a>	
     </div>
