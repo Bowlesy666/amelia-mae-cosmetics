@@ -2,26 +2,28 @@
 {% load static %}
 
 <!-- Head tags -->
-{% block meta_description %}Amelia Mae Cosmetics admin facilities. Edit products in your store!{% endblock %}
+{% block meta_description %}Amelia Mae Cosmetics admin facilities. Edit inventory items in your store!{% endblock %}
 
-{% block og_title %}Amelia Mae Cosmetics Product Management - Edit Product{% endblock %}
-{% block og_description %}Amelia Mae Cosmetics admin facilities. Keep your store up to date by editing products that consumers love!{% endblock %}
-{% block og_image %}not default{% endblock %}
-{% block og_url %}not default{% endblock %}
+{% block og_title %}Amelia Mae Cosmetics Product Management - Edit Inventory{% endblock %}
+{% block og_description %}Amelia Mae Cosmetics admin facilities. Edit inventory items in your store!{% endblock %}
+{% block og_image %}{% endblock %}
+{% block og_url %}{% endblock %}
 
 {% block extra_css %}
 {% endblock %}
 
-{% block extra_title %}Product Management - Edit Product{% endblock %}
+{% block extra_title %}Product Management - Edit Inventory{% endblock %}
 <!-- end Head tags -->
 
-{% block page_heading_title %}Edit a Product{% endblock %}
+{% block page_heading_title %}Edit Inventory Items{% endblock %}
 
 {% block inner_content %}
 <form method="POST" action="{% url 'edit_inventory_item' inventory_item.id %}" class="form mb-2" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form | crispy }}
     <div class="row">
+
+        <!-- Inventory item details -->
         <div class="col">
             <p><strong>Total Stock : {{ inventory_item.product.quantity }}</strong></p>
         </div>
@@ -31,13 +33,18 @@
             <p class="my-3"><strong>Total Lost or damaged products:</strong></p>
             <p>{{ inventory_item.total_lost_or_damaged }}</p>
         </div>
+        <!-- end Inventory item details -->
+
         <div class="col-6">
             <p class="my-3"><strong>Update Lost or damaged products:</strong></p>
+
+            <!-- Input quantity -->
             <div class="form-group">
                 <div class="input-group inline-qty-input-width input-group-{{ inventory_item.id }}">
                     <div class="input-group-prepend decrement-qty_{{ inventory_item.id }}">
                         <button class="decrement-qty decrement-qty_{{ inventory_item.id }} btn btn-black rounded-0" 
-                            data-item_id="{{ inventory_item.id }}" id="decrement-qty_{{ inventory_item.id }}">
+                            data-item_id="{{ inventory_item.id }}" id="decrement-qty_{{ inventory_item.id }}"
+                            aria-label="decrease quantity">
                             <span class="icon">
                                 <i class="fas fa-minus"></i>
                             </span>
@@ -47,10 +54,12 @@
                     <input type="hidden" class="threshold threshold_{{ inventory_item.id }}" value="{{ inventory_item.product.quantity }}">
                     <input class="form-control qty_input id_qty_{{ inventory_item.id }}" type="number"
                         name="quantity" value="0" min="0" max="{{ inventory_item.product.quantity }}"
-                        data-item_id="{{ inventory_item.id }}" id="id_qty_{{ inventory_item.id }}">
+                        data-item_id="{{ inventory_item.id }}" id="id_qty_{{ inventory_item.id }}"
+                        aria-labelledby="Quantity lost or damaged" aria-label="quantity lost or damaged">
                     <div class="input-group-append increment-qty_{{ inventory_item.id }}">
                         <button class="increment-qty increment-qty_{{ inventory_item.id }} btn btn-black rounded-0"
-                            data-item_id="{{ inventory_item.id }}" id="increment-qty_{{ inventory_item.id }}">
+                            data-item_id="{{ inventory_item.id }}" id="increment-qty_{{ inventory_item.id }}"
+                            aria-label="increase quantity">
                             <span class="icon">
                                 <i class="fas fa-plus"></i>
                             </button>
@@ -58,13 +67,18 @@
                     </div>
                 </div>
             </div>
+            <!-- end Input quantity -->
+
         </div>
     </div>
     
+    <!-- buttons -->
     <div class="text-right">
         <a class="btn btn-outline-black rounded-0" href="{% url 'view_inventory' %}">Cancel</a>
-    <button class="btn btn-black rounded-0" type="submit">Update Product</button>
+        <button class="btn btn-black rounded-0" type="submit">Update Product</button>
     </div>
+    <!-- end buttons -->
+
 </form>
 {% endblock %}
 

@@ -2,25 +2,28 @@
 {% load static %}
 
 <!-- Head tags -->
-{% block meta_description %}Amelia Mae Cosmetics admin facilities. Edit products in your store!{% endblock %}
+{% block meta_description %}Amelia Mae Cosmetics admin facilities. Manually order products for your store!{% endblock %}
 
-{% block og_title %}Amelia Mae Cosmetics Product Management - Edit Product{% endblock %}
-{% block og_description %}Amelia Mae Cosmetics admin facilities. Keep your store up to date by editing products that consumers love!{% endblock %}
-{% block og_image %}not default{% endblock %}
-{% block og_url %}not default{% endblock %}
+{% block og_title %}Amelia Mae Cosmetics Product Management - Manual Stock Order{% endblock %}
+{% block og_description %}Amelia Mae Cosmetics admin facilities. Manually order products for your store!{% endblock %}
+{% block og_image %}{% endblock %}
+{% block og_url %}{% endblock %}
 
 {% block extra_css %}
 {% endblock %}
 
-{% block extra_title %}Product Management - Edit Product{% endblock %}
+{% block extra_title %}Product Management - Manual Stock Order{% endblock %}
 <!-- end Head tags -->
 
 {% block page_heading_title %}Purchase Order - {{ inventory_item.product.name }}{% endblock %}
 
 {% block inner_content %}
+<!-- Manual Stock Order -->
+
+    <!-- stock details -->
     <div class="row mb-5">
         <div class="col w-100 px-5 text-center">
-            <h2>Manual Purchase order:</h2>
+            <h1>Manual Purchase order:</h1>
         </div>
     </div>
     <div class="row my-5">
@@ -39,47 +42,59 @@
             <p>Current Stock: {{ inventory_item.product.quantity }}</p>
         </div>
     </div>
+    <!-- end stock details -->
+
+    <!-- order quantity input -->
     <div class="row my-5">
-        <div class="col-4 h-100 py-5">
+        <div class="col-4 h-100">
             <p>Select Order Quantity</p>
         </div>
         <form method="post" action="{% url 'manual_stock_order' inventory_item.id %}">
         {% csrf_token %}
-        <div class="col">
-            <div class="form-group">
-                <div class="input-group qty-input-width input-group-{{ inventory_item.id }}">
-                    <div class="input-group-prepend order-12 decrement-qty_{{ inventory_item.id }}">
-                        <button class="decrement-qty decrement-qty_{{ inventory_item.id }} btn btn-black rounded-0" 
-                            data-item_id="{{ inventory_item.id }}" id="decrement-qty_{{ inventory_item.id }}">
-                            <span class="icon">
-                                <i class="fas fa-minus"></i>
-                            </span>
-                        </button>
-                    </div>
-                    <!-- hidden values are for the quantity input script to function correctly -->
-                    <input class="currently_in_stock_{{ inventory_item.id }}" type="hidden" value="1000">
-                    <input type="hidden" class="threshold threshold_{{ inventory_item.id }}" value="1000">
-                    <!-- end hidden values -->
-                    <input class="form-control qty_input id_qty_{{ inventory_item.id }} order-6" type="number"
-                        name="quantity" value="{{ inventory_item.min_order_quantity }}" min="0" max="500"
-                        data-item_id="{{ inventory_item.id }}" id="id_qty_{{ inventory_item.id }}">
-                    <div class="input-group-append order-1 increment-qty_{{ inventory_item.id }}">
-                        <button class="increment-qty increment-qty_{{ inventory_item.id }} btn btn-black rounded-0"
-                            data-item_id="{{ inventory_item.id }}" id="increment-qty_{{ inventory_item.id }}">
-                            <span class="icon">
-                                <i class="fas fa-plus"></i>
+            <div class="col">
+                <div class="form-group">
+                    <div class="input-group inline-qty-input-width input-group-{{ inventory_item.id }}">
+                        <div class="input-group-prepend decrement-qty_{{ inventory_item.id }}">
+                            <button class="decrement-qty decrement-qty_{{ inventory_item.id }} btn btn-black rounded-0" 
+                                data-item_id="{{ inventory_item.id }}" id="decrement-qty_{{ inventory_item.id }}"
+                                aria-label="decrement-qty_{{ inventory_item.id }}">
+                                <span class="icon">
+                                    <i class="fas fa-minus"></i>
+                                </span>
                             </button>
-                        </span>
+                        </div>
+                        <!-- hidden values are for the quantity input script to function correctly -->
+                        <input class="currently_in_stock_{{ inventory_item.id }}" type="hidden" value="1000">
+                        <input type="hidden" class="threshold threshold_{{ inventory_item.id }}" value="1000">
+                        <!-- end hidden values -->
+                        <input class="form-control qty_input id_qty_{{ inventory_item.id }}" type="number"
+                            name="quantity" value="{{ inventory_item.min_order_quantity }}" min="0" max="500"
+                            data-item_id="{{ inventory_item.id }}" id="id_qty_{{ inventory_item.id }}"
+                            aria-label="id_qty_{{ inventory_item.id }}">
+                        <div class="input-group-append increment-qty_{{ inventory_item.id }}">
+                            <button class="increment-qty increment-qty_{{ inventory_item.id }} btn btn-black rounded-0"
+                                data-item_id="{{ inventory_item.id }}" id="increment-qty_{{ inventory_item.id }}"
+                                aria-label="increment-qty_{{ inventory_item.id }}">
+                                <span class="icon">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="text-right my-5 col-4">
+        </form>
+        <!-- end order quantity input -->
+
+        <!-- buttons -->
+        <div class="text-right my-5 col">
             <a class="btn btn-outline-black rounded-0" href="{% url 'view_inventory' %}">Cancel</a>
             <button class="btn btn-black rounded-0" href="{% url 'manual_stock_order' inventory_item.id %}" type="submit">Send Purchase Order</button>
         </div>
-    </form>
-</div>
+        <!-- end buttons -->
+        
+    </div>
+<!--end  Manual Stock Order -->
 
     
 {% endblock %}

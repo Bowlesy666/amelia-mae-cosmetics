@@ -2,18 +2,18 @@
 {% load static %}
 
 <!-- Head tags -->
-{% block meta_description %}not default{% endblock %}
+{% block meta_description %}{% endblock %}
 
-{% block og_title %}not default{% endblock %}
-{% block og_description %}not default{% endblock %}
-{% block og_image %}not default{% endblock %}
-{% block og_url %}not default{% endblock %}
+{% block og_title %}{% endblock %}
+{% block og_description %}{% endblock %}
+{% block og_image %}{% endblock %}
+{% block og_url %}{% endblock %}
 
 {% block extra_css %}
 
 {% endblock %}
 
-{% block extra_title %}Home{% endblock %}
+{% block extra_title %}Inventory List{% endblock %}
 <!-- end Head tags -->
 
 {% block page_header %}
@@ -28,22 +28,21 @@
 <div class="container-fluid white-smoke py-5">
     <div class="row py-3">
         <div class="col text-center">
-            <h2 class="logo-font mt-3 h-100">Product Management - Product List</h2>
+            <h1 class="logo-font mt-3 h-100">Product Management - Product List</h1>
         </div>
     </div>
     <div class="col px-3 py-5 container-fluid justify-content-center">
-
-        <h3 class="ml-2 my-2">Search inventory using the below....</h3>
-
+        <h2 class="ml-2 my-2">Search inventory using the below....</h2>
         <div class="row mt-1 mb-2">
             <div class="col-12 col-md-9 col-lg-10 my-auto order-md-last d-flex flex-wrap justify-content-center justify-content-md-end">
                 
+                <!-- Search inventory -->
                 <div class="col-12 col-sm-6 my-3">
                     <form class="form" method="GET" action="{% url 'view_inventory' %}">
                         <div class="input-group w-100">
                             <input class="form-control border border-black rounded-0 mimi-pink shadow" type="text" name="q" placeholder="Search our site">
                             <div class="input-group-append">
-                                <button class="form-control form-control btn btn-black border border-black rounded-0" type="submit">
+                                <button aria-label="Search for inventory products" class="form-control form-control btn btn-black border border-black rounded-0" type="submit">
                                     <span class="icon">
                                         <i class="fas fa-search white-smoke"></i>
                                     </span>
@@ -52,8 +51,11 @@
                         </div>
                     </form>
                 </div>
+                <!-- end Search inventory -->
 
+                <!-- Sort Invnetory -->
                 <div class="sort-select-wrapper col-12 col-sm-6 my-3">
+                    <label for="sort-selector" class="sr-only">Sort by:</label>
                     <select id="sort-selector" class="custom-select custom-select-sm rounded-0 border white-smoke border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %} shadow">
                         <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
                         <option value="name_asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>Name (A-Z)</option>
@@ -74,14 +76,21 @@
                         <option value="is_expecting_delivery_asc" {% if current_sorting == 'is_expecting_delivery_asc' %}selected{% endif %}>Awaiting Delivery (Deliveries Last)</option>
                     </select>
                 </div>
+                <!-- end Sort Invnetory -->
             </div>
             <div class="col col-md-3 col-lg-2 order-md-first my-3">
+
+                <!-- Reset search and sort -->
                 <a href="{% url 'view_inventory' %}" class="btn btn-dark logo-font font-weight-bold nav-link text-black shadow">
                     <i class="fa-solid fa-arrows-rotate"></i> Reset
                 </a>
+                <!-- end Reset search and sort -->
+
             </div>
         </div>
         <div class="d-flex p-2 justify-content-around">
+
+            <!-- product list length and show only delivery expected/not expected -->
             <p class="text-dark mt-3 d-inline">
                 {{ inventory_item_list|length }} Products{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
             </p>
@@ -91,11 +100,15 @@
             <a href="{% url 'view_inventory' %}?is_not_expecting_delivery=True" class="btn btn-outlin-dark border-dark d-none d-md-block my-2 logo-font font-weight-bold text-black shadow">
                 No Delivery Expected
             </a>
+            <!-- end product list length and show only delivery expected/not expected -->
+
         </div>
 
         <div class="row py-3 white-smoke">
             {% if inventory_item_list %}
                 <span class="d-lg-none mt-5"><strong>Scroll right to see all product details and 'Delete' button.</strong></span>
+
+                <!-- Inventory table -->
                 <table class="table table-responsive mb-5">
                     <thead>
                         <tr>
@@ -118,8 +131,9 @@
                         {% for product in inventory_item_list %}
                             <tr>
                                 <!-- Order stock link -->
-                                <td class="mimi-pink border-dark text-center">
+                                <td class=" mimi-pink border-dark text-center">
                                     <a href="{% url 'manual_stock_order' product.id %}" class="text-dark">
+                                        <p>Create</p>
                                         <i class="fa-solid fa-arrow-up-wide-short fa-xl"></i> 
                                         <p class="my-1">Order</p>
                                     </a>
@@ -127,32 +141,32 @@
 
                                 <!-- edit links -->
                                 <td>
-                                    <a href="{% url 'edit_inventory_item' product.id %}">
+                                    <a class="text-dark" href="{% url 'edit_inventory_item' product.id %}">
                                         {{ product.product.name }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'edit_inventory_item' product.id %}">
+                                    <a class="text-dark" href="{% url 'edit_inventory_item' product.id %}">
                                         {{ product.min_threshold }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'edit_inventory_item' product.id %}">
+                                    <a class="text-dark" href="{% url 'edit_inventory_item' product.id %}">
                                         {{ product.min_order_quantity }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'edit_inventory_item' product.id %}">
+                                    <a class="text-dark" href="{% url 'edit_inventory_item' product.id %}">
                                         {{ product.supplier_name }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'edit_inventory_item' product.id %}">
+                                    <a class="text-dark" href="{% url 'edit_inventory_item' product.id %}">
                                         {{ product.supplier_email }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'edit_inventory_item' product.id %}">
+                                    <a class="text-dark" href="{% url 'edit_inventory_item' product.id %}">
                                         {% if product.last_reorder_date == None %}
                                         <p>N/A</p>
                                         {% else %}
@@ -161,7 +175,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'edit_inventory_item' product.id %}">
+                                    <a aria-label="expecting delivery check" href="{% url 'edit_inventory_item' product.id %}">
                                         {% if product.is_expecting_delivery %}
                                         <i class="fa-solid fa-square-check fa-xl text-success"></i>
                                         {% else %}
@@ -170,27 +184,27 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'edit_inventory_item' product.id %}">
+                                    <a class="text-dark" href="{% url 'edit_inventory_item' product.id %}">
                                         £{{ product.cost_per_product }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'edit_inventory_item' product.id %}">
+                                    <a class="text-dark" href="{% url 'edit_inventory_item' product.id %}">
                                         {{ product.product.quantity }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'edit_inventory_item' product.id %}">
+                                    <a class="text-dark" href="{% url 'edit_inventory_item' product.id %}">
                                         {{ product.total_units_sold }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'edit_inventory_item' product.id %}">
+                                    <a class="text-dark" href="{% url 'edit_inventory_item' product.id %}">
                                         {{ product.total_lost_or_damaged }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'edit_inventory_item' product.id %}">
+                                    <a class="text-dark" href="{% url 'edit_inventory_item' product.id %}">
                                         £{{ product.total_revenue_generated }}
                                     </a>
                                 </td><!-- end edit links -->
@@ -199,6 +213,8 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                <!-- end Inventory table -->
+
             {% else %}
                 <div class="col my-3 text-center">
                     <p>Please amend your search term and try again...</p>
@@ -207,7 +223,7 @@
         </div>
     </div>
     <div class="btt-button shadow-sm card-rounded border cordovan border-black">
-        <a class="btt-link d-flex cordovan card-rounded h-100">
+        <a href="#top" aria-label="back to top" class="btt-link d-flex cordovan card-rounded h-100">
             <i class="fas fa-arrow-up cordovan mx-auto my-auto"></i>
         </a>	
     </div>
