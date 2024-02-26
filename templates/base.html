@@ -13,10 +13,10 @@
         <meta name="description" content="Amelia Mae Cosmetics {% block meta_description %}{% endblock %}">
 
         <!-- Open Graph meta tags -->
-        <meta property="og:title" content="{% block og_title %}{% endblock %}">
-        <meta property="og:description" content="{% block og_description %}{% endblock %}">
-        <meta property="og:image" content="{% block og_image %}{% endblock %}">
-        <meta property="og:url" content="{% block og_url %}{% endblock %}">
+        <meta property="og:title" content="{% block og_title %}Amelia Mae Cosmetics - Premium Skincare Products{% endblock %}">
+        <meta property="og:description" content="{% block og_description %}Discover luxurious skincare solutions at Amelia Mae Cosmetics. Our premium products are crafted with natural ingredients to cater to all your skincare needs. Shop now!{% endblock %}">
+        <meta property="og:image" content="{% block og_image %}{{ MEDIA_URL }}amelia-mae-logo-jet.png{% endblock %}">
+        <meta property="og:url" content="{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}">
         <!-- end Open Graph meta tags -->
 
         {% block core_css %}

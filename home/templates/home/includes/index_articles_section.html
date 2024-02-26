@@ -1,10 +1,10 @@
 <div class="platinum container-fluid justify-content-center pt-5">
-    <h5 class="ml-5 pl-5">Skincare Articles, Amelia Mae</h5>
+    <h5 class="ml-5 pl-5">Skincare Articles, Tips, and Advice | Amelia Mae</h5>
     <div class="container py-5">
         <div class="row">
             {% if article_list %}
                 <div class="card-deck mb-5 container-fluid justify-content-around">
-                
+                    <!-- Articles card -->
                     {% for article in article_list %}
                     <div class="col-lg-6 my-3 card-rounded"
                         data-aos="fade-in"
@@ -16,9 +16,9 @@
                         <div class="shadow white-smoke card-rounded">
                             <div class="card border-0 card-rounded white-smoke p-1">
                                 {% if article.image %}
-                                    <img src="{{ MEDIA_URL }}{{ article.image }}" class="card-img-top product-card-image card-rounded m-4" alt="Amelia Mae luxury products, shop by category">
+                                    <img src="{{ MEDIA_URL }}{{ article.image }}" class="card-img-top product-card-image card-rounded m-4" alt="Amelia Mae luxury products, {{ article.title }}">
                                 {% else %}
-                                    <img src="{{ MEDIA_URL }}no_image.png" class="card-img-top product-card-image card-rounded mb-4" alt="Amelia Mae luxury products, shop by category">
+                                    <img src="{{ MEDIA_URL }}no_image.png" class="card-img-top product-card-image card-rounded mb-4" alt="Amelia Mae luxury products, {{ article.title }}">
                                 {% endif %}
                                 <div class="card-body border-0 mb-0 white-smoke text-center">
                                     <p class="my-4"><strong>{{ article.title }}</strong></p>
@@ -30,15 +30,15 @@
                             </div>
                         </div>
                     </div>
-
                     {% endfor %}
+                    <!-- end Articles card -->
                 </div>
             {% else %}
                 <div class="col my-3 text-center">
                     <p>No articles to view at this time...</p>
                 </div>
             {% endif %}
-            <a class="m-5 mt-5 shadow" href="#">
+            <a class="m-5 mt-5 shadow" href="{% url 'articles_list' %}">
                 <span class="btn mimi-pink">View all Articles -></span>
             </a>
         </div>    

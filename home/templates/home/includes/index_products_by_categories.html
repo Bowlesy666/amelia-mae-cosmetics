@@ -1,5 +1,6 @@
 <div class="mimi-pink pt-5">
-    <h4 class="ml-5 pl-5">View products by category...</h4>
+    <!-- Product catagories -->
+    <h4 class="ml-5 pl-5">Browse Our Luxury Skincare Product Categories</h4>
     <div class="container py-5">
         <div class="row">
             {% for category in category_list %}
@@ -24,11 +25,12 @@
                 <div class="h-100">
                     <div class="card h-100 shadow platinum-opacity-low card-rounded">
                         <div class="card-body d-flex align-items-center justify-content-center">
-                            <a href="{% url 'product_list' %}" class="btn shadow mimi-pink my-auto stretched-link">View all Products -></a>
+                            <a href="{% url 'product_list' %}" class="btn shadow mimi-pink my-auto stretched-link">Explore All Luxury Skincare -></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- end Prodcut catagories -->
 </div>
