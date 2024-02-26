@@ -28,7 +28,7 @@ def profile(request):
             )
     else:
         form = UserProfileForm(instance=profile)
-    orders = profile.orders.all()
+    orders = profile.orders.filter(email=request.user.email)
 
     template = 'profiles/profile.html'
     context = {
@@ -56,9 +56,12 @@ def order_history(request, order_number):
     ))
 
     template = 'checkout/checkout_success.html'
-    context = {
-        'order': order,
-        'from_profile': True,
-    }
+    if request.user.is_authenticated and request.user.email == order.email:
+        context = {
+            'order': order,
+            'from_profile': True,
+        }
+    else:
+        context = {}
 
     return render(request, template, context)
