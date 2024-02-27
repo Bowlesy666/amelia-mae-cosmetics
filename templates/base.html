@@ -11,12 +11,14 @@
         {% endblock %}
 
         <meta name="description" content="Amelia Mae Cosmetics {% block meta_description %}{% endblock %}">
+        <meta name="keywords" content="luxurious anti-wrinkle serums, best anti wrinkle serum, best serum to reduce wrinkles, amelia mae cosmetics skincare collection, premium natural ingredient skincare, effective dark spot correctors, luxury acne treatment solutions, nourishing night creams for glowing skin, advanced collagen boosting formulas, organic skincare for sensitive skin, best anti-aging solutions for mature skin, amelia mae cosmetics youthful skin bundle, high-performance vitamin c serums, exclusive limited edition beauty products, targeted solutions for fine lines and wrinkles, luxury skincare, luxury skincare brands, luxury skincare brands uk, beauty products, beauty products for men, anti-aging, eye cream, skin care, cream, hyaluron eye cream, serum, skin treatments, acne scars, hyperpigmentation, rosacea, wrinkles, ageing skin, dry skin, beauty care, moisturizers, spf, vitamin c serums">
+
 
         <!-- Open Graph meta tags -->
         <meta property="og:title" content="{% block og_title %}Amelia Mae Cosmetics - Premium Skincare Products{% endblock %}">
         <meta property="og:description" content="{% block og_description %}Discover luxurious skincare solutions at Amelia Mae Cosmetics. Our premium products are crafted with natural ingredients to cater to all your skincare needs. Shop now!{% endblock %}">
-        <meta property="og:image" content="{% block og_image %}{{ MEDIA_URL }}amelia-mae-logo-jet.png{% endblock %}">
-        <meta property="og:url" content="{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}">
+        <meta property="og:image" content="{{ MEDIA_URL }}main_article_banner.png">
+        <meta property="og:url" content="{{ request.build_absolute_uri }}">
         <!-- end Open Graph meta tags -->
 
         {% block core_css %}
