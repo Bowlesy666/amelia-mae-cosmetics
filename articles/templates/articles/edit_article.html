@@ -49,7 +49,7 @@
         </div>
     </div>
     <div class="col px-3 py-5 container-fluid justify-content-center">
-        <form method="POST" action="" class="form mb-2" enctype="multipart/form-data">
+        <form method="POST" action="{% url 'edit_article' article.id %}" class="form mb-2" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form | crispy }}
             <div class="text-right">
