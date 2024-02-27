@@ -54,7 +54,7 @@
                 <a aria-label="Add to Favourites" href="{% url 'add_favourite' product.id %}?redirect={{ request.path }}"><i class="fa-regular fa-heart text-red"></i></a>
             {% endif %}
         {% else %}
-            <a href="" aria-label="Add to Favourites"><i class="fa-regular fa-heart text-red"></i></a>
+            <a href="{% url 'add_favourite' product.id %}?redirect={{ request.path }}" aria-label="Add to Favourites"><i class="fa-regular fa-heart text-red"></i></a>
         {% endif %}
     </span>
     <!-- end Favourite button -->
@@ -70,7 +70,7 @@
     <!-- Card footer -->
     <div class="card-footer white-smoke py-4 border-top-0 card-rounded">
         {% if product.quantity < 1 and not product.is_discontinued %}
-        <p class="btn shadow btn-dark d-flex justify-content-center card-rounded">Out of Stock</p>
+        <p class="btn disabled shadow btn-dark d-flex justify-content-center card-rounded">Out of Stock</p>
         {% elif product.quantity < 1 and product.is_discontinued %}
         <p class="py-1 my-1 shadow platinum d-flex justify-content-center card-rounded">Discontinued</p>
         {% else %}
