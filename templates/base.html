@@ -209,7 +209,7 @@
                         
                         <div class="rounded-circle bg-white shadow-xl d-flex align-items-center justify-content-center mb-4 mx-auto" style="width: 150px; height: 150px;">
                             <img src="{{ MEDIA_URL }}amelia-mae-logo-mimi-pink.png" height="150" alt="Pink Amelia Mae logo on dary grey background"
-                                loading="lazy" />
+                                loading="lazy">
                         </div>
                         <p class="text-center">Amelia Mae, skincare that works</p>
                         
@@ -299,13 +299,13 @@
         <!-- end Footer -->
 
         {% block postloadjs %}
-        <script type="text/javascript">
+        <script>
             $('.toast').toast('show');
         </script>
 
         <!-- Mailchimp JS -->
-        <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
-        <script type="text/javascript">
+        <script src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+        <script>
             (function($) {
                 window.fnames = new Array();
                 window.ftypes = new Array();

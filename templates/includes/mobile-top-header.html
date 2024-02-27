@@ -21,13 +21,13 @@
     </div>
 </div>
 <div class="list-inline-item dropdown">
-    <a class="text-black nav-link d-block d-lg-none" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <a class="text-black nav-link d-block d-lg-none" href="#" id="user-options-mobile-top-header" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <div class="text-center white-smoke">
             <div><i class="fas fa-user fa-lg"></i></div>
             <p class="my-0">{% if request.user.is_authenticated %}{{ request.user }}{% else %}My Account{% endif %}</p>
         </div>
     </a>
-    <div class="dropdown-menu border-0 white-smoke" aria-labelledby="user-options">
+    <div class="dropdown-menu border-0 white-smoke" aria-labelledby="user-options-mobile-top-header">
         {% if request.user.is_authenticated %}
             {% if request.user.is_superuser %}
                 <a href="{% url 'product_admin' %}" class="dropdown-item">Product Management</a>

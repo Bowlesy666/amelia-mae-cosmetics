@@ -650,7 +650,6 @@ footer {
     position: absolute;
     height: 50vh;
     width: 100%;
-    position: center center;
     object-fit: cover;
 }
 
@@ -675,7 +674,6 @@ footer {
     position: absolute;
     height: auto;
     width: 100%;
-    position: center center;
     object-fit: cover;
 }
  
