@@ -292,3 +292,56 @@ Overall, the color palette reflects the brand's commitment to elegance, quality,
 
 Throughout the website, essential information is presented in a clear and contrasting manner.
 
+### Imagery
+
+Imagery plays a pivotal role in enhancing the visual appeal and functionality of the website.
+
+The subtle infusion of "mimi pink" in the background adds a entrancing allure for the end user, providing an delicate yet powerful backdrop for the "white smoke" product cards and nav bar to stand out.
+
+![Imagery Product List Example](media/imagery-product-list.png)
+
+Through the meticulous selection of only two fonts, a sense of cohesion and consistency is maintained across the design, elevating the overall visual experience. The high-quality, vibrant product images serve as a testament to the brand's unwavering commitment to excellence, quality and reliability. 
+
+The product cards are designed to provide comprehensive details in a minimalist format. They show ratings, favourite status, price and a descriptive title. Behind the scenes, automated processes activate when a product reaches a certain sales threshold, earning it the prestigious 'Best Seller' badge.
+
+![Imagery Product Cards](media/imagery-product-cards.png)
+
+Additionally, items with low stock or those that have been discontinued are marked with a distinctive ribbon indicating the remaining quantities. When a product is out of stock, an overlay is displayed, and the quantity input is disabled with a button clearly indicating the stock status. These features are carefully managed in the view to prevent users from adding more quantity than available, even if they attempt to bypass the template.
+
+The product images were crafted using two platforms: [photoroom](https://app.photoroom.com/) and [place-it](https://placeit.net/).
+
+![Micellar water image](media/micellar_water_all_skin_types.png)
+![cooling gel image](media/cooling_hydration_gel.png)
+![detoxifying clay mask image](media/detoxifying_clay_mask.png)
+
+Initially, product labels were designed in Photoroom, then integrated onto the products using Placeit. The final product was then passed back into Photoroom for finishing touches. 
+
+![high_performance_vitamin_c_serums_brighten_firm_and_protec](media/high_performance_vitamin_c_serums_brighten_firm_and_protect.png)
+
+Additionally, the models featured on the website are sourced from Placeit and are AI-generated female models. Utilizing the free trials available on both platforms, I was able to complete this project without any cost implications. 
+
+![luxurious_anti_wrinkle_serums_the_ultimate_goal](media/luxurious_anti_wrinkle_serums_the_ultimate_goal.png)
+
+(Note: The specific model used in the main jumbotron image of the home page will be referenced below.)
+
+The overall imagery of the forward facing site is there to convey reliability and gain the end users trust ultimately awarding us with sales.
+
+The store owner or staff login interface exudes professionalism while maintaining the consistent color scheme of Amelia Mae Cosmetics, ensuring users feel grounded within the brand's environment.
+
+![imagery admin](media/imagery-admin.png)
+
+The main admin activity panel optimally utilizes white space and intuitive icons, facilitating seamless navigation. Within each section, users can effortlessly perform actions such as creating, viewing, updating, and deleting products, articles, and inventory items.
+
+![imagery product management](media/imagery-product-management.png)
+
+Stock management functionality offers comprehensive CRUD operations, empowering users with features like total profit analysis, automated and manual stock ordering, receipt of supplier deliveries, and efficient stock level updates along with threshold control. With a holistic approach catering to both store owners and end-users, this website is designed to meet diverse needs effectively. the admin activities also have their own custom search and sort functionality so they can serach within the inventory fields.
+
+![imagery inbound](media/imagery-inbound.png)
+
+The store owner or staff login shows your down to business while still keeping the same colour scheme so you know you are still at Amelia Mae Cosmetics. the main admin activity panel makes good use of white space and icons, going into each section is where you can create, view, update and delete products, articles and inventory items. stock management allows full CRUD including analysis of total profit generated, automated and manual ordering of stock, taking in deliveries from suppliers and updating stock levels ad controlling thresholds. This is an all round website with the store owner and end user in mind.
+
+### Icons
+
+Icons used are fontawesome, from the favourites heart to the admin activity panel, font awesome is well utilised
+
+![font awesome examples](static/img/font-awesome.png)
