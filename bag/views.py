@@ -18,6 +18,8 @@ def add_to_bag(request, item_id):
     redirect_url = request.POST.get('redirect_url')
     bag = request.session.get('bag', {})
 
+    check_in_stock(request, product, quantity, redirect_url)
+
     if item_id in list(bag.keys()):
         bag[item_id] += quantity
         messages.success(
@@ -43,6 +45,8 @@ def quick_add_to_bag(request, item_id):
     redirect_url = request.POST.get('redirect_url')
     bag = request.session.get('bag', {})
 
+    check_in_stock(request, product, quantity, redirect_url)
+
     if item_id in list(bag.keys()):
         bag[item_id] += quantity
         messages.success(
@@ -66,7 +70,11 @@ def adjust_bag(request, item_id):
     bag = request.session.get('bag', {})
     new_quantity = int(request.POST.get('quantity'))
     current_quantity = bag[item_id]
+    # Adjusting stock by the difference of variable, minus is correct here
     quantity_difference = current_quantity - new_quantity
+    redirect_to_here = reverse('view_bag')
+
+    check_in_stock(request, product, new_quantity, redirect_to_here)
 
     if new_quantity > 0:
         product.quantity += quantity_difference
@@ -83,7 +91,18 @@ def adjust_bag(request, item_id):
         messages.success(request, f'Removed {product.name} from your bag')
 
     request.session['bag'] = bag
-    return redirect(reverse('view_bag'))
+    return redirect(redirect_to_here)
+
+
+def check_in_stock(request, product, requested_quantity, redirect_to_here):
+    """ Check if product has enough stock before adding to bag """
+    if product.quantity < requested_quantity:
+        messages.error(
+            request,
+            f'There does not seem to be enough {product.name}, \
+                to add it to your bag. Please try a differnet amount'
+        )
+        return redirect(redirect_to_here)
 
 
 def remove_from_bag(request, item_id):
