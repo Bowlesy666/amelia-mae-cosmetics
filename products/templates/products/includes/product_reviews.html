@@ -96,13 +96,13 @@
                 {% if request.user.is_authenticated %}
                     <form method="POST" action="{% url 'reviews_form' product.id %}">
                         {% csrf_token %}
-                        <input type="hidden" id="rating-value" value="0" name="rating" min="1" max="5">
+                        <input type="hidden" id="rating-value" value="0" name="rating">
                         <input type="hidden" name="redirect_url" value="{{ request.path }}">
                         <label for="comment">Comment:</label>
                         <textarea class="white-smoke review-text-area w-100 shadow" id="comment" name="comment" rows="4"></textarea>
                         <div class="d-flex justify-content-between mt-4">
                             <div>
-                                <label for="star-rating d-block">Star Rating:</label>
+                                <label>Star Rating:</label>
                                 <div id="star-rating" class="star-rating d-inline-flex">
                                     <span class="star"><i class="fa-sharp fa-solid fa-star star-rating shadow"></i></span>
                                     <span class="star"><i class="fa-sharp fa-solid fa-star star-rating shadow"></i></span>
@@ -136,13 +136,13 @@
                         <div class="d-flex">
                             <div class="left">
                                 <span>
-                                    <img src="{{ MEDIA_URL }}amelia-mae-logo-jet.png" class="img-fluid shadow" alt="" />
+                                    <img src="{{ MEDIA_URL }}amelia-mae-logo-jet.png" class="img-fluid shadow" alt="Amelia Mae logo avatar">
                                 </span>
                             </div>
                             <div class="right">
-                                <h4>
+                                <div class="h4 d-inline-flex ">
                                     {{ review.user.username }}
-                                    <span class="text-body-2">
+                                    <div class="text-body-2">
                                         <div class="d-inline-flex ml-2 inline-star-rating-shadow">
                                             <i class="fa-sharp fa-solid fa-star fa-2xl {% if review.rating >= 1 %}gold{% else %}silver{% endif %}"></i> 
                                             <i class="fa-sharp fa-solid fa-star fa-2xl {% if review.rating >= 1.5 %}gold{% else %}silver{% endif %}"></i>
@@ -150,8 +150,8 @@
                                             <i class="fa-sharp fa-solid fa-star fa-2xl {% if review.rating >= 3.5 %}gold{% else %}silver{% endif %}"></i>
                                             <i class="fa-sharp fa-solid fa-star fa-2xl {% if review.rating >= 4.5 %}gold{% else %}silver{% endif %}"></i>
                                         </div>
-                                    </span>
-                                </h4>
+                                    </div>
+                                </div>
                                 <div class="review-description row text-dark">
                                     <div class="col-9">
                                         <p>{{ review.comment }}</p>

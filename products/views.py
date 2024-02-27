@@ -118,8 +118,10 @@ def product_detail(request, product_id):
             percentage = (
                 ratings_count[ratings_value] / reviews.count()
                 ) * 100
+        else:
+            percentage = 0
 
-            return f'style="width: { percentage }%;"'
+        return f'style="width: { percentage }%;"'
 
     five_stars_progress = star_progress_method(
         'five_stars', reviews)

@@ -18,10 +18,10 @@
 
         <!-- Out of stock overlay -->
         {% if product.is_out_of_stock %}
-        <span class="out-of-stock-overlay card-rounded text-center">
+        <div class="out-of-stock-overlay card-rounded text-center">
             <i class="fa-solid fa-ban fa-flip-horizontal"></i>
             <p class="out-of-stock-text">Currently Out Of Stock</p>
-        </span>
+        </div>
         {% endif %}
         <!-- end Out of stock overlay -->
 
@@ -70,9 +70,9 @@
     <!-- Card footer -->
     <div class="card-footer white-smoke py-4 border-top-0 card-rounded">
         {% if product.quantity < 1 and not product.is_discontinued %}
-        <a href="#" class="btn shadow btn-dark d-flex justify-content-center card-rounded"aria-label="Out of Stock">Out of Stock</a>
+        <p class="btn shadow btn-dark d-flex justify-content-center card-rounded">Out of Stock</p>
         {% elif product.quantity < 1 and product.is_discontinued %}
-        <p class="py-1 my-1 shadow platinum d-flex justify-content-center card-rounded" aria-label="Discontinued">Discontinued</p>
+        <p class="py-1 my-1 shadow platinum d-flex justify-content-center card-rounded">Discontinued</p>
         {% else %}
         <form class="form" action="{% url 'quick_add_to_bag' product.id %}" method="POST">
             {% csrf_token %}
