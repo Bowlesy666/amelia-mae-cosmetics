@@ -27,7 +27,7 @@
 
         <!-- Product info and button-->
         <div class="card-body border-0 mb-0 white-smoke">
-            <h2 class="card-title card-title-min-height-spacer mb-3 h3">{{ product.name|truncatechars:50 }}</h2>
+            <h2 class="card-title card-title-min-height-spacer mb-3 h5">{{ product.name|truncatechars:50 }}</h2>
             <span class="product-card-price">£ {{ product.price }}</span>
             <a href="{% url 'product_detail' product.id %}" class="btn card-rounded shadow btn-outline-dark d-flex justify-content-center stretched-link mt-3">View Product</a>
         </div>
