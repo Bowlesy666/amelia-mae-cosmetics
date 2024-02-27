@@ -47,10 +47,10 @@ ___
       - [User Stories](#user-stories-1)
   - [Design](#design)
     - [WireFrames](#wireframes)
-      - [Login/out/404/signup](#loginout404signup)
-      - [Base Template Layout](#base-template-layout)
-      - [Referrals Dashboard](#referrals-dashboard)
-      - [Various layouts](#various-layouts)
+      - [Home page](#home-page)
+      - [Product List Page](#bproduct-list-page)
+      - [Product Detail Page](#product-detail-page)
+      - [Bag And Checkout](#bag-and-checkout)
     - [Colour Scheme](#colour-scheme)
     - [Imagery](#imagery)
     - [Icons](#icons)
@@ -223,7 +223,72 @@ ___
 
 ## Design
 
-### WireFrames
+### WireFrames And Mockups
 
 Please see the below for the wireframes and mockups
+
+#### Home Page
+
+The home page boasts a sleek long-scrolling design, strategically segmented to embody the essence of our brand. From the moment visitors land on the page, they're greeted with distinct sections that portray our identity and resonate with our intended audience.
+
+![Wireframe - Home Page 1](media/home_1.png)
+![Wireframe - Home Page 2](media/home_2.png)
+![Wireframe - Home Page 3](media/home_3.png)
+
+By leveraging ample white space, each element has a clear purpose, ensuring a seamless user experience. Notably, elements gracefully fade into view, adding a touch of sophistication to the user journey.
+
+![Home Page mock up 1](media/home_1_mock.png)
+![Home Page mock up 2](media/home_2_mock.png)
+![Home Page mock up 3](media/home_3_mock.png)
+![Home Page mock up 4](media/home_4_mock.png)
+
+As visitors explore, they'll notice the gradual emergence of our brand colors and style, subtly reinforcing our identity and leaving a lasting impression.
+
+#### Product List Page
+
+Our Products List page showcases a thorough selection of offerings, presented elegantly through responsive product cards.
+
+![Wireframe - Products List](media/products_page.png)
+
+Designed with Bootstrap, the page has a clean and modern aesthetic, ensuring seamless viewing across all devices.
+
+![Mockup - Products List](media/products_page_mock.png)
+
+With intuitive navigation options and crisp visuals, customers can effortlessly explore our range and find the perfect products to meet their needs.
+
+#### Product Detail Page
+
+The Product Detail page features a prominent card layout showcasing the product image, accompanied by essential details like description and price. In the image below, the pop up will be visible under the nav bar after products are added to bag.
+
+![Wireframe - Products List](media/product_detail.png)
+
+Below the card, users can conveniently adjust the quantity and add the item to their cart. You will also get a sneak peak here of a future implimentation for the suggested products section(more about that below).
+
+![Mockup - Products Detail](media/product_detail_mock.png)
+
+Additionally, there's a dedicated section for ratings and reviews, allowing customers to share feedback and experiences with the product. This design ensures a user-friendly experience across devices and emphasizes the importance of customer feedback in the purchasing process.
+
+#### Bag And Checkout
+
+![Wireframe - Shopping Bag](media/cart_summary_payment.png)
+
+![Mockup - Shopping Bag](media/cart_summary_payment_mock.png)
+
+Throughout the initial planning phase, there have been some refinements in design, particularly concerning the vibrant pink background color, which initially appeared overpowering. However, a decision was made to maintain the brand's signature color while ensuring a more balanced and visually appealing aesthetic. The result is a sleek and impactful design that effectively represents the brand's identity.
+
+### Colour Scheme
+
+![Coolors colour swatch](media/amelia-mae-full-colour-scheme.png)
+
+The primary color, #ffd3e1, represents vitality, youthfulness, and a sense of luxury, reflecting the essence of the Amelia Mae Cosmetics brand. This soft pink hue, mimi pink, a feminine and elegant appeal to the target audience's desire for high-quality skincare products.
+
+Complementing this main color are the neutral tones of #f4f4f4 and #e0e0e0, which provide a clean and sophisticated backdrop for the website. These shades of gray create a sense of balance and harmony, allowing the main color to stand out while ensuring readability and visual coherence across the site.
+
+![Colour scheme in flow](media/colours-working-together.png)
+
+The accent colors, #b76e79, #a3b18a, and #333333, add depth and visual interest to the design. The muted rose and sage tones of #b76e79 and #a3b18a complement the main color, adding a touch of warmth and natural beauty. Meanwhile, the dark gray tone of #333333 provides contrast and emphasis, helping to draw attention to important elements such as text and buttons.
+
+Overall, the color palette reflects the brand's commitment to elegance, quality, and sophistication, creating a visually appealing and cohesive website experience for visitors.
+
+Throughout the website, essential information is presented in a clear and contrasting manner.
 
