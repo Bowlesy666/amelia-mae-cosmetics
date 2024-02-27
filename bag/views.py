@@ -2,6 +2,7 @@ from django.shortcuts import (
     render, redirect, reverse,
     HttpResponse, get_object_or_404
 )
+from django.http import HttpResponseRedirect
 from django.contrib import messages
 from products.models import Product
 
@@ -102,7 +103,7 @@ def check_in_stock(request, product, requested_quantity, redirect_to_here):
             f'There does not seem to be enough {product.name}, \
                 to add it to your bag. Please try a differnet amount'
         )
-        return redirect(redirect_to_here)
+        return HttpResponseRedirect(redirect_to_here, status=302)
 
 
 def remove_from_bag(request, item_id):
