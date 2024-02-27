@@ -19,7 +19,8 @@ def add_to_bag(request, item_id):
     redirect_url = request.POST.get('redirect_url')
     bag = request.session.get('bag', {})
 
-    check_in_stock(request, product, quantity, redirect_url)
+    if not check_in_stock(request, product, quantity, redirect_url):
+        return HttpResponseRedirect(redirect_url)
 
     if item_id in list(bag.keys()):
         bag[item_id] += quantity
@@ -46,7 +47,8 @@ def quick_add_to_bag(request, item_id):
     redirect_url = request.POST.get('redirect_url')
     bag = request.session.get('bag', {})
 
-    check_in_stock(request, product, quantity, redirect_url)
+    if not check_in_stock(request, product, quantity, redirect_url):
+        return HttpResponseRedirect(redirect_url)
 
     if item_id in list(bag.keys()):
         bag[item_id] += quantity
@@ -75,7 +77,8 @@ def adjust_bag(request, item_id):
     quantity_difference = current_quantity - new_quantity
     redirect_to_here = reverse('view_bag')
 
-    check_in_stock(request, product, new_quantity, redirect_to_here)
+    if not check_in_stock(request, product, new_quantity, redirect_to_here):
+        return HttpResponseRedirect(redirect_to_here)
 
     if new_quantity > 0:
         product.quantity += quantity_difference
@@ -103,7 +106,9 @@ def check_in_stock(request, product, requested_quantity, redirect_to_here):
             f'There does not seem to be enough {product.name}, \
                 to add it to your bag. Please try a differnet amount'
         )
-        return HttpResponseRedirect(redirect_to_here, status=302)
+        return False
+    else:
+        return True
 
 
 def remove_from_bag(request, item_id):
