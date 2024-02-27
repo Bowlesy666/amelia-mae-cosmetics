@@ -1,110 +1,229 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Amelia Mae Cosmetics  B2C Ecommerce Website
 
-Welcome David Bowles,
+![Amelia Mae Cosmetics Banner](media/readme-banner.png)
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+Our website serves both consumers seeking high-quality skincare products from a trusted brand and store owners looking for seamless stock management, article creation, and product management capabilities through the admin login.
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **September 1, 2021**
+## Key Features
 
-## Gitpod Reminders
+- **User Accounts**: Easily create accounts with personal details securely stored.
+- **Order History**: Access and review order history for easy reference.
+- **Secure Payments**: Make payments securely using Stripe integration.
+- **High-Quality Images**: Enjoy high-quality product images for a better shopping experience.
+- **Favorites**: Save favorite products for quick access and future purchases.
+- **Reviews and Ratings**: Share feedback through reviews and ratings for products.
+- **Article Viewing**: Read informative articles on skincare and beauty topics.
+- **Admin Control**: Administrators can log in to manage products and articles efficiently.
+  - **Product Management**: Create, edit, and delete products easily.
+  - **Article Management**: Manage articles with ease, including creation and deletion.
+  - **Inventory Tracking**: Track stock sold, lost, and revenue generated.
+  - **Stock Management**: Utilize manual and automated processes for stock ordering and receiving.
+  - **Inbound Stock Management**: Manage inbound stock deliveries and adjust quantities as needed.
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+### Website Details
 
-`python3 -m http.server`
+[Git Hub Repo - Amelia Mae Cosmetics](https://github.com/Bowlesy666/amelia-mae-cosmetics)
 
-A blue button should appear to click: _Make Public_,
+[Live deployed site - Amelia Mae Cosmetics](https://b2bproject-321684f42c8f.herokuapp.com/)
 
-Another blue button should appear to click: _Open Browser_.
+Want to have a snoop around the admin login functionality? Message me on [my LinkedIn](www.linkedin.com/in/david-bowles-947106216) and i will send over the account details.
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+Stripe payment system is in development mode, if you wish to try the checkout, please use 4242424242424242...(keep typing 42 till you fill the input box).
 
-A blue button should appear to click: _Make Public_,
+___
 
-Another blue button should appear to click: _Open Browser_.
+## Contents
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+- [Amelia Mae Cosmetics  B2C Ecommerce Website](#amelia-mae-cosmetics--b2c-ecommerce-website)
+  - [Key Features](#key-features)
+  - [Website Details](#website-details)
+  - [Contents](#contents)
+  - [UX](#ux)
+    - [User Stories](#user-stories)
+      - [Target Audience](#target-audience)
+      - [Goals](#goals)
+      - [Mobile-First Approach](#mobile-first-approach)
+  - [Epics \& Their User Stories](#epics--their-user-stories)
+      - [User Stories](#user-stories-1)
+  - [Design](#design)
+    - [WireFrames](#wireframes)
+      - [Login/out/404/signup](#loginout404signup)
+      - [Base Template Layout](#base-template-layout)
+      - [Referrals Dashboard](#referrals-dashboard)
+      - [Various layouts](#various-layouts)
+    - [Colour Scheme](#colour-scheme)
+    - [Imagery](#imagery)
+    - [Icons](#icons)
+  - [Page Flow](#page-flow)
+    - [Multipage Website Design](#multipage-website-design)
+      - [Referrals and 1-to-1 Meetings Flow](#referrals-and-1-to-1-meetings-flow)
+      - [User Profiles Flow](#user-profiles-flow)
+    - [Logo and Title](#logo-and-title)
+  - [Features](#features)
+    - [General Features](#general-features)
+    - [General Features](#general-features-1)
+    - [Future Implementations](#future-implementations)
+    - [Accessibility](#accessibility)
+  - [Technology Used](#technology-used)
+    - [Languages Used](#languages-used)
+    - [Frameworks, Libraries Packages \& Programs Used](#frameworks-libraries-packages--programs-used)
+  - [Deployment and local development](#deployment-and-local-development)
+    - [Deployment](#deployment)
+      - [Pre-Deployment Tasks](#pre-deployment-tasks)
+        - [Hidden Variables](#hidden-variables)
+      - [Deploying on Heroku](#deploying-on-heroku)
+    - [Local development](#local-development)
+      - [Run Locally](#run-locally)
+      - [How to clone \& Fork](#how-to-clone--fork)
+        - [Clone](#clone)
+        - [Fork](#fork)
+  - [Testing](#testing)
+    - [Validators](#validators)
+    - [General Testing](#general-testing)
+    - [General Testing](#general-testing-1)
+    - [Mobile Testing](#mobile-testing)
+    - [Desktop Testing](#desktop-testing)
+    - [Bugs](#bugs)
+      - [Fixed Bugs](#fixed-bugs)
+      - [Unfixed](#unfixed)
+      - [Goals](#goals-1)
+      - [Testing](#testing-1)
+  - [Credits](#credits)
 
-To log into the Heroku toolbelt CLI:
+___
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+## UX
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
+### User Stories
 
-------
+#### Target Audience
 
-## Release History
+The target audience for **Amelia Mae Cosmetics** includes:
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+- **Skincare Enthusiasts Seeking Quality Products:**
+  - Individuals looking for high-quality skincare solutions that deliver results.
 
-**September 20 2023:** Update Python version to 3.9.17.
+- **Luxury Beauty Consumers:**
+  - Customers who prioritize luxury and elegance in their skincare routine.
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+- **Health-Conscious Consumers:**
+  - Individuals interested in organic and natural skincare products for sensitive skin.
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+### Goals
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+The goals for **Amelia Mae Cosmetics** are:
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+- **Deliver High-Quality Skincare Solutions:**
+  - Provide luxurious skincare products that rejuvenate and nourish the skin effectively.
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
+- **Elevate Skincare Experience with Premium Ingredients:**
+  - Offer skincare formulations enriched with premium natural ingredients for optimal results.
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+- **Empower Users with Expert Advice:**
+  - Share expert skincare tips and insights through informative blog posts and articles.
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+- **Personalized Customer Experience:**
+  - Offer personalized recommendations and skincare routines tailored to individual needs.
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+- **Build Trust and Reliability:**
+  - Establish a reputation as a reliable and trustworthy brand in the skincare industry.
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+### Mobile-First Approach
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+**Amelia Mae Cosmetics** prioritizes a mobile-first approach to ensure seamless browsing and shopping experiences for users, whether they are at home or on the go.
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+## Epics & Their User Stories
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
+#### User Stories
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
+Please use drop downs to see user stories.
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
+<details>
+  <summary>Epic: Articles</summary>
+  <ul>
+    <li>As a user, I want to view articles on skincare topics so that I can stay informed and educated about skincare.</li>
+    <li>As a user, I want to create articles to share my knowledge and expertise in skincare with others.</li>
+    <li>As a user, I want to update articles to ensure that the information provided is accurate and up-to-date.</li>
+    <li>As a user, I want to delete articles that are no longer relevant or accurate.</li>
+  </ul>
+</details>
 
-------
+<details>
+  <summary>Epic: Automated Stock Management</summary>
+  <ul>
+    <li>As a store owner, I want stock levels to be automatically tracked so that I can efficiently manage inventory.</li>
+    <li>As a store owner, I want to set reorder thresholds for products to ensure that I never run out of stock.</li>
+    <li>As a store owner, I want stock to be automatically replenished when it falls below a certain threshold to avoid stockouts.</li>
+    <li>As a store owner, I want to track stock levels to analyze sales trends and forecast future inventory needs.</li>
+    <li>As a store owner, I want to log and track referrals for a streamlined process of managing potential revenue opportunities.</li>
+    <li>As a store owner, I want to receive email notifications for low stock levels or stock replenishments to stay informed.</li>
+    <li>As a store owner, I want to set policies for email notifications and stock management to customize the system according to my preferences.</li>
+    <li>As a store owner, I want to automatically generate policies for product returns, refunds, and exchanges to ensure consistency and compliance.</li>
+  </ul>
+</details>
 
-## FAQ about the uptime script
+<details>
+  <summary>Epic: Admin Privileges</summary>
+  <ul>
+    <li>As an admin, I want to add products to the store so that customers have access to a wide range of skincare products.</li>
+    <li>As an admin, I want to edit products to update their details or make corrections as needed.</li>
+    <li>As an admin, I want to delete products that are discontinued or no longer available for sale.</li>
+    <li>As an admin, I want to create, edit, and delete articles to provide valuable content to users and promote engagement.</li>
+    <li>As an admin, I want to view user profiles and manage user roles and permissions to ensure platform security and integrity.</li>
+    <li>As an admin, I want to generate reports on sales, stock levels, and user activity for data-driven decision-making and business analysis.</li>
+  </ul>
+</details>
 
-**Why have you added this script?**
+<details>
+  <summary>Epic: Wishlist</summary>
+  <ul>
+    <li>As a user, I want to create a wishlist of skincare products that I'm interested in purchasing in the future.</li>
+    <li>As a user, I want to remove items from my wishlist if I change my mind or no longer wish to purchase them.</li>
+    <li>As a user, I want to access items from my wishlist directly from my shopping bag for easy checkout.</li>
+    <li>As a user, I want to receive email notifications for price drops or promotions on items in my wishlist to take advantage of discounts.</li>
+  </ul>
+</details>
 
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
+<details>
+  <summary>Epic: Order Placement</summary>
+  <ul>
+    <li>As a customer, I want to view a summary of my order before finalizing the purchase so that I can review my selections.</li>
+    <li>As a customer, I want to input my payment details securely to complete the transaction and make a purchase.</li>
+    <li>As a customer, I want to choose shipping details such as shipping address and delivery method to receive my order.</li>
+    <li>As a customer, I want to receive a payment confirmation email after successfully placing an order for peace of mind.</li>
+    <li>As a customer, I want to track the status of my order and receive updates on its delivery progress for convenience.</li>
+  </ul>
+</details>
 
-**How will this affect me?**
+<details>
+  <summary>Epic: User Authentication</summary>
+  <ul>
+    <li>As a user, I want to register for an account to access exclusive features and personalized recommendations.</li>
+    <li>As a user, I want to log in to my account securely to view my order history and manage my profile details.</li>
+    <li>As a user, I want to update my profile information to keep it accurate and up-to-date.</li>
+    <li>As a user, I want to log out of my account to ensure the security of my personal information.</li>
+    <li>As a user, I want to receive email notifications for important updates and events, so that I can stay informed and engaged with the platform.</li>
+    <li>As a user, I want to be able to update my profile information, so that I can keep my account details accurate and up-to-date.</li>
+    <li>As a user, I want the ability to log out of my account securely, so that I can protect my privacy and data.</li>
+  </ul>
+</details>
 
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
+<details>
+  <summary>Epic: Product Interaction</summary>
+  <ul>
+    <li>As a user, I want to view detailed product information to make informed decisions about my skincare purchases.</li>
+    <li>As a user, I want to search for products by category or keyword to easily find what I'm looking for.</li>
+    <li>As a user, I want to add products to my shopping bag and adjust the quantity as needed for a seamless shopping experience.</li>
+    <li>As a user, I want to view reviews and ratings from other customers to gauge the effectiveness of skincare products.</li>
+    <li>As a user, I want to receive feedback on my shopping bag functionality, so that I can ensure a smooth and intuitive shopping experience.</li>
+  </ul>
+</details>
 
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
+___
 
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
+## Design
 
-**So….?**
+### WireFrames
 
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
+Please see the below for the wireframes and mockups
 
-**Can I opt out?**
-
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
-
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
-
-**Anything more?**
-
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
-
----
-
-Happy coding!
