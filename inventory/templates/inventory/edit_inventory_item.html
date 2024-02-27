@@ -50,20 +50,21 @@
                             </span>
                         </button>
                     </div>
+                    <div id="quantity-description" class="sr-only">Quantity input field</div>
                     <input class="currently_in_stock_{{ inventory_item.id }}" type="hidden" value="{{ inventory_item.product.quantity }}">
                     <input type="hidden" class="threshold threshold_{{ inventory_item.id }}" value="{{ inventory_item.product.quantity }}">
                     <input class="form-control qty_input id_qty_{{ inventory_item.id }}" type="number"
                         name="quantity" value="0" min="0" max="{{ inventory_item.product.quantity }}"
                         data-item_id="{{ inventory_item.id }}" id="id_qty_{{ inventory_item.id }}"
-                        aria-labelledby="Quantity lost or damaged" aria-label="quantity lost or damaged">
+                        aria-labelledby="quantity-description" aria-label="quantity lost or damaged">
                     <div class="input-group-append increment-qty_{{ inventory_item.id }}">
                         <button class="increment-qty increment-qty_{{ inventory_item.id }} btn btn-black rounded-0"
                             data-item_id="{{ inventory_item.id }}" id="increment-qty_{{ inventory_item.id }}"
                             aria-label="increase quantity">
                             <span class="icon">
                                 <i class="fas fa-plus"></i>
-                            </button>
-                        </span>
+                            </span>
+                        </button>
                     </div>
                 </div>
             </div>

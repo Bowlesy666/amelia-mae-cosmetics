@@ -82,83 +82,89 @@
                                 {% with product as inventory_item %}
 
                                 <!-- delivered input -->
-                                <form method="POST" action="{% url 'inbound_stock_received' product.id %}" class="form mb-2" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    {{ form | crispy }}
-                                    <td class="mimi-pink border-left">
-                                        <div class="form-group">
+                                <td class="mimi-pink border-left">
+                                    <div class="form-group">
+                                        <form method="POST" action="{% url 'inbound_stock_received' product.id %}" class="form mb-2" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            {{ form | crispy }}
                                             <div class="input-group inline-qty-input-width input-group-{{ inventory_item.id }}">
                                                 <div class="input-group-prepend decrement-qty_{{ inventory_item.id }}">
                                                     <button class="decrement-qty decrement-qty_{{ inventory_item.id }} btn btn-black rounded-0" 
-                                                        data-item_id="{{ inventory_item.id }} {{ inventory_item.id }}delivered" id="decrement-qty_{{ inventory_item.id }} {{ inventory_item.id }}delivered"
-                                                        aria-label="Quantity decrease" aria-describedby="decrease quantity delivered">
+                                                        data-item_id="{{ inventory_item.id }} {{ inventory_item.id }}delivered" id="decrement-qty_{{ inventory_item.id }}delivered"
+                                                        aria-label="Quantity decrease" aria-describedby="quantity-description-delivered{{ inventory_item.id }}decrease">
                                                         <span class="icon">
                                                             <i class="fas fa-minus"></i>
                                                         </span>
                                                     </button>
                                                 </div>
+                                                <div id="quantity-description-delivered{{ inventory_item.id }}increase" class="sr-only">Quantity increase button for delivered items</div>
+                                                <div id="quantity-description-delivered{{ inventory_item.id }}decrease" class="sr-only">Quantity decrease for delivered items</div>
+                                                <div id="quantity-description-delivered{{ inventory_item.id }}" class="sr-only">Quantity input field for delivered items</div>
                                                 <input class="currently_in_stock_{{ inventory_item.id }}" type="hidden" value="{{ product.ordered_quantity }}">
                                                 <input type="hidden" class="threshold threshold_{{ inventory_item.id }}" value="{{ product.ordered_quantity }}">
                                                 <input class="form-control qty_input id_qty_{{ inventory_item.id }}" type="number"
                                                     name="quantity_{{ inventory_item.id }}" value="{{ product.ordered_quantity }}" min="1" max="{{ product.ordered_quantity }}"
-                                                    data-item_id="{{ inventory_item.id }}" id="id_qty_{{ inventory_item.id }} {{ inventory_item.id }}delivered"
-                                                    aria-label="Quantity" aria-describedby="quantity delivered">
+                                                    data-item_id="{{ inventory_item.id }}" id="id_qty_{{ inventory_item.id }}delivered"
+                                                    aria-label="quantity-description-delivered" aria-describedby="quantity-description-delivered{{ inventory_item.id }}">
                                                 <div class="input-group-append increment-qty_{{ inventory_item.id }}">
                                                     <button class="increment-qty increment-qty_{{ inventory_item.id }} btn btn-black rounded-0"
-                                                        data-item_id="{{ inventory_item.id }} {{ inventory_item.id }}delivered" id="increment-qty_{{ inventory_item.id }} {{ inventory_item.id }}delivered"
-                                                        aria-label="Quantity increase" aria-describedby="increase quantity delivered">
+                                                        data-item_id="{{ inventory_item.id }} {{ inventory_item.id }}delivered" id="increment-qty_{{ inventory_item.id }}delivered"
+                                                        aria-label="Quantity increase" aria-describedby="quantity-description-delivered{{ inventory_item.id }}increase">
                                                         <span class="icon">
                                                             <i class="fas fa-plus"></i>
-                                                        </button>
-                                                    </span>
+                                                        </span>
+                                                    </button>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="mimi-pink border-right">
-                                        <button class="btn btn-dark rounded mr-5" type="submit">Confirm</button>
-                                    </td>
-                                </form>
+                                        </form>
+                                    </div>
+                                </td>
+                                <td class="mimi-pink border-right">
+                                    <button class="btn btn-dark rounded mr-5" type="submit">Confirm</button>
+                                </td>
                                 <!-- end delivered input -->
                                 
                                 <!-- cancelled delivery input -->
-                                <form method="POST" action="{% url 'inbound_stock_cancelled' product.id %}" class="form mb-2" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    {{ form | crispy }}
-                                    <td class="platinum border-left">
-                                        <div class="form-group">
+                                <td class="platinum border-left">
+                                    <div class="form-group">
+                                        <form method="POST" action="{% url 'inbound_stock_cancelled' product.id %}" class="form mb-2" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            {{ form | crispy }}
                                             <div class="input-group inline-qty-input-width input-group-{{ inventory_item.id }}">
                                                 <div class="input-group-prepend decrement-qty_{{ inventory_item.id }}">
                                                     <button class="decrement-qty decrement-qty_{{ inventory_item.id }} btn btn-black rounded-0" 
                                                         data-item_id="{{ inventory_item.id }}" id="decrement-qty_{{ inventory_item.id }}"
-                                                        aria-label="Quantity decrease cancelled{{ inventory_item.id }}" aria-describedby="decrease quantity  cancelled{{ inventory_item.id }}">
+                                                        aria-label="quantity-description-cancelled{{ inventory_item.id }}decrease" aria-describedby="quantity-description-cancelled{{ inventory_item.id }}decrease">
                                                         <span class="icon">
                                                             <i class="fas fa-minus"></i>
                                                         </span>
                                                     </button>
                                                 </div>
+                                                <div id="quantity-description-cancelled{{ inventory_item.id }}increase" class="sr-only">Quantity increase button for cancelled items</div>
+                                                <div id="quantity-description-cancelled{{ inventory_item.id }}decrease" class="sr-only">Quantity decrease for cancelled items</div>
+                                                <div id="quantity-description-cancelled{{ inventory_item.id }}" class="sr-only">Quantity input field for cancelled items</div>
                                                 <input class="currently_in_stock_{{ inventory_item.id }}" type="hidden" value="{{ inventory_item.ordered_quantity }}">
                                                 <input type="hidden" class="threshold threshold_{{ inventory_item.id }}" value="{{ inventory_item.ordered_quantity }}">
                                                 <input class="form-control qty_input id_qty_{{ inventory_item.id }}" type="number"
                                                     name="quantity_{{ inventory_item.id }}" value="{{ inventory_item.ordered_quantity }}" min="1" max="{{ inventory_item.ordered_quantity }}"
                                                     data-item_id="{{ inventory_item.id }}" id="id_qty_{{ inventory_item.id }}"
-                                                    aria-label="Quantity cancelled{{ inventory_item.id }}" aria-describedby="quantity cancelled{{ inventory_item.id }}">
+                                                    aria-label="quantity-description-cancelled{{ inventory_item.id }}" aria-describedby="quantity-description-cancelled{{ inventory_item.id }}">
                                                 <div class="input-group-append increment-qty_{{ inventory_item.id }}">
                                                     <button class="increment-qty increment-qty_{{ inventory_item.id }} btn btn-black rounded-0"
                                                         data-item_id="{{ inventory_item.id }}" id="increment-qty_{{ inventory_item.id }}"
-                                                        aria-label="Quantity increase cancelled{{ inventory_item.id }}" aria-describedby="increase quantity cancelled{{ inventory_item.id }}">
+                                                        aria-label="quantity-description-cancelled{{ inventory_item.id }}increase" aria-describedby="quantity-description-cancelled{{ inventory_item.id }}increase">
                                                         <span class="icon">
                                                             <i class="fas fa-plus"></i>
-                                                        </button>
-                                                    </span>
+                                                        </span>
+                                                    </button>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="platinum border-right">
-                                        <button class="btn btn-dark rounded mr-5" type="submit">Confirm</button>
-                                    </td>
-                                </form>
+                                        </form>
+                                    </div>
+                                </td>
+                                <td class="platinum border-right">
+                                    <button class="btn btn-dark rounded mr-5" type="submit">Confirm</button>
+                                </td>
                                 <!-- end cancelled delivery input -->
 
                                 {% endwith %}
@@ -186,7 +192,7 @@
 {% block postloadjs %}
 {{ block.super }}
 {% include 'inventory/includes/inventory_quantity_input_script.html' %}
-<script type="text/javascript">
+<script>
     $('#sort-selector').change(function() {
         var selector = $(this);
         var currentUrl = new URL(window.location);
