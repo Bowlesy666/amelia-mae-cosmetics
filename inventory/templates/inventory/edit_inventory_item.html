@@ -56,7 +56,7 @@
                     <input class="form-control qty_input id_qty_{{ inventory_item.id }}" type="number"
                         name="quantity" value="0" min="0" max="{{ inventory_item.product.quantity }}"
                         data-item_id="{{ inventory_item.id }}" id="id_qty_{{ inventory_item.id }}"
-                        aria-labelledby="quantity-description" aria-label="quantity lost or damaged">
+                        aria-labelledby="quantity-description" aria-label="quantity lost or damaged" readonly>
                     <div class="input-group-append increment-qty_{{ inventory_item.id }}">
                         <button class="increment-qty increment-qty_{{ inventory_item.id }} btn btn-black rounded-0"
                             data-item_id="{{ inventory_item.id }}" id="increment-qty_{{ inventory_item.id }}"
@@ -85,5 +85,5 @@
 
 {% block postloadjs %}
 {{ block.super }}
-{% include 'inventory/includes/inventory_quantity_input_script.html' %}
+{% include 'inventory/includes/inventory_quantity_input_script_edit_inventory.html' %}
 {% endblock %}
