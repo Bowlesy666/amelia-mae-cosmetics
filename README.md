@@ -342,6 +342,108 @@ The store owner or staff login shows your down to business while still keeping t
 
 ### Icons
 
-Icons used are fontawesome, from the favourites heart to the admin activity panel, font awesome is well utilised
+Icons used are fontawesome, from the favourites heart to the admin activity panel, font awesome is well utilised throughout the site.
 
-![font awesome examples](static/img/font-awesome.png)
+![font awesome examples](media/font-awesome.png)
+
+___
+
+## Page Flow
+
+### Multi Page Website Design
+
+Embracing a multipage design, our website ensures a user-friendly journey throughout, offering distinct pages for various functionalities of the end user and the store owner. The approach aims to utilise white space and minimalist feel while giving as much detail as needed to enhance the brand, create a sense of trustworthyness and security.
+
+Each page has clear functionalities with data security being the driving force, fostering a focused user experience and enabling efficient communication of key concepts. Additionally, the multipage structure facilitates future scalability, providing a foundation for seamless expansion and incorporation of new features as the platform evolves.
+
+#### Home Page
+
+Index page utilises a long flow with bold imagery, really setting the scene for the shopper.
+
+![Home Page1](media/index-1.png)
+![Home Page2](media/index-2.png)
+![Home Page3](media/index-3.png)
+![Home Page4](media/index-4.png)
+![Home Page5](media/index-5.png)
+
+#### Buying Products Flow
+
+Very intuitive shopping style, quick add from all products page, add quantities from detail and bag pages and checkout. the search functionality has drop downs and uses the search bar at the top in pink.
+
+![purchases 1](media/purchase-1.png)
+![purchases 2](media/purchase-2.png)
+![purchases 3](media/purchase-3.png)
+
+#### Search flow
+
+The shopper has very similar search and sort to the boutique ado we have all seen, I wanted to go a bit further and got my teeth into it customising it further for the inventory side.
+
+![search-1](media/search-1.png)
+![search-2](media/search-2.png)
+
+#### User Authetication
+
+User authentication pages all use the same base style as the below with the image displaying on larger screen sizes only.
+
+During authentication process, the user registers with their email address amd is sent a verification email that redirect them back to the site where they will verify their account.
+
+The logged in user can also see order history and amend their profile informatiom on the same cards. Order history will only show if the user is logged in, if any one tries to access this via the url, the view provides an empty order so no details can be passed or manipulated with malicious intent.
+
+![allauth](media/allauth.png)
+
+#### Favourites And Reviews
+
+##### Favourites
+
+![favourites heart](media/favourites.png)
+
+The favourites flow is simple and effective, the view will handle if a person is logged in to be able to favourite a product and returns toasts success or error with a clear message and visual cue of full heart for favourited and outline for not. Favourites cards are collected in the shopping bag, and have a dedicated template where a registered user can find all their favourites in one place.
+
+##### Reviews
+
+Authorised users can leave reviews and give ratings in stars 1 to 5, again the view handles user authentication and validity, we also eliminate the changes of a user trying to leave reviews by using template logic.
+
+![reviews](media/review.png)
+
+The view handles the logic behind the reviews overview and returns a string style="width: 'var'%" which renders the progress bar for each stars count. this also respends accordingly when a review is deleted.
+
+#### Articles
+
+Full CRUD!
+
+Admin users can create, edit, delete articles with the main image set as a hero image.
+
+![articles](media/articles.png)
+
+There is a custom serach and sort for the articles as again they are on a new model.
+
+![articles 2](media/articles-2.png)
+
+The articles are able to be refreshed and updated by the store owner and helps keep everything up to date regarding SEO.
+
+#### Admin Activity
+
+Admin activity is something I wanted to really develop, there are many features I would like to add but will have to wait for future sprints.
+
+![inventory](media/inventory-1.png)
+
+The flow here solves many business problems, I wanted a user friendly platform so a store owner can reduce, if not, eliminiate some tasks.
+
+![management](media/management-2.png)
+
+We have full crud on products, Articles and inventory items, ability to automate stock replenishment and send manual stock orders aswell as check stock quantities inbound before allowing quantities into the store, yet to develop is an order picking system attached to it that can return and print address labels making this an all in one solution. Theres is lots of potential here for analytics and I have started to touch base with the total revenue, which works out the difference between stock cost and product sales but well worth expanding on.
+
+![management 2](media/management-3.png)
+
+### Logo and Title
+
+Logo was well designed so it can fit in circular avatars and be easily recognised, originally I wanted it in gold but it didnt seem to fit well with the other colours I wanted.
+
+The title 'Amelia Mae Cosmetics' is not just a made up brand(well it is at the moment) but this is something i would like to develop and market. I have foud this project fun, exciting and has spurred me on to go further with the brand itself.
+
+Fonts are also Lato and Monserrat, the lato is sleek and fits well in all situations. Monserrat I chose this as it shows a fun side and stands out.
+
+___
+
+## Features
+
