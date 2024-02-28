@@ -447,3 +447,270 @@ ___
 
 ## Features
 
+### General Features
+
+* Developed with a mobile-first approach, ensuring responsiveness on larger screens through flexbox and Bootstrap4.
+
+* Prioritizes accessibility compliance with carefully chosen colors and HTML structure for users who use screen readers.
+
+* Showcases a distinctive logo and title to resonate with the professional yet engaging theme of Amelia Mae Cosmetics.
+
+* Thoughtfully arranges sections to strategically present information, facilitating a seamless user experience.
+
+* Guides users with the use of focus for the purchasing process, directing them with relevant toast messages efficiently and giving the user confidence and familiarity.
+
+* Enhances user experience with icons and a carefully crafted 400, 403, 404 and 500 page, maintaining the professional aesthetic of Amelia Mae Cosmetics.
+
+* Utilizes Bootstrap4 for layout styling and incorporates media queries and CSS order property for optimal display on diverse screens.
+
+* Implements input validation through HTML and Python + Django, ensuring a smooth and error-free user interaction.
+
+* Boosts user engagement with hover effects and Font Awesome icons for a modern and polished appearance.
+
+* Utilizes carefully selected images to align with the professional tone of Amelia Mae Cosmetics, enhancing the visual appeal of the platform.
+
+* Strategically placed sections guide users through each app's processes seamlessly.
+
+### Future Implementations
+
+After researching the cosmetics industry, it's clear that modernizing and enhancing the customer and store owner experience is crucial for success. Potential future enhancements for Amelia Mae Cosmetics include:
+
+* Coupons and discounts.
+
+* Advanced analytics to gain insights into customer behavior, product performance, and market trends and return recommended products.
+
+* Integration of virtual makeup try-on technology to allow customers to virtually try products before making a purchase.
+
+* Loyalty program implementation to reward frequent customers and encourage repeat purchases.
+
+* Upgrade the articles to enhance use of space, product links and images.
+
+* Real-time customer support chat for personalized assistance and immediate resolution of queries.
+
+* Integration with social media platforms for seamless sharing of product information and user-generated content.
+
+* Expansion of product offerings to include mens skincare, haircare, and other beauty-related categories.
+
+* Develop upon the stock management and introduce a pick and pack system with printed address labels.
+
+* Collaborations with influencers and beauty experts to endorse products and increase brand visibility.
+
+* Remove items from bag left idle.
+
+* Let a user know they have ites still in the bag.
+
+* Repeat subscription offers.
+
+* Upgraded Emails with html versions for a more proffessional feel
+
+### Accessibility
+
+Accessibility is a top priority for Amelia Mae Cosmetics, ensuring that the website is user-friendly for all visitors. Key accessibility features include:
+
+* Semantic HTML techniques for clear and structured content presentation.
+
+* Descriptive alt attributes on images to provide context for users who rely on screen readers.
+
+* Consistent navigation and intuitive interface design to enhance usability for all users.
+
+* High color contrast and large, legible text for improved readability.
+
+* ARIA landmarks and roles to assist screen reader users in navigating the website efficiently.
+
+* Text alternatives for non-text content to ensure accessibility for users with disabilities.
+
+* Form elements with proper labels and associations to facilitate easy form completion.
+
+## Technology Used
+
+### Languages Used
+
+* HTML - page markup
+
+* CSS - page styling
+
+* JavaScript - for interactive components and dynamic content
+
+* Python - using Django and other plugins to develop the site
+
+### Frameworks, Libraries Packages & Programs Used
+
+* Flexbox
+
+* Uizard, wireframing and mockups
+
+* Photorooms
+
+* place-it.net for the products
+
+* Google fonts
+
+* Font Awesome
+
+* Git for version control
+
+* Github
+
+* Heroku
+
+* Elephant SQL
+
+* Gitpod, prefered IDE over Codeanywhere.
+
+* Favicongenerator.org
+
+* Bootstrap4
+
+* Amazon AWS S3
+
+* Google Dev Tools
+
+* Validators - validator.w3.org, jigsaw.w3.org, https://pep8ci.herokuapp.com/#, w3c link checker
+
+* Stackoverflow / Django documentation / W3 schools / Google / Allauth docs / abstractapi.com / geeks for geeks
+
+* Bootdey [reviews snippet](Bootdey reviews comments section https://www.bootdey.com/snippets/view/reviews-with-comments#html), probably took longer to get it to work than if I had started from scratch but i liked how it was set out.
+
+* [Ribbon styles](https://codepen.io/t_afif/pen/gOXLdMR) on the product cards
+
+* Colorlib for the idea with the subscribe input style
+
+* Mailchimp
+
+* Facebook for business page
+
+* Boutique ado, a few elements are very similar but I have tried to expand upon or utilise in different way in order to broaden my knowledge and experience
+
+* The one image i used that need to be attributed [This Image here from the Home jumbotron](https://www.freepik.com/free-photo/woman-using-eye-cream-side-view_33808905.htm#query=skincare&position=28&from_view=search&track=sph&uuid=c43e64c7-f23e-41f9-b7d5-1027c6648a13)
+
+* gunicorn / allauth / crispyforms / psycopg2 / dj-database-url
+
+* Stripe
+
+___
+
+## Deployment and local development
+
+
+
+### Deployment
+
+#### Pre-Deployment Tasks
+
+* Ensure the requirements.txt file is up-to-date with correct Python module configurations.
+
+* Create a Procfile to configure Heroku deployment for the Gunicorn web app.
+
+* Update the ALLOWED_HOSTS list in settings.py with the Heroku app name and localhost.
+
+* Configure all static files and directories in settings.py.
+
+* Set up environment variables in env.py for sensitive information like SECRET_KEY, DATABASE_URL, Stripe and email keys. Just to point out here, initial commit had saved the standard SECRET_KEY variable however this was changed after using a django secret key generator found online.
+
+##### Hidden Variables
+
+* SECRET_KEY
+
+* DATABASE_URL
+
+* AWS_ACCESS_KEY_ID
+
+* AWS_SECRET_ACCESS_KEY
+
+* DATABASE_URL
+
+* EMAIL_HOST_PASS
+
+* EMAIL_HOST_USER
+
+* STRIPE_PUBLIC_KEY
+
+* STRIPE_SECRET_KEY
+
+* STRIPE_WH_SECRET
+
+* USE_AWS
+
+#### Deploying on Heroku
+
+1. Create a Heroku account and select "Create a new app."
+
+2. Connect the app to GitHub for seamless deployment.
+
+3. Enable automatic deploys from the main branch.
+
+4. Configure environment variables in the settings tab.
+
+6. Deploy the app.
+
+### Local development
+
+#### Run Locally
+
+1. Go to the GitHub repository.
+
+2. Download and unzip the repository.
+
+3. Create an env.py file for environment variables.
+
+4. Ensure PostgreSQL is installed on your computer.
+
+5. Create a virtual environment and run necessary commands (makemigrations, migrate, runserver).
+
+#### How to clone & Fork
+
+##### Clone
+
+1. Go to the GitHub repository.
+
+2. Click on the green "Code" button.
+
+3. Copy the clone URL.
+
+4. Open Git Bash and clone the repository using git clone [URL].
+
+##### Fork
+
+1. Go to the GitHub repository.
+
+2. Click on the "Fork" button in the upper right-hand corner.
+
+3. Edit the repository name and description if desired.
+
+4. Click the green "Create Fork" button.
+
+___
+
+## Testing
+
+### Validators
+
+* HTML has been validated with [W3C HTML5 Validator](https://validator.w3.org/).
+* CSS has been validated with [W3C CSS Validator](https://jigsaw.w3.org/css-validator/)
+* Python has been validated with [Pep8](https://pep8ci.herokuapp.com/#)
+* Link Checker validated with W3C [W3C Link Checker](https://validator.w3.org/checklink)
+
+When passed through any of the validators the footer shows links not checked for Mailto: and tel: and also duplicate links for the favourites buttons, I have checked this and the links are highighted below as both the 'add_favourites' but the one for non logged in user is needed to return the error toast to log in to use the functionality
+
+![erros and warning](media/duplicate-anchors.png)
+
+everything else passed without issues.
+
+### General Testing
+
+* Each feature or section was tested using the validators and lighthouse at each stage for functionality and accessibility
+* The forms input is validated by html and python and will not submit without the correct data type
+* Family & friend reviews were used for feedback
+
+
+### Mobile Testing
+
+* The site was built in mobile first style so has been tested primarily for this
+* predominantly tested on Safari as all family have iPhones
+
+
+### Desktop Testing
+
+* Site was developed on a HP laptop using chrome, also tested on microsoft Edge towards the end of the coding stages
+
+![Lighthouse - Desktop testing](static/img/b2b-net-banner.png)
