@@ -713,4 +713,79 @@ everything else passed without issues.
 
 * Site was developed on a HP laptop using chrome, also tested on microsoft Edge towards the end of the coding stages
 
-![Lighthouse - Desktop testing](static/img/b2b-net-banner.png)
+### Bugs
+
+Ive had quite a few! funnily enough more to do with templating side, I have been trying to do things in html that wont pass validators and when I have corrected them it has thrown loads of thinsg out. Nightmare! 
+
+#### Fixed Bugs
+
+* Inbound stock as it has 2 forms with the same lements it thew it off when i could have the form element stretch across more than 1 table data, so i stretched the td across 2 columns and did a lot of jiggery pokery with the javascript till in th end i just added onclick= in the html to make it work.
+
+* few bugs with not error handling properly but I am learning rapidly
+
+#### Unfixed
+
+* Lets call it a Quirk or a feature, the work around for the inbound received quantity, means that i had to reduce the top number allowed by 2 I think as it was laway going over, however if i go to 99 or 98 the plus button is diabled, you have to go to 97 for ut to become active and then it diables at 100 again. hope that makes sense, the hours i lost trying to fix that doesnt make sense, but its fun in a wierd way!
+
+#### Goals
+
+| Goals | How is goal achieved? | Summary of Checks |
+| :--- | :--- | :--- |
+| Implement responsive navigation bar with search bar and sorting functionality | Utilize Bootstrap for responsive design and integrate search and sorting features with django views | Verify that the navigation bar adjusts appropriately on different screen sizes and that search and sort functionalities work as intended. |
+|Integrate Allauth for user authentication and registration with email validation | Configure Allauth in Django project settings and implement user registration forms with email validation. | Ensure users can register, log in, and validate email addresses successfully. |
+| Develop product cards that dynamically update stock availability | Implement logic in Django to automatically update product cards based on stock availability. | Verify that product cards accurately reflect stock availability and automatically update when stock reaches zero. |
+| Implement automated stock reordering when inventory falls below a threshold | Develop a system to automatically place orders for restocking when inventory levels reach a specified threshold. | Ensure that orders are created automatically when inventory falls below the designated threshold. |
+| Incorporate quick add feature for products in the product list page | Add functionality to quickly add products to the shopping cart directly from the product list page. | Verify that users can efficiently add products to the cart without navigating to individual product pages. |
+| Enhance product detail page with input validation for quantity selection | Implement JavaScript/jQuery to restrict quantity input to a maximum of 99 or the available stock quantity. | Ensure users cannot input quantities greater than 99 or exceed the available stock quantity on the product detail page. |
+| Enable reviews and ratings functionality for products | Implement a system for users to leave reviews and ratings for products. | Verify that users can leave reviews and ratings, and that ratings accurately adjust progress bars on the product detail page. |
+| Implement favorites functionality restricted to logged-in users | Develop a favorites feature that allows logged-in users to save their favorite products. | Ensure only authenticated users can access and utilize the favorites functionality. |
+| Integrate Stripe payments for checkout process | Configure Stripe payment gateway and integrate it into the checkout process. | Verify that users can securely make payments using Stripe during checkout. |
+| Create orders via views and validate with Stripe webhook | Develop views for order creation and configure Stripe webhook for order validation. | Ensure orders are created successfully via views and validated through Stripe webhook integration. |
+| Provide admin activity pages for manual stock ordering and receiving | Develop admin pages for manually ordering more stock and receiving stock. | Verify that admins can place manual stock orders and update inventory quantities upon receiving stock. |
+| Implement full CRUD functionality for articles, products, and inventory items | Develop views and forms for creating, reading, updating, and deleting articles, products, and inventory items. | Ensure users can perform CRUD operations seamlessly for articles, products, and inventory items. |
+| Restrict order history access to logged-in users | Develop views to display order history only to authenticated users. | Verify that only logged-in users can view their order history, ensuring sensitive information is protected. |
+
+#### Testing
+
+| Feature | Type of Test | Expected Outcome | Pass/Fail |
+| ------- | ------------ | ---------------- | --------- |
+| User Registration | Functional | Successful registration with valid information | Pass |
+| User Login | Functional | Successful login with registered credentials | Pass |
+| User Profile Creation | Functional | Profile is created upon successful registration | Pass |
+| Email Validation | Functional | Email validation link is sent to the registered email address | Pass |
+| Product Cards Out of Stock | Functional | Product cards automatically indicate "out of stock" status when the stock is zero | Pass |
+| Auto Ordering Stock Threshold | Functional | Stock is automatically ordered when it falls below a threshold of 20 | Pass |
+| Quick Add in Product List Page | Functional | Users can quickly add products from the list page | Pass |
+| Product Detail Input Validation | Functional | Input field with buttons on the product detail page allows input of maximum 99 units or available stock | Pass |
+| Shopping Bag Quantity Validation | Functional | Quantity in the shopping bag reflects the maximum available stock for each product | Pass |
+| Reviews and Ratings | Functional | Users can leave reviews and ratings for products, which adjust five progress bars on the product detail page | Pass |
+| Favourites Functionality | Functional | Only logged-in users can use the favourites functionality | Pass |
+| Checkout with Stripe Payments | Functional | Checkout process uses Stripe payments securely | Pass |
+| Orders Created via Views and Stripe Webhook | Functional | Orders are created and checked using views, and Stripe webhook | Pass |
+| Admin Activity Pages | Functional | Admins can manually order more stock and receive stock with quantity selection | Pass |
+| Admin Activity Pages | Functional | 	Full CRUD operations are available for articles, products, and inventory items | Pass |
+| CRUD Operations on Articles, Products, Inventory | Functional | | Pass |
+| Order History | Functional | Only logged-in users can view their order history via the view | Pass |
+
+### Facebook Page
+
+![Facebook page](media/facebook-page.png)
+
+### Business Model
+
+![business model1](media/b-plan-1.png)
+![business model2](media/b-plan-2.png)
+![business model3](media/b-plan-3.png)
+![business model4](media/b-plan-4.png)
+
+## Credits
+
+* Bootdey snippets
+* google!!
+* Startbootstrap
+* Photorooms and Place-it.net
+* Stackoverflow / Django documentation / W3 schools / Google / Allauth docs / abstractapi.com /geeks for geeks / probably other forums that helped lead me to the answers needed
+
+___
+
+Thank you for reviewing my project
