@@ -84,8 +84,6 @@ nav {
     position: relative;
     top: 320px;
     left: 70px;
-    /* position: fixed;
-    z-index: -1; */
 }
 
 .jumbotron-spacer {
@@ -336,7 +334,7 @@ nav {
     width: 160px;
 }
 
-/* --- Ribbon Styles taken from Codepen https://codepen.io/t_afif/pen/gOXLdMR----- */
+/* --- Ribbon Styles taken from Codepen https://codepen.io/t_afif/pen/gOXLdMR ----- */
 .ribbon {
     --f: 10px; /* control the folded part*/
     --r: 15px; /* control the ribbon shape */
