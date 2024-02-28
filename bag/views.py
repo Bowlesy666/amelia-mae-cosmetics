@@ -77,7 +77,9 @@ def adjust_bag(request, item_id):
     quantity_difference = current_quantity - new_quantity
     redirect_to_here = reverse('view_bag')
 
-    if not check_in_stock(request, product, new_quantity, redirect_to_here):
+    if not check_in_stock(
+        request, product,
+            quantity_difference, redirect_to_here):
         return HttpResponseRedirect(redirect_to_here)
 
     if new_quantity > 0:
