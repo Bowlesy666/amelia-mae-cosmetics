@@ -167,7 +167,7 @@ def manual_stock_order(request, inventory_item_id):
                 subject,
                 body,
                 settings.DEFAULT_FROM_EMAIL,
-                [cust_email]
+                [cust_email,]
             )
 
             return redirect(reverse('view_inventory'))
