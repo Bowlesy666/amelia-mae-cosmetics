@@ -24,7 +24,7 @@ Our website serves both consumers seeking high-quality skincare products from a 
 
 [Git Hub Repo - Amelia Mae Cosmetics](https://github.com/Bowlesy666/amelia-mae-cosmetics)
 
-[Live deployed site - Amelia Mae Cosmetics](https://b2bproject-321684f42c8f.herokuapp.com/)
+[Live deployed site - Amelia Mae Cosmetics](https://amelia-mae-cosmetics-5de0b8a03e08.herokuapp.com/)
 
 Want to have a snoop around the admin login functionality? Message me on [my LinkedIn](www.linkedin.com/in/david-bowles-947106216) and i will send over the account details.
 
