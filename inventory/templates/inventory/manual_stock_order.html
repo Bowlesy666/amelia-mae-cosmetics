@@ -70,7 +70,7 @@
                         <input class="form-control qty_input id_qty_{{ inventory_item.id }}" type="number"
                             name="quantity" value="{{ inventory_item.min_order_quantity }}" min="0" max="500"
                             data-item_id="{{ inventory_item.id }}" id="id_qty_{{ inventory_item.id }}"
-                            aria-label="id_qty_{{ inventory_item.id }}">
+                            aria-label="id_qty_{{ inventory_item.id }}" readonly>
                         <div class="input-group-append increment-qty_{{ inventory_item.id }}">
                             <button class="increment-qty increment-qty_{{ inventory_item.id }} btn btn-black rounded-0"
                                 data-item_id="{{ inventory_item.id }}" id="increment-qty_{{ inventory_item.id }}"
